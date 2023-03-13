@@ -5,12 +5,12 @@
 ## Two words are anagrams if:
 ## - They are made up of the same letters.
 ## - The letters are arranged differently.
+## - The case of the characters in a word is ignored.
 ## - They are not the same word (a word is not an anagram of itself).
-## - The case of word's characters is ignored.
 ##
 ## A word is any string of characters `{'A'..'Z', 'a'..'z'}`. Other characters,
-## including whitespace and puctuation, are considered invalid and raise a
-## `ValueError` exception.
+## including whitespace, numbers and punctuation, are considered invalid and
+## raise a `ValueError` exception.
 ##
 ## Note: Generate full doc with `nim doc --docinternal check_anagram.nim`
 
@@ -30,13 +30,16 @@ runnableExamples:
 
 ## Tests
 ## -----
-## This module includes test suites for each public function, which run when
-## compiled as a program.
+## This module includes test suites for each public function, which will run if
+## the module is compiled as an executable.
 ##
 ## TODO
 ## ----
 ##
 ## - Unicode version of the algorithm.
+## - Check if the arguably more idiomatic solution using whole-word operations
+##   is beneficial or detrimental to the performance, compared to char-by-char
+##   approach of this module.
 
 type
   Map = array[range['a'..'z'], Natural] ## An associative array with a direct
@@ -46,19 +49,22 @@ const
   UpperAlpha = {'A'..'Z'}
   LowerAlpha = {'a'..'z'}
 
-func toLowerUnchecked(c: char): char =
+func toLowerUnchecked(c: char): char {.inline.} =
   ## Lowers the case of an ASCII uppercase letter ('A'..'Z').
   ## No checks performed, the caller must ensure the input is a valid character.
   ##
   ## See also:
-  ## * strutils.toLowerAscii
+  ## * `strutils.toLowerAscii <https://nim-lang.org/docs/strutils.html#toLowerAscii%2Cchar>`_
   assert c in UpperAlpha
-  char(uint8(c) xor 0b0010_0000'u8)
+  # The difference between numerical values for chars of uppercase and
+  # lowercase alphabets in the ASCII table is 32. Uppercase letters start from
+  # 0b100_0001, so setting the sixth bit to 1 gives letter's lowercase pair.
+  char(uint8(c) or 0b0010_0000'u8)
 
 template normalizeChar(c: char) =
   ## Checks if the character is a letter and lowers its case.
   ##
-  ## Raises a ValueError on other characters.
+  ## Raises a `ValueError` on other characters.
   if c in LowerAlpha: c
   elif c in UpperAlpha: toLowerUnchecked(c)
   else: raise newException(ValueError, "Character '" & c & "' is not a letter!")
@@ -66,7 +72,7 @@ template normalizeChar(c: char) =
 func isAnagram*(a, b: openArray[char]): bool {.raises: ValueError.} =
   ## Checks if two words are anagrams of one another.
   ##
-  ## Raises a ValueError on any non-letter character.
+  ## Raises a `ValueError` on any non-letter character.
   if a.len != b.len: return false
   var seenDifferent = false
   var mapA, mapB: Map
@@ -81,10 +87,10 @@ func isAnagram*(a, b: openArray[char]): bool {.raises: ValueError.} =
 
 func isAnagram(a, bNormalized: openArray[char]; bMap: Map): bool {.raises: ValueError.} =
   ## Checks if two words are anagrams of one another.
-  ## Leverages a prepared (lowercased) word `bNormalized` and its precalculated
+  ## Leverages a prepared (lowercased) word `bNormalized` and its pre-calculated
   ## map `bMap` for one-to-many comparisons.
   ##
-  ## Raises a ValueError on any non-letter character.
+  ## Raises a `ValueError` on any non-letter character.
   if a.len != bNormalized.len: return false
   var seenDifferent = false
   var aMap: Map
@@ -99,7 +105,7 @@ func isAnagram(a, bNormalized: openArray[char]; bMap: Map): bool {.raises: Value
 func filterAnagrams*(word: string; candidates: openArray[string]): seq[string] {.raises: ValueError.} =
   ## Checks if any of the candidates is an anagram of a `word` and returns them.
   ##
-  ## Raises a ValueError on any non-letter character.
+  ## Raises a `ValueError` on any non-letter character.
   var wordMap: Map
   var wordNormalized = newString(word.len)
   for chIdx, c in word.pairs():
