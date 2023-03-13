@@ -36,7 +36,7 @@ An Algorithm is one or more functions (or classes) that:
 Algorithms should be packaged in a way that would make it easy for readers to put them into larger programs.
 
 Algorithms should:
-* have intuitive class and function names that make their purpose clear to readers
+* have intuitive object and function names that make their purpose clear to readers
 * use Nim naming conventions and intuitive variable names with correct typing to ease comprehension
 * Prefer `Natural` type to `uint` unless wrapping is mandatory (for e.g. modular algorithms).
 * raise Nim exceptions (`ValueError`, etc.) on erroneous input values
