@@ -41,7 +41,7 @@ Algorithms should:
 * Prefer `Natural` type to `uint` unless wrapping is mandatory (for e.g. modular algorithms).
 * raise Nim exceptions (`ValueError`, etc.) on erroneous input values
 * add the exceptions raised to the list of side effects
-* have docstrings with clear explanations and/or URLs to source materials
+* have documentation comments with clear explanations and/or URLs to source materials
 * contain doctests that test both valid and erroneous input values
 * return all calculation results instead of printing or plotting them
 
