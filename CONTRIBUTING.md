@@ -31,7 +31,7 @@ An Algorithm is one or more functions (or classes) that:
 * take one or more inputs,
 * perform some internal calculations or data manipulations,
 * return one or more outputs,
-* have minimal side effects (Examples of side effects: `print()`, `plot()`, `read()`, `write()`).
+* have minimal side effects (Examples of side effects: `echo()`, `plot()`, `read()`, `write()`).
 
 Algorithms should be packaged in a way that would make it easy for readers to put them into larger programs.
 
