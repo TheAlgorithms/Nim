@@ -15,18 +15,14 @@
 ## Note: Generate full doc with `nim doc --docinternal check_anagram.nim`
 
 runnableExamples:
+
   doAssert "coder".isAnagram("credo")
 
   doAssert not "Nim".isAnagram("Nim")
 
   doAssert not "parrot".isAnagram("rapport")
 
-  let raisedException = try:
-      discard "Pearl Jam".isAnagram("Maple Jar")
-      false
-    except ValueError:
-      true
-  doassert raisedException
+  doAssertRaises(ValueError): discard "Pearl Jam".isAnagram("Maple Jar")
 
 ## Tests
 ## -----
@@ -41,9 +37,11 @@ runnableExamples:
 ##   is beneficial or detrimental to the performance, compared to char-by-char
 ##   approach of this module.
 
+{.push raises: [].}
+
 type
   Map = array[range['a'..'z'], Natural] ## An associative array with a direct
-                                        ## mapping from Char to a counter slot
+                                        ## mapping from Char to a counter slot.
 
 const
   UpperAlpha = {'A'..'Z'}
@@ -69,15 +67,15 @@ template normalizeChar(c: char) =
   elif c in UpperAlpha: toLowerUnchecked(c)
   else: raise newException(ValueError, "Character '" & c & "' is not a letter!")
 
-func isAnagram*(a, b: openArray[char]): bool {.raises: ValueError.} =
+func isAnagram*(wordA, wordB: openArray[char]): bool {.raises: ValueError.} =
   ## Checks if two words are anagrams of one another.
   ##
   ## Raises a `ValueError` on any non-letter character.
-  if a.len != b.len: return false
+  if wordA.len != wordB.len: return false
   var seenDifferent = false
   var mapA, mapB: Map
-  for chIdx in 0..<a.len:
-    let (chA, chB) = (normalizeChar(a[chIdx]), normalizeChar(b[chIdx]))
+  for chIdx in 0..<wordA.len:
+    let (chA, chB) = (normalizeChar(wordA[chIdx]), normalizeChar(wordB[chIdx]))
     # Identical characters xor to 0, must meet at least one 1 (difference)
     seenDifferent = bool(ord(seenDifferent) or (ord(chA) xor ord(chB)))
     mapA[chA].inc()
@@ -85,24 +83,26 @@ func isAnagram*(a, b: openArray[char]): bool {.raises: ValueError.} =
   # words are not identical and letter counters match
   seenDifferent and (mapA == mapB)
 
-func isAnagram(a, bNormalized: openArray[char]; bMap: Map): bool {.raises: ValueError.} =
+func isAnagram(candidate, wordNormalized: openArray[char]; wordMap: Map): bool
+  {.raises: ValueError.} =
   ## Checks if two words are anagrams of one another.
-  ## Leverages a prepared (lowercased) word `bNormalized` and its pre-calculated
-  ## map `bMap` for one-to-many comparisons.
+  ## Leverages the validated and lowercased `wordNormalized` and its
+  ## pre-calculated letter map `wordMap` for one-to-many comparisons.
   ##
-  ## Raises a `ValueError` on any non-letter character.
-  if a.len != bNormalized.len: return false
+  ## Raises a `ValueError` on any non-letter character in `candidate`.
+  if candidate.len != wordNormalized.len: return false
   var seenDifferent = false
-  var aMap: Map
-  for chIdx in 0..<a.len:
-    let (chA, chB) = (normalizeChar(a[chIdx]), bNormalized[chIdx])
+  var candMap: Map
+  for chIdx in 0..<candidate.len:
+    let (chA, chB) = (normalizeChar(candidate[chIdx]), wordNormalized[chIdx])
     # Identical characters xor to 0, must meet at least one 1 (difference)
     seenDifferent = bool(ord(seenDifferent) or (ord(chA) xor ord(chB)))
-    aMap[chA].inc()
+    candMap[chA].inc()
   # words are not identical and letter counters match
-  seenDifferent and (aMap == bMap)
+  seenDifferent and (candMap == wordMap)
 
-func filterAnagrams*(word: string; candidates: openArray[string]): seq[string] {.raises: ValueError.} =
+func filterAnagrams*(word: string; candidates: openArray[string]): seq[string]
+  {.raises: ValueError.} =
   ## Checks if any of the candidates is an anagram of a `word` and returns them.
   ##
   ## Raises a `ValueError` on any non-letter character.
