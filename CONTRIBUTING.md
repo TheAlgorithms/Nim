@@ -38,7 +38,8 @@ Algorithms should be packaged in a way that would make it easy for readers to pu
 Algorithms should:
 * have intuitive object and function names that make their purpose clear to readers
 * use Nim naming conventions and intuitive variable names with correct typing to ease comprehension
-* Prefer `Natural` type to `uint` unless wrapping is mandatory (for e.g. modular algorithms).
+* Prefer `Natural`, `Positive` or custom [subrange types](https://nim-lang.org/docs/manual.html#types-subrange-types) to unconstrained `int` where applicable, use `Natural` for indexing.
+* Don't use unsigned numerical types (`uint` and its sized variants), unless wrapping behaviour or binary manipulation is required for the algorithm.
 * raise Nim exceptions (`ValueError`, etc.) on erroneous input values
 * add the exceptions raised to the list of side effects
 * have documentation comments with clear explanations and/or URLs to source materials
