@@ -54,7 +54,7 @@ We want your work to be readable by others; therefore, we encourage you to note 
 - Please write in Nim 2.0.
 - Please focus hard on the naming of functions, objects, and variables.  Help your reader by using __descriptive names__ that can help you to remove redundant comments.
   - Single letter variable names must be avoided at all costs. You can use `index` instead of `i` when iterating in a `for` loop.
-  - Expand acronyms because `gcd()` is hard to understand (especially for non-native English people) but `greatest_common_divisor()` is not.
+  - Expand acronyms. Prefer `greatestCommonDivisor()` to `gcd()`, as the former is easier to understand than the latter, especially for non-native English speakers.
   - Please follow the [Nim Naming Conventions](https://nim-lang.org/docs/nep1.html) so variable names and function names should be camelCase while object names should be PascalCase.
 
 - Avoid importing external libraries for basic algorithms. Only use those libraries for complicated algorithms.
