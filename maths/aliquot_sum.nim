@@ -5,11 +5,9 @@ runnableExamples:
   for number in [12, 100]:
     echo fmt"The sum of all the proper divisors of {number} is {aliquotSum(number)}"
 
-func aliquotSum(number: Natural): Natural {.raises: [ValueError].} =
+func aliquotSum(number: Positive): Natural {.raises: [ValueError].} =
   ## Returns the sum of all the proper divisors of the number
   ## Example: aliquotSum(12) = 1 + 2 + 3 + 4 + 6 = 16
-  if number == 0:
-    raise newException(ValueError, "Input number must be strictly positive")
   result = 0
   for divisor in 1 .. (number div 2) :
     if number mod divisor == 0:
@@ -25,7 +23,3 @@ when isMainModule:
       for i in 0 ..< input.len:
         check:
           aliquotSum(input[i]) == expected[i]
-  
-    test "`aliquotSum` raises ValueError on non-positive entries":
-      doAssertRaises(ValueError):
-        discard aliquotSum(0)
