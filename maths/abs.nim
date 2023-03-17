@@ -34,9 +34,9 @@ func absMax(x: seq[int]): Natural {.raises: [ValueError].} =
     if absVal(x[i]) > result:
       result = absVal(x[i])
 
-func absMaxSort(x: seq[int]): int {.raises: [ValueError].} =
+func absMaxSort(x: openArray[int]): int {.raises: [ValueError].} =
   ## Returns the signed element whose absolute value is the largest in a sequence.
-  var x: seq[int] = x
+  var x: seq[int] = @x
   if x.len == 0:
     raise newException(ValueError, "Cannot find absolute maximum of an empty sequence")
   sort(x, proc (a, b: int): int = int(absVal(b)) - int(absVal(a)))
