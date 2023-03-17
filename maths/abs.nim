@@ -8,8 +8,9 @@ runnableExamples:
   doAssert absMax(@[-1, 2, -3]) == 3
   doAssert absMaxSort(@[3, -10, -2]) == -10
 
-func absVal(num: float): float =
-  ## Returns the absolute value of a number.
+func absVal[T: SomeFloat](num: T): T =
+## Returns the absolute value of a number.
+## Use `math.abs <https://nim-lang.org/docs/system.html#abs%2CT>`_ instead!
   return if num < 0.0: -num else: num
 
 # Same for integers but return a Natural
