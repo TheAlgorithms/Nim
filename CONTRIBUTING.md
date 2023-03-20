@@ -60,12 +60,41 @@ We want your work to be readable by others; therefore, we encourage you to follo
 
 We also enforce some additional rules:
 
-- Please compile using the Nim 2.0 rc1 and 1.6.12 compiler version. The 2.0 version is not out yet, but you can compile against the pre-release compiler version: [https://nim-lang.org/blog/2022/12/21/version-20-rc.html].
+- Please compile using the stable version of the Nim compiler. The 2.0 version is not out as we wrote these lines but you can compile against the pre-release version of the compiler: [https://nim-lang.org/blog/2022/12/21/version-20-rc.html].
 - Prefer `Natural`, `Positive` or custom [subrange types](https://nim-lang.org/docs/manual.html#types-subrange-types) to unconstrained `int` where applicable, use `Natural` for indexing.
 - Add the title of your algorithm (in Camel Case) with a comment on the top of your file
 - Right under the title, add a `{.push raises: [].}`. This enforces that by default all `func`s have an empty list of exceptions. If they do raise at least an exception, then write after the return type and before the `=` sign, the list of exceptions raised in a similar pragma: `{.raises: [IOError].}`.
 - If you need a third-party module that is not in the file [third_party_modules.md](https://github.com/TheAlgorithms/Nim/blob/master/third_party_modules.md), please add it to that file as part of your submission.
+- If you are searching for the equivalent of `NULL` (default value for pointers), you might look for [`std/options`](https://nim-lang.org/docs/options.html) instead. 
+Using the specific `Option[T]` generic type adds compile-time checks.
+If you are wondering why we prefer to avoid Null references, you should check [Tony Hoare's conference at QCon 2009](https://www.infoq.com/presentations/Null-References-The-Billion-Dollar-Mistake-Tony-Hoare/).
+- For your code to be integrated in larger modules, we recommend using a `when isMainModule` clause to run tests and examples.
+- It is incited to give a usage example under a top-level `runnableExamples` on top of the file (under the title and the `push raises` pragma).
+- You are not enforced to use the export marker `*`. It is preferable to use it in order to distinguish helper functions with internal details and the functions of your [application programming interface (API)](https://en.wikipedia.org/wiki/API) for the end user.
+- You can use the `std/unittest` module from the standard library to test your program. Below is a sample of code.
+  
+```nim
+#My Algorithm
+{.push raises: [].}
 
+runnableExamples:
+  echo myFunction("bla")
+
+func myFunction(s: string): string {.raises: [ValueError].} =
+  if s.len == 0:
+    raise newException(ValueError, "Empty string")
+  return s
+
+when isMainModule:
+  import std/unittest
+
+  suite "A suite of tests":
+    test "runs correctly":
+      check myFunction("bla") == "bla"
+    test "raises ValueError":
+      expect(ValueError): discard myFunction("")
+
+```
 
 #### Submissions Requirements
 The file extension for code files should be `.nim`.
