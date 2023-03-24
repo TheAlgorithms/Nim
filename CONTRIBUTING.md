@@ -4,9 +4,8 @@ Welcome to [TheAlgorithms/Nim](https://github.com/TheAlgorithms/Nim)! Before you
 
 ## Contributing
 
-We are very happy that you are considering implementing algorithms and data structures for others!
-
- This repository is referenced and used by learners from all over the globe. Being one of our contributors, you agree and confirm that:
+We are very happy that you are considering implementing algorithms and data structures for others!\
+This repository is referenced and used by learners from all over the globe. Being one of our contributors, you agree and confirm that:
 
 - You did your work - no plagiarism allowed
   - Any plagiarized work will not be merged.
