@@ -25,6 +25,7 @@ Please help us keep our issue list small by adding fixes: Add the number of the 
 #### What is an Algorithm?
 
 An Algorithm is one or more functions (or classes) that:
+
 * take one or more inputs,
 * perform some internal calculations or data manipulations,
 * return one or more outputs,
