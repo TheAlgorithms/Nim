@@ -1,6 +1,6 @@
 # Contributing guidelines
 
-Welcome to [TheAlgorithms/Nim](https://github.com/TheAlgorithms/Nim)! Before sending your pull requests, make sure that you __read the whole guidelines__. If you have any doubt on the contributing guide, please feel free to [state it clearly in an issue](https://github.com/TheAlgorithms/Nim/issues/new) or ask the community in [Discord](https://discord.gg/c7MnfGFGa6).
+Welcome to [TheAlgorithms/Nim](https://github.com/TheAlgorithms/Nim)! Before you send your pull requests, please make sure that you **read the whole guidelines**. If you have any doubt about the contributing guide, please feel free to [state it clearly in an issue](https://github.com/TheAlgorithms/Nim/issues/new) or ask the community in [Discord](https://the-algorithms.com/discord).
 
 ## Contributing
 
