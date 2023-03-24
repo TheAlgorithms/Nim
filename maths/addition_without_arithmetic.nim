@@ -1,4 +1,5 @@
-## Illustrate how to add the integer without arithmetic operation
+## Illustrate how to implement addition of integers using bitwise operations
+## See https://en.wikipedia.org/wiki/Bitwise_operation#Applications
 runnableExamples:
   import std/strformat
   var
