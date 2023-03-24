@@ -96,7 +96,8 @@ when isMainModule:
 ```
 
 #### Submissions Requirements
-The file extension for code files should be `.nim`.
+
+- The file extension for algorithm files should be `.nim`.
 - Look up if the name of your algorithm already exists in another repository of [TheAlgorithms](https://github.com/TheAlgorithms/) like [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python). By reusing the same name, your implementation will be regrouped with implementations of other languages.
 - Strictly use snake_case (underscore_separated) in your file_name, as it will be easy to parse in future using scripts.
 - Please open an issue first if you want to create a new directory. Try to fit your work into the existing directory structure as much as possible.
