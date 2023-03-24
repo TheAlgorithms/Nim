@@ -44,7 +44,7 @@ Algorithms should:
 * contain tests (runnableExamples, std/unittest) that test both valid and erroneous input values
 * return all calculation results instead of printing or plotting them
 
-Please focus hard on the naming of functions, objects, and variables.  Help your reader by using __descriptive names__ that can help you to remove redundant comments.
+Please focus hard on the naming of functions, objects, and variables.  Help your reader by using **descriptive names** that can help you to remove redundant comments.
   - Single letter variable names must be avoided unless your variable has a short lifespan. If your variable come from a mathematical context, no confusion is possible with another variable, you may use single-letter variables. When there are multiple indices (matrix, sums integrals) you may use single-letter variables. For string algorithms, `c` for character is a common use. Pay attention though not creating any confusion when dealing with multiple characters.
   You can use `index` instead of `i` when iterating in a `for` loop.
   - For some parameters, using short variable names enable to distinguish the inputs easily from the parameters.
@@ -109,8 +109,8 @@ when isMainModule:
 - Add a corresponding explanation to [Algorithms-Explanation](https://github.com/TheAlgorithms/Algorithms-Explanation) (Optional but recommended).
 
 - Most importantly,
-  - __Be consistent in the use of these guidelines when submitting.__
-  - __Join__ us on [Discord](https://discord.gg/c7MnfGFGa6) __now!__
+  - **Be consistent in the use of these guidelines when submitting.**
+  - **Join** us on [Discord](https://the-algorithms.com/discord) **now!**
   - Happy coding!
 
 Writer [@dlesnoff](https://github.com/dlesnoff), Mar 2023.
