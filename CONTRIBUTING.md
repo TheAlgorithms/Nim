@@ -14,7 +14,7 @@ This repository is referenced and used by learners from all over the globe. Bein
 
 **New implementations** are welcome! For example, new solutions for a problem, different representations for a graph data structure, or algorithm designs with different complexity but **identical implementation** of an existing implementation is not allowed. Please check whether the solution is already implemented or not before submitting your pull request.
 
-**Improving comments__ and **writing proper tests** are also highly welcome.
+**Improving comments** and **writing proper tests** are also highly welcome.
 
 ### Contribution
 
