@@ -1,3 +1,7 @@
+# Aliquot sum
+## In number theory, the aliquot sum s(n) of a positive integer n is the sum of
+## all proper divisors of n, that is, all divisors of n other than n itself.
+## https://en.wikipedia.org/wiki/Aliquot_sum
 {.push raises: [].}
 
 runnableExamples:
