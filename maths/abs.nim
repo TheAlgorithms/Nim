@@ -1,6 +1,6 @@
 ## Absolute value
 {.push raises: [].}
-import std/algorithm
+import std/strutils
 
 runnableExamples:
   doAssert absVal(-5.1) == 5.1
@@ -19,7 +19,8 @@ func absVal[T: SomeInteger](num: T): Natural = (if num < 0: -num else: num)
 func absMin(x: openArray[int]): Natural {.raises: [ValueError].} =
   ## Returns the smallest element in absolute value in a sequence.
   if x.len == 0:
-    raise newException(ValueError, "Cannot find absolute minimum of an empty sequence")
+    raise newException(ValueError, """Cannot find absolute minimum
+     of an empty sequence""".unindent)
   result = absVal(x[0])
   for i in 1 ..< x.len:
     if absVal(x[i]) < result:
@@ -28,19 +29,36 @@ func absMin(x: openArray[int]): Natural {.raises: [ValueError].} =
 func absMax(x: openArray[int]): Natural {.raises: [ValueError].} =
   ## Returns the largest element in absolute value in a sequence.
   if x.len == 0:
-    raise newException(ValueError, "Cannot find absolute maximum of an empty sequence")
+    raise newException(ValueError, """Cannot find absolute maximum of an empty
+   sequence""".unindent)
   result = absVal(x[0])
   for i in 1 ..< x.len:
     if absVal(x[i]) > result:
       result = absVal(x[i])
 
-func absMaxSort(x: openArray[int]): int {.raises: [ValueError].} =
-  ## Returns the signed element whose absolute value is the largest in a sequence.
-  var x: seq[int] = @x
+func signedMinAbs(x: openArray[int]): int {.raises: [ValueError].} =
+  ## Returns the first signed element whose absolute value
+  ## is the smallest in a sequence.
   if x.len == 0:
-    raise newException(ValueError, "Cannot find absolute maximum of an empty sequence")
-  sort(x, proc (a, b: int): int = int(absVal(b)) - int(absVal(a)))
-  return x[0]
+    raise newException(ValueError, """Cannot find absolute maximum of an empty
+   sequence""".unindent)
+  var (min, minAbs) = (x[0], absVal(x[0]))
+  for n in x:
+    let nAbs = absVal(n)
+    if nAbs < minAbs: (min, minAbs) = (n, nAbs)
+  min
+
+func signedMaxAbs(x: openArray[int]): int {.raises: [ValueError].} =
+  ## Returns the first signed element whose absolute value
+  ## is the largest in a sequence.
+  if x.len == 0:
+    raise newException(ValueError, """Cannot find absolute maximum of an empty
+   sequence""".unindent)
+  var (max, maxAbs) = (x[0], absVal(x[0]))
+  for n in x:
+    let nAbs = absVal(n)
+    if nAbs > maxAbs: (max, maxAbs) = (n, nAbs)
+  max
 
 when isMainModule:
   import std/[unittest, random]
@@ -80,12 +98,23 @@ when isMainModule:
       doAssertRaises(ValueError):
         discard absMax(@[])
 
-  suite "Check `absMaxSort`":
-    test "Check `absMaxSort`":
+  suite "Check `signedMinAbs`":
+    test "Check `signedMinAbs`":
       check:
-        absMaxSort(@[3, -2, 1, -4, 5, -6]) == -6
-        absMaxSort(@[0, 5, 1, 11]) == 11
+        signedMinAbs(@[0, 5, 1, 11]) == 0
+        signedMinAbs(@[3, -2, 1, -4, 5, -6]) == 1
+        signedMinAbs(@[3, -2, -1, -4, 5, -6]) == -1
 
-    test "`absMaxSort` on empty sequence raises ValueError":
+    
+    test "Among two minimal elements, the first one is returned":
+        check signedMinAbs(@[3, -2, 1, -4, 5, -6, -1]) == 1
+
+  suite "Check `signedMaxAbs`":
+    test "Check `signedMaxAbs`":
+      check:
+        signedMaxAbs(@[3, -2, 1, -4, 5, -6]) == -6
+        signedMaxAbs(@[0, 5, 1, 11]) == 11
+
+    test "`signedMaxAbs` on empty sequence raises ValueError":
       doAssertRaises(ValueError):
-        discard absMaxSort(@[])
+        discard signedMaxAbs(@[])
