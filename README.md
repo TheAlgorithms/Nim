@@ -22,7 +22,7 @@
   <!-- Second row: -->
   <br>
 <!-- Short description: -->
-  <h3>All algorithms implemented in Nim - for education</h3>
+  <h3>Algorithms collection implemented in Nim - for education</h3>
 </div>
 
 Implementations are for learning purposes only. They may be less efficient than the implementations in the [Nim standard library](https://nim-lang.org/docs/lib.html) or [Nimble packages](https://nimble.directory/). Use them at your discretion.
