@@ -2,14 +2,13 @@
 {.push raises: [].}
 
 type
-  HiddenMarkovModel[S, O] = ref object
+  HiddenMarkovModel[S] = ref object
     states: seq[S]
-    observations: seq[O]
-    startProbability: seq[float]
-    transitionProbability: seq[seq[float]]
-    emissionProbability: seq[seq[float]]
+    startProbability: seq[float] # Sum of all elements must be 1
+    transitionProbability: seq[seq[float]] # Sum of all elements in each row must be 1
+    emissionProbability: seq[seq[float]] # Sum of all elements in each row must be 1
 
-proc viterbi*[S, O](hmm: HiddenMarkovModel[S, O], observations: seq[O]): seq[S] =
+func viterbi*[S, O](hmm: HiddenMarkovModel[S], observations: seq[O]): seq[S] =
   var
     probabilities = newSeq[seq[float]](len(observations))
     backpointers = newSeq[seq[int]](len(observations))
@@ -72,10 +71,11 @@ when isMainModule:
           Healthy, Fever
         Observations = enum
           Normal, Cold, Dizzy
-      var hmm = HiddenMarkovModel[States, Observations]()
+      var 
+        hmm = HiddenMarkovModel[States]()
+        observations = @[Normal, Cold, Dizzy]
       hmm.states = @[Healthy, Fever]
-      hmm.observations = @[Normal, Cold, Dizzy]
       hmm.startProbability = @[0.6, 0.4]
       hmm.transitionProbability = @[@[0.7, 0.3], @[0.4, 0.6]]
       hmm.emissionProbability = @[@[0.5, 0.4, 0.1], @[0.1, 0.3, 0.6]]
-      check viterbi(hmm, hmm.observations) == @[Healthy, Healthy, Fever]
+      check viterbi(hmm, observations) == @[Healthy, Healthy, Fever]
