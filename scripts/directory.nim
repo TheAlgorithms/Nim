@@ -1,6 +1,6 @@
 ## Build the contents of `directory.md` for The Algorithms/Nim repository
 ##
-## Usage: `nim r directory.nim > DIRECTORY.md`
+## Usage: `nim r scripts/directory.nim > DIRECTORY.md`
 ##
 ## - Walks the current directory for subdirectories.
 ## - Each directory is treated as a category.
@@ -27,7 +27,7 @@ type
 
 func canonicalize(s: string): string =
   ## Splits input by whitespace and underscore, titlecases each word and
-  ## joins them in the result with spaces. Consecutive whitespace gets merged.
+  ## joins them in the result with spaces. Consecutive whitespace is merged.
   ## Slightly Unicode-aware.
   var isFirst = true
   for word in unicode.split(s, WhitespaceUC):
