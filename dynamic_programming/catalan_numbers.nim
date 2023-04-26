@@ -77,7 +77,7 @@ when isMainModule:
 
   const RecursiveLimit = 16 # The first recursive formula gets too slow above 16
   const LowerLimit = 30 # The formulas involving a division overflows above 30
-  const UpperLimit = 36 # The table overflows above 36
+  const UpperLimit = 36 # Other methods overflow above 36
 
   let expectedResult: seq[Positive] = @[1, 1, 2, 5, 14, 42, 132, 429,
                                         1430, 4862, 16796, 58786, 208012,
