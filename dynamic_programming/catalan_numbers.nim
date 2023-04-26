@@ -32,36 +32,38 @@ func catalanNumbersRecursive2(index: Natural): Positive =
 
 func catalanNumbers(indexLimit: Natural): seq[Positive] {.noinit.} =
   ## Returns all Catalan numbers up to the index-th number iteratively.
-  result = newSeq[Positive](indexLimit + 1)
+  result = newSeq[Positive](indexLimit)
   result[0] = 1
-  for i in 1 .. indexLimit:
+  for i in 1 ..< indexLimit:
     for j in 0 ..< i:
       result[i] += result[j] * result[i - j - 1]
 
 func catalanNumbers2(index: Natural): Positive =
   ## Returns the index-th Catalan number iteratively with a second formula.
-  ## This function is not efficient.
+  ## Due to the division, this formula overflows at the 30th Catalan number.
   binom(2 * index, index) div (index + 1)
 
 iterator catalanNumbersIt(index: Natural): Positive =
   ## Iterates over all Catalan numbers up to the index-th number.
-  var catalanNumbers = newSeq[Positive](index + 1)
+  var catalanNumbers = newSeq[Positive](index)
   catalanNumbers[0] = 1
-  for i in 0 .. index:
+  for i in 0 ..< index:
     for j in 0 ..< i:
       catalanNumbers[i] += catalanNumbers[j] * catalanNumbers[i - j - 1]
     yield catalanNumbers[i]
 
-func createCatalanTable(N: static[Natural]): array[N, Positive] =
-  ## Creates a table of Catalan numbers up to the 37th number.
-  if N > 36:
-    raise newException(OverflowDefect, "N must be less than 36")
+func createCatalanTable(index: static[Natural]): array[index, Positive] =
+  ## Creates a table of Catalan numbers up to the index-th number.
+  when index > 36:
+    raise newException(OverflowDefect, "Index must be less or equal than 36")
   result[0] = 1
-  for i in 1 ..< N:
+  for i in 1 ..< index:
     for j in 0 ..< i:
       result[i] += result[j] * result[i - j - 1]
 
-func catalanNumber(index: Natural): Positive =
+func catalanNumbersCompileTime(index: Natural): Positive =
+  if index > 36:
+    raise newException(OverflowDefect, "N must be less or equal than 36")
   when sizeof(int) == 2:
     const catalanTable = createCatalanTable(12)
   when sizeof(int) == 4:
@@ -72,6 +74,10 @@ func catalanNumber(index: Natural): Positive =
 
 when isMainModule:
   import std/unittest
+
+  const RecursiveLimit = 16 # The first recursive formula gets too slow above 16
+  const LowerLimit = 30 # The formulas involving a division overflows above 30
+  const UpperLimit = 36 # The table overflows above 36
 
   let expectedResult: seq[Positive] = @[1, 1, 2, 5, 14, 42, 132, 429,
                                         1430, 4862, 16796, 58786, 208012,
@@ -89,15 +95,46 @@ when isMainModule:
       doAssert (CatalanNumbersList[i] == createCatalanTable(36)[i])
 
   suite "Catalan Numbers":
-    test "The twelve first Catalan numbers":
-      check catalan_numbers(15) == expectedResult
+    test "The seventeen first Catalan numbers recursively, first formula":
+      let limit = RecursiveLimit
+      for index in 0 .. limit:
+        let catalanNumber = catalanNumbersRecursive(index)
+        check catalanNumber == CatalanNumbersList[index]
     
-    test "The sixteen first Catalan numbers with iterator":
-      let n = 15
-      var i = 0
-      for catalan_number in catalan_numbers_it(n):
-        check catalan_number == expectedResult[i]
-        inc i
+    test "The thirty-one first Catalan numbers recursively, second formula":
+      let limit = LowerLimit
+      for index in 0 .. limit:
+        let catalanNumber = catalanNumbersRecursive2(index)
+        check catalanNumber == CatalanNumbersList[index]
+
+    test "The sixteen first Catalan numbers iteratively":
+      check catalanNumbers(16) == expectedResult
+    
+    test "We can compute up to the thirty-seventh Catalan number iteratively":
+      let limit = UpperLimit
+      let catalanNumbersSeq = catalanNumbers(limit)
+      for index in 0 .. limit:
+        check catalanNumbersSeq[index] == CatalanNumbersList[index]
+    
+    test "The thirty-seventh first Catalan numbers with iterator":
+      let limit = UpperLimit
+      var index = 0
+      for catalanNumber in catalanNumbersIt(limit):
+        check catalanNumber == CatalanNumbersList[index]
+        inc index
+      
+    test "Test the catalan number function with binomials":
+      let limit = LowerLimit
+      for index in 0 .. limit:
+        check catalanNumbers2(index) == CatalanNumbersList[index]
+    
+    test "The Catalan Numbers binomial formula overflows at 31":
+      doAssertRaises(OverflowDefect):
+        discard catalanNumbers2(LowerLimit + 1)
     
     test "Uses compile-time table":
-      check catalan_number(36) == Positive(3116285494907301262)
+      check catalanNumbersCompileTime(UpperLimit) == Positive(3116285494907301262)
+    
+    test "The compile-time table overflows at 37":
+      doAssertRaises(OverflowDefect):
+        discard catalanNumbersCompileTime(UpperLimit + 1)
