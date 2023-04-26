@@ -61,7 +61,7 @@ We want your work to be readable by others; therefore, we encourage you to follo
 
 We also enforce some additional rules:
 
-- Please compile using the stable version of the Nim compiler. The 2.0 version is not out as we wrote these lines but you can compile against the pre-release version of the compiler: [https://nim-lang.org/blog/2022/12/21/version-20-rc.html].
+- Please compile using the stable version of the Nim compiler. The 2.0 version is not out as we wrote these lines but you can compile against the pre-release version of the compiler: <https://nim-lang.org/blog/2022/12/21/version-20-rc.html>.
 - Prefer `Natural`, `Positive` or custom [subrange types](https://nim-lang.org/docs/manual.html#types-subrange-types) to unconstrained `int` where applicable, use `Natural` for indexing.
 - Add the title of your algorithm (in Camel Case) with a comment on the top of your file
 - Right under the title, add a `{.push raises: [].}`. This enforces that by default all `func`s have an empty list of exceptions. If they do raise at least an exception, then write after the return type and before the `=` sign, the list of exceptions raised in a similar pragma: `{.raises: [IOError].}`.
