@@ -45,13 +45,12 @@ func catalanNumbers2(index: Natural): Positive =
 
 iterator catalanNumbersIt(index: Natural): Positive =
   ## Iterates over all Catalan numbers up to the index-th number.
-  var catalan_numbers_lst = newSeq[Positive](index + 1)
-  catalan_numbers_lst[0] = 1
-  yield 1
-  for i in 1 .. index:
+  var catalanNumbers = newSeq[Positive](index + 1)
+  catalanNumbers[0] = 1
+  for i in 0 .. index:
     for j in 0 ..< i:
-      catalan_numbers_lst[i] += catalan_numbers_lst[j] * catalan_numbers_lst[i - j - 1]
-    yield catalan_numbers_lst[i]
+      catalanNumbers[i] += catalanNumbers[j] * catalanNumbers[i - j - 1]
+    yield catalanNumbers[i]
 
 func createCatalanTable(N: static[Natural]): array[N, Positive] =
   ## Creates a table of Catalan numbers up to the 37th number.
