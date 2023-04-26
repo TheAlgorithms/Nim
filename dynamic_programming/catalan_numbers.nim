@@ -11,33 +11,32 @@
     https://en.wikipedia.org/wiki/Catalan_number
     https://oeis.org/A000108
 ]#
-import math
+import std/math
 {.push raises: [].}
 
 func catalanNumbersRecursive(index: Natural): Positive =
   ## Returns the index-th Catalan number recursively.
   ## As Nim does not make automatic memoization, this function is not
   ## efficient.
-  if index == 0:
+  if index < 2:
     return 1
   for i in 0 ..< index:
-    result += catalan_numbers_recursive(i) *
-     catalan_numbers_recursive(index - i - 1)
+    result += catalanNumbersRecursive(i) *
+     catalanNumbersRecursive(index - i - 1)
 
 func catalanNumbersRecursive2(index: Natural): Positive =
-  if index == 0:
+  if index < 2:
     return 1
   else:
     2 * (2 * index - 1) * catalanNumbersRecursive2(index - 1) div (index + 1)
 
-func catalanNumbers(index_limit: Natural): seq[Positive] =
+func catalanNumbers(indexLimit: Natural): seq[Positive] {.noinit.} =
   ## Returns all Catalan numbers up to the index-th number iteratively.
-  var catalan_numbers = newSeq[Positive](index_limit + 1)
-  catalan_numbers[0] = 1
-  for i in 1 .. index_limit:
+  result = newSeq[Positive](indexLimit + 1)
+  result[0] = 1
+  for i in 1 .. indexLimit:
     for j in 0 ..< i:
-      catalan_numbers[i] += catalan_numbers[j] * catalan_numbers[i - j - 1]
-  catalan_numbers
+      result[i] += result[j] * result[i - j - 1]
 
 func catalanNumbers2(index: Natural): Positive =
   ## Returns the index-th Catalan number iteratively with a second formula.
@@ -78,7 +77,7 @@ when isMainModule:
   let expectedResult: seq[Positive] = @[1, 1, 2, 5, 14, 42, 132, 429,
                                         1430, 4862, 16796, 58786, 208012,
                                         742900, 2674440, 9694845]
-  const catalanNumbersLst = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796,
+  const CatalanNumbersList = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796,
     58786, 208012, 742900, 2674440, 9694845, 35357670, 129644790, 477638700,
     1767263190, 6564120420, 24466267020, 91482563640, 343059613650,
     1289904147324, 4861946401452, 18367353072152, 69533550916004,
@@ -88,7 +87,7 @@ when isMainModule:
   
   static:
     for i in 0 ..< 36:
-      doAssert (catalanNumbersLst[i] == createCatalanTable(36)[i])
+      doAssert (CatalanNumbersList[i] == createCatalanTable(36)[i])
 
   suite "Catalan Numbers":
     test "The twelve first Catalan numbers":
