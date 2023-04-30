@@ -76,4 +76,3 @@ when isMainModule:
       check testSort(bubbleSortOpt1[char])
       check testSort(bubbleSortWhileLoop[char])
       check testSort(bubbleSortOpt2[char])
-
