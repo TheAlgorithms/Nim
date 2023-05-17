@@ -5,6 +5,7 @@ Welcome to [TheAlgorithms/Nim](https://github.com/TheAlgorithms/Nim)!
 We are very happy that you are considering working on algorithm and data structure implementations in Nim! This repository is meant to be referenced and used by learners from all over the globe, and we aspire to maintain the highest possible quality of the code presented here. This is why we ask you to **read all of the following guidelines beforehand** to know what we expect of your contributions. If you have any doubts about this guide, please feel free to [state them clearly in an issue](https://github.com/TheAlgorithms/Nim/issues/new) or ask the community in [Discord](https://the-algorithms.com/discord).
 
 ## Table Of Contents
+
 * [What is an Algorithm?](#what-is-an-algorithm)
 * [Contributor agreement](#contributor-agreement)
 * [Contribution guidelines](#contribution-guidelines)
@@ -48,7 +49,7 @@ We appreciate any contribution, from fixing a grammar mistake in a comment to im
 
 ### Implementation requirements
 
-- The unit of an implementation we expect is a **Nim module**, with all the corresponding consequences. Although the main goals of this repository are educational, the module form mirrors a real world scenario and makes it easy to use the code from this repository in other projects.
+- The unit of an implementation we expect is a [**Nim module**](https://nim-lang.org/docs/manual.html#modules). Although the main goals of this repository are educational, the module form mirrors a real world scenario and makes it easy to use the code from this repository in other projects.
 - First line must contain the canonical title of the module prefixed by double hashes (`## Title Of The Module`). This title is used in this repository's automation for populating the [Directory](directory.md).
 - The module should be thoroughly documented with doc comments. Follow the [Nim documentation style](https://nim-lang.org/docs/docstyle.html).
 - The file begins with the module-level documentation with the general description and explanation of the algorithm/data-structure. If possible, please include:
@@ -97,11 +98,12 @@ We want your work to be readable by others; therefore, we encourage you to follo
 
 - It is incited to give a usage example after the module documentation and the `push raises` pragma in the top-level `runnableExamples` block.
 - Use the [`std/unittest` module](https://nim-lang.org/docs/unittest.html) to test your program.
-- We recommend using a `when isMainModule:` block to run tests. This block will be compiled and run if the module is compiled as an executable. See the [minimal example](#minimal-example).
+- We recommend using a `when isMainModule:` block to run tests. This block runs when the module is compiled as an executable. See the [minimal example](#minimal-example).
 
 #### Other
+
 - If you need a third-party module that is not in the file [third_party_modules.md](https://github.com/TheAlgorithms/Nim/blob/master/third_party_modules.md), please add it to that file as part of your submission.
-- Please, use export marker `*` to distinguish the functions of your user-facing [application programming interface (API)](https://en.wikipedia.org/wiki/API) from the helper internal functions.
+- Use the export marker `*` to distinguish the functions of your user-facing [application programming interface (API)](https://en.wikipedia.org/wiki/API) from the internal helper functions.
 
 ### Minimal example
 
@@ -139,10 +141,8 @@ when isMainModule:
 - Use *snake_case* (words separated with an underscore `_`) for the filename.
 - Try to fit your work into the existing directory structure as much as possible. Please open an issue first if you want to create a new subdirectory.
 - Writing documentation, be concise and check your spelling and grammar.
-- Add a corresponding explanation to [Algorithms-Explanation](https://github.com/TheAlgorithms/Algorithms-Explanation) (Optional but recommended).
-- Most importantly
-  * **Be consistent in the use of these guidelines when submitting.**
-  * **Join** us on [Discord](https://the-algorithms.com/discord) **now!**
+- Add a corresponding explanation to [Algorithms-Explanation](https://github.com/TheAlgorithms/Algorithms-Explanation) (optional but recommended).
+- Most importantly, **be consistent in the use of these guidelines**.
 
 **Happy coding!**
 
