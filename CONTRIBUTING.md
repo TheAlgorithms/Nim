@@ -33,7 +33,6 @@ An Algorithm is one or more functions that:
 
 Being one of our contributors, you agree and confirm that:
 
-- You did your work: no plagiarism allowed. Any plagiarized work will not be merged.
 - Your work will be distributed under [MIT License](LICENSE.md) once your pull request is merged.
 - Your work meets the standards of this guideline.
 
