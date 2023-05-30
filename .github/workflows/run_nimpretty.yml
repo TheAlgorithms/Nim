@@ -36,7 +36,7 @@ jobs:
         run: |
           if [[ `git status --porcelain` ]]; then
             git commit -am "style: formatting with nimpretty"
-            git push
+            git push HEAD:$GITHUB_REF
           else
             echo "NO CHANGES DETECTED"
           fi
