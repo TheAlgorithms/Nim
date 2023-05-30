@@ -5,6 +5,9 @@ name: run_nimpretty
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   format_code_with_nimpretty:
@@ -26,14 +29,11 @@ jobs:
           git config --global user.name github-action
           git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
 
-      - name: display changes
-        run: git status
-
       - name: Commit changes
         run: |
           if [[ `git status --porcelain` ]]; then
             git commit -am "style: formatting with nimpretty"
-            git push
+            git push origin HEAD:$GITHUB_REF
           else
             echo "NO CHANGES DETECTED"
           fi
