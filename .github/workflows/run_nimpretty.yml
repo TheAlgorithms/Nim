@@ -1,0 +1,40 @@
+---
+name: run_nimpretty
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  format_code_with_nimpretty:
+    name: format code with nimpretty
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: jiro4989/setup-nim-action@v1
+      
+      - name: Run nimpretty
+        run: |
+          ./run_nimpretty.sh
+
+      - name: Configure git
+        run: |
+          git config --global user.name github-action
+          git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
+
+      - name: Commit changes
+        run: |
+          if [[ `git status --porcelain` ]]; then
+            git commit -am "style: formatting with nimpretty"
+            git push
+          else
+            echo "NO CHANGES DETECTED"
+          fi
+...
