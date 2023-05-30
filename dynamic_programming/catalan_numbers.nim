@@ -68,7 +68,7 @@ func catalanNumbersCompileTime(index: Natural): Positive =
     const catalanTable = createCatalanTable(12)
   when sizeof(int) == 4:
     const catalanTable = createCatalanTable(20)
-  when sizeof(int) == 8: 
+  when sizeof(int) == 8:
     const catalanTable = createCatalanTable(36)
   catalanTable[index-1]
 
@@ -89,7 +89,7 @@ when isMainModule:
     263747951750360, 1002242216651368, 3814986502092304, 14544636039226909,
     55534064877048198, 212336130412243110, 812944042149730764,
     3116285494907301262]
-  
+
   static:
     for i in 0 ..< 36:
       doAssert (CatalanNumbersList[i] == createCatalanTable(36)[i])
@@ -100,7 +100,7 @@ when isMainModule:
       for index in 0 .. limit:
         let catalanNumber = catalanNumbersRecursive(index)
         check catalanNumber == CatalanNumbersList[index]
-    
+
     test "The thirty-one first Catalan numbers recursively, second formula":
       let limit = LowerLimit
       for index in 0 .. limit:
@@ -109,32 +109,32 @@ when isMainModule:
 
     test "The sixteen first Catalan numbers iteratively":
       check catalanNumbers(16) == expectedResult
-    
+
     test "We can compute up to the thirty-seventh Catalan number iteratively":
       let limit = UpperLimit
       let catalanNumbersSeq = catalanNumbers(limit)
       for index in 0 .. limit:
         check catalanNumbersSeq[index] == CatalanNumbersList[index]
-    
+
     test "The thirty-seventh first Catalan numbers with iterator":
       let limit = UpperLimit
       var index = 0
       for catalanNumber in catalanNumbersIt(limit):
         check catalanNumber == CatalanNumbersList[index]
         inc index
-      
+
     test "Test the catalan number function with binomials":
       let limit = LowerLimit
       for index in 0 .. limit:
         check catalanNumbers2(index) == CatalanNumbersList[index]
-    
+
     test "The Catalan Numbers binomial formula overflows at 31":
       doAssertRaises(OverflowDefect):
         discard catalanNumbers2(LowerLimit + 1)
-    
+
     test "Uses compile-time table":
       check catalanNumbersCompileTime(UpperLimit) == Positive(3116285494907301262)
-    
+
     test "The compile-time table overflows at 37":
       doAssertRaises(OverflowDefect):
         discard catalanNumbersCompileTime(UpperLimit + 1)
