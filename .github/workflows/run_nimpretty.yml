@@ -29,6 +29,9 @@ jobs:
           git config --global user.name github-action
           git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
 
+      - name: display changes
+        run: git status
+
       - name: Commit changes
         run: |
           if [[ `git status --porcelain` ]]; then
