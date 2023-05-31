@@ -22,15 +22,14 @@ jobs:
       
       - name: Run nimpretty
         run: |
+          git clean -f -x -d
           ./run_nimpretty.sh
 
       - name: Fail if needs reformatting
         run: |
-          if [[ `git status --porcelain` ]]; then
+          if [[ $(git status --porcelain=v1 | wc -l) ]]; then
              echo "please reformat these files with nimpretty:"
              git status --porcelain=v1
-             cat init.sh
-             pwd
              exit 1
           fi
 ...
