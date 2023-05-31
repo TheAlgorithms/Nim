@@ -27,7 +27,7 @@ jobs:
 
       - name: Fail if needs reformatting
         run: |
-          if [[ $(git status --porcelain=v1 | wc -l) ]]; then
+          if [[ $(git status --porcelain) ]]; then
              echo "please reformat these files with nimpretty:"
              git status --porcelain=v1
              exit 1
