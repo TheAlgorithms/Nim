@@ -29,6 +29,8 @@ jobs:
           if [[ `git status --porcelain` ]]; then
              echo "please reformat these files with nimpretty:"
              git status --porcelain=v1
+             cat init.sh
+             pwd
              exit 1
           fi
 ...
