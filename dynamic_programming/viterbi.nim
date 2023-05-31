@@ -1,8 +1,11 @@
 # Viterbi
 {.push raises: [].}
 
+
+
+
 type
-  HiddenMarkovModel[S] = ref object
+  HiddenMarkovModel[S]  =  ref object
     states: seq[S]
     startProbability: seq[float] # Sum of all elements must be 1
     transitionProbability: seq[seq[float]] # Sum of all elements in each row must be 1
