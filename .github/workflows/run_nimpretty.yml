@@ -5,6 +5,9 @@ name: run_nimpretty
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
   format_code_with_nimpretty:
@@ -21,17 +24,11 @@ jobs:
         run: |
           ./run_nimpretty.sh
 
-      - name: Configure git
+      - name: Fail if needs reformatting
         run: |
-          git config --global user.name github-action
-          git config --global user.email '${GITHUB_ACTOR}@users.noreply.github.com'
-
-      - name: Commit changes
-        run: |
-          if [[ `git status --porcelain` ]]; then
-            git commit -am "style: formatting with nimpretty"
-            git push origin HEAD:$GITHUB_REF
-          else
-            echo "NO CHANGES DETECTED"
+          if [[ $(git status --porcelain=v1 | wc -l) ]]; then
+             echo "please reformat these files with nimpretty:"
+             git status --porcelain=v1
+             exit 1
           fi
 ...
