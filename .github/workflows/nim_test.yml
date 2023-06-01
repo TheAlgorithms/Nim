@@ -1,0 +1,33 @@
+---
+name: nim_test
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  nim_test:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        nim-version:
+          - '1.6.12'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: ${{matrix.nim-version}}
+
+      - name: Build and test
+        run: |
+          ./check_all_nim_files.sh
+...
