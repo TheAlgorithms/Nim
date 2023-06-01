@@ -1,6 +1,6 @@
 # Catalan Numbers
-#[  
-    The Catalan numbers are a sequence of natural numbers that occur in the 
+#[
+    The Catalan numbers are a sequence of natural numbers that occur in the
     most large set of combinatorial problems.
     For example, it describes:
     - the number of ways to parenthesize a product of n factors
@@ -79,10 +79,11 @@ when isMainModule:
   const LowerLimit = 30 # The formulas involving a division overflows above 30
   const UpperLimit = 36 # Other methods overflow above 36
 
-  let expectedResult: seq[Positive] = @[1, 1, 2, 5, 14, 42, 132, 429,
+  let expectedResult: seq[Positive] = @[Positive(1), 1, 2, 5, 14, 42, 132, 429,
                                         1430, 4862, 16796, 58786, 208012,
                                         742900, 2674440, 9694845]
-  const CatalanNumbersList = [1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796,
+  const CatalanNumbersList: seq[Positive] = @[Positive(1), 1, 2, 5, 14, 42, 132,
+      429, 1430, 4862, 16796,
     58786, 208012, 742900, 2674440, 9694845, 35357670, 129644790, 477638700,
     1767263190, 6564120420, 24466267020, 91482563640, 343059613650,
     1289904147324, 4861946401452, 18367353072152, 69533550916004,
@@ -113,7 +114,7 @@ when isMainModule:
     test "We can compute up to the thirty-seventh Catalan number iteratively":
       let limit = UpperLimit
       let catalanNumbersSeq = catalanNumbers(limit)
-      for index in 0 .. limit:
+      for index in 0 ..< limit:
         check catalanNumbersSeq[index] == CatalanNumbersList[index]
 
     test "The thirty-seventh first Catalan numbers with iterator":
