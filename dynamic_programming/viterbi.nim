@@ -30,36 +30,36 @@ func viterbi*[S, O](hmm: HiddenMarkovModel[S], observations: seq[O]): seq[S] =
     for state in 0 ..< len(hmm.states):
       # Compute the argmax for probability of the current state
       var
-        max_prob = -1.0
-        max_prob_state = 0
-      for prior_state in 0 ..< len(hmm.states):
+        maxProb = -1.0
+        maxProbState = 0
+      for priorState in 0 ..< len(hmm.states):
         var
-          prob = probabilities[nObs - 1][prior_state] *
-          hmm.transitionProbability[prior_state][state] *
+          prob = probabilities[nObs - 1][priorState] *
+          hmm.transitionProbability[priorState][state] *
           hmm.emissionProbability[state][obs]
-        if prob > max_prob:
-          max_prob = prob
-          max_prob_state = prior_state
+        if prob > maxProb:
+          maxProb = prob
+          maxProbState = priorState
       # Update probabilities and backpointers
-      probabilities[nObs][state] = max_prob
-      backpointers[nObs][state] = max_prob_state
+      probabilities[nObs][state] = maxProb
+      backpointers[nObs][state] = maxProbState
 
   # Final observation
   var
-    max_prob = -1.0
-    max_prob_state = 0
+    maxProb = -1.0
+    maxProbState = 0
   for state in 0 ..< len(hmm.states):
-    if probabilities[len(observations) - 1][state] > max_prob:
-      max_prob = probabilities[len(observations) - 1][state]
-      max_prob_state = state
+    if probabilities[len(observations) - 1][state] > maxProb:
+      maxProb = probabilities[len(observations) - 1][state]
+      maxProbState = state
 
   result = newSeq[S](len(observations))
-  result[^1] = hmm.states[max_prob_state]
+  result[^1] = hmm.states[maxProbState]
 
   # Backward Pass - Derive the states from the probabilities
   for i in 1 ..< len(observations):
-    result[^(i+1)] = hmm.states[backpointers[^i][max_prob_state]]
-    max_prob_state = backpointers[^i][max_prob_state]
+    result[^(i+1)] = hmm.states[backpointers[^i][maxProbState]]
+    maxProbState = backpointers[^i][maxProbState]
 
 when isMainModule:
   import std/unittest
