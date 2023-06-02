@@ -1,5 +1,5 @@
 ---
-name: run_nimpretty
+name: check_code_format
 
 # yamllint disable-line rule:truthy
 on:
@@ -10,8 +10,8 @@ on:
   pull_request:
 
 jobs:
-  format_code_with_nimpretty:
-    name: format code with nimpretty
+  check_format_code:
+    name: check format code
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -19,16 +19,16 @@ jobs:
           fetch-depth: 0
 
       - uses: jiro4989/setup-nim-action@v1
-      
-      - name: Run nimpretty
+
+      - name: Format code
         run: |
           git clean -f -x -d
-          ./run_nimpretty.sh
+          nim prettyfy
 
       - name: Fail if needs reformatting
         run: |
           if [[ $(git status --porcelain) ]]; then
-             echo "please reformat these files with nimpretty:"
+             echo "please reformat/prettyfy these files:"
              git status --porcelain=v1
              exit 1
           fi
