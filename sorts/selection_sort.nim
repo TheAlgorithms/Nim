@@ -1,4 +1,4 @@
-# Selection Sort
+## Selection Sort
 ## Add description
 {.push raises: [].}
 

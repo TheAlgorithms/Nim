@@ -1,4 +1,4 @@
-# Merge Sort
+## Merge Sort
 ## Add Description
 {.push raises: [].}
 

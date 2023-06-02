@@ -1,4 +1,4 @@
-# Shell Sort
+## Shell Sort
 #[
 Shellsort, also known as Shell sort or Shell's method,
 is an in-place comparison sort. It can be seen as either a generalization

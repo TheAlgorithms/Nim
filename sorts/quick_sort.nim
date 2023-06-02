@@ -1,4 +1,4 @@
-# Quick Sort
+## Quick Sort
 ## Add Description
 ## TODO: Need an out of place version of the test
 ## https://en.wikipedia.org/wiki/Shellsort

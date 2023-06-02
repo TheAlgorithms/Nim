@@ -1,4 +1,4 @@
-# Bubble sort
+## Bubble sort
 #[
 Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the input list element by element, comparing the current element with the one after it, swapping their values if needed. These passes through the list are repeated until no swaps had to be performed during a pass, meaning that the list has become fully sorted.
 # https://en.wikipedia.org/wiki/Bubble_sort
@@ -10,7 +10,7 @@ func bubbleSort[T](l: var openArray[T]) =
     for j in 0 ..< i:
       if l[j] > l[j+1]:
         swap(l[j], l[j+1])
-  
+
 
 func bubbleSortOpt1[T](l: var openArray[T]) =
   let n = l.len
@@ -76,4 +76,3 @@ when isMainModule:
       check testSort(bubbleSortOpt1[char])
       check testSort(bubbleSortWhileLoop[char])
       check testSort(bubbleSortOpt2[char])
-

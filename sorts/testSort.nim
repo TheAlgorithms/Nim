@@ -1,3 +1,4 @@
+## Test sorting algorithms
 import std/[sequtils, random, algorithm]
 
 proc testSort*[T: SomeNumber](mySort: proc (x: var openArray[T]), size: Positive = 15,
