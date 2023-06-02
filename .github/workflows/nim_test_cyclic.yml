@@ -1,0 +1,36 @@
+---
+name: nim_test_cyclic
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '3 1 * * 1'
+
+jobs:
+  nim_test:
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+        nim-version:
+          - 'stable'
+          - 'devel'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: ${{matrix.nim-version}}
+
+      - name: Display nim version
+        run: |
+          nim --version
+
+      - name: Build and test
+        run: |
+          nim test
+...
