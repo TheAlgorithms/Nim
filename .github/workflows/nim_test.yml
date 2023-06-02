@@ -29,5 +29,5 @@ jobs:
 
       - name: Build and test
         run: |
-          ./check_all_nim_files.sh
+          nim test
 ...
