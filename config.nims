@@ -13,7 +13,7 @@ import std/[os, sequtils]
 from std/strutils import startsWith, endsWith
 from std/strformat import `&`
 
-const IgnorePathPrefixes = [".", "scripts"]
+const IgnorePathPrefixes = ["."]
 
 func isIgnored(path: string): bool =
   IgnorePathPrefixes.mapIt(path.startsWith(it)).anyIt(it)
