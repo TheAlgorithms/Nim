@@ -1,7 +1,7 @@
 import std/[sequtils, random, algorithm]
 
 proc testSort*[T: SomeNumber](mySort: proc (x: var openArray[T]), size: Positive = 15,
-  limit: SomeNumber = 100, verbose = true): bool =
+  limit: SomeNumber = 100, verbose = false): bool =
   ## Test the sort function with a random array
   var limit = T(limit)
   var arr = newSeqWith(size, rand(limit))
@@ -13,7 +13,7 @@ proc testSort*[T: SomeNumber](mySort: proc (x: var openArray[T]), size: Positive
   isSorted(arr)
 
 proc testSort*(mySort: proc (x: var openArray[char]), size: Positive = 15,
-  limit: char = 'z', verbose = true): bool =
+  limit: char = 'z', verbose = false): bool =
   ## Test the sort function with a random array
   var arr = newSeqWith[char](size, rand('a' .. limit))
   if verbose:
