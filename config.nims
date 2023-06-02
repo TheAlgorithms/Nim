@@ -1,5 +1,5 @@
 # Nim compilation defaults for the whole repository
---gc: arc
+#--gc: arc
 if defined(release) or defined(danger):
   --opt: speed
   --passC: "-flto"
