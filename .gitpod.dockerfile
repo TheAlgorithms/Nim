@@ -1,4 +1,4 @@
-FROM gitpod/workspace-full-vnc
+FROM gitpod/workspace-base
 
 RUN curl https://nim-lang.org/choosenim/init.sh -sSf -o install_nim.sh \
     && chmod +x ./install_nim.sh \
