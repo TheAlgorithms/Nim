@@ -6,10 +6,32 @@
 ## Worst Space Complexity: O(n)
 
 ## Import unit testing for testing purposes
-import unittesting
+import unittest
 
-proc insertion_sort()
+## Define the function
+proc insertion_sort(arr: var openarray[int]) =
 
+  ## Length is the length of arr
+  var length = high(arr)
+
+  if length <= 1:
+    ## If length is or is less than one, no execution
+    return
+
+  ## Iterate through array
+  for i in 1..high(arr):
+
+    ## You can treat "key" as a temporary variable
+    var key = arr[i]
+
+    ##  Move elements of arr[0..i-1], that are
+    ##  greater than key, to one position ahead
+    ##  of their current position
+    var j = i - 1
+    while j >= 0 and key < arr[j] :
+      arr[j + 1] = arr[j]
+      j -= 1
+    arr[j + 1] = key
 
 ## Test
 test "Empty array":
