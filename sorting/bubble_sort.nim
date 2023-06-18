@@ -5,7 +5,7 @@
 ## Auxiliary Space: O(1).
 
 ## Import unit testing for testing purposes
-import unittesting
+import unittest
 
 ## Define function, bubble_sort()
 ## Pass in array "arr" as parameter
