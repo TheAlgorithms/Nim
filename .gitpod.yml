@@ -1,4 +1,8 @@
 ---
 image:
   file: .gitpod.dockerfile
+
+vscode:
+  extensions:
+    - nimsaem.nimvscode
 ...
