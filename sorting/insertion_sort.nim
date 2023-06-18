@@ -1,9 +1,9 @@
 ## Insertion Sort Algorithm Implementation
 ##
 ## https://en.wikipedia.org/wiki/Insertion_sort
-## Worst Time Complexity: O(n^2)
-## Best Time Complexity: O(n)
-## Worst Space Complexity: O(n)
+## Worst Case Time Complexity: O(n^2)
+## Best Case Time Complexity: O(n)
+## Worst Case Space Complexity: O(n)
 
 ## Import unit testing for testing purposes
 import unittest
