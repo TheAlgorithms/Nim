@@ -1,4 +1,4 @@
-## Linear Search in Pure Nim
+## Linear Search
 ## =============
 #[
 Linear search is the simplest but least efficient algorithm
