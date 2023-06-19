@@ -14,6 +14,7 @@
 ## and there is no CPS automatic optimization in Nim
 ## CPS: https://en.wikipedia.org/wiki/Continuation-passing_style
 
+## importing options and system for type Option and Natural
 import std/options
 import system
 
