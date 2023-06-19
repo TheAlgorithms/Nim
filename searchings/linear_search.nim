@@ -8,6 +8,10 @@ starting at the beginning of the data set, until the end.
 The search is finished and terminated once the target element is located.
 # https://www.simplilearn.com/tutorials/data-structure-tutorial/linear-search-algorithm
 ]#
+## Worst case time complexity: O(N)
+## Average case time complexity: O(N)
+## Best case time complexity: O(1)
+## Space complexity: O(1)
 
 ## openArray[T] is a proc parameter type that accept arrays and seqs
 # value is the value for matching in the array
