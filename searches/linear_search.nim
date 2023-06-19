@@ -19,11 +19,10 @@ import system
 
 func linearSearch[T](arr: openArray[T], key: T): Option[Natural] = 
   ## key is the value for matching in the array
-  var i: Natural = 0
-  while i < arr.len - 1:
+  for i in arr.low .. arr.high:
     if arr[i] == key:
-      return some(i)
-    inc i
+      return some(Natural(i))
+
   return none(Natural) # -1 is the default index for unfound element
 
 func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option[Natural] =
@@ -33,7 +32,7 @@ func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option
 
   ## return -1 would be invoked when the array is traversed completely
   ## and no value is matched, or when array is empty and has a length of 0
-  if idx == -1:
+  if idx <= 0:
     return none(Natural)
   if arr[idx] == value:
     return some(idx)
@@ -46,29 +45,29 @@ when isMainModule:
     test "Search in an empty array":
       var arr: array[0, int]
 
-      check linearSearch(arr, 5) == none(int)
-      check recursiveLinearSearch(arr, arr.len - 1, 5) == none(Natural)
+      check linearSearch(arr, 5) == none(Natural)
+      check recursiveLinearSearch(arr, arr.high, 5) == none(Natural)
 
     test "Search in an int array matching with a valid value":
       var arr = [0, 3, 1, 4, 5, 6]
 
-      check linearSearch(arr, 5) == some(4)
-      check recursiveLinearSearch(arr, arr.len - 1, 5) == some(4)
+      check linearSearch(arr, 5) == some(Natural(4))
+      check recursiveLinearSearch(arr, arr.high, 5) == some(Natural(4))
 
     test "Search in an int array matching with an invalid value":
       var arr = [0, 3, 1, 4, 5, 6]
 
-      check linearSearch(arr, 7) == none(int)
-      check recursiveLinearSearch(arr, arr.len - 1, 7) == none(Natural)
+      check linearSearch(arr, 7) == none(Natural)
+      check recursiveLinearSearch(arr, arr.high, 7) == none(Natural)
 
     test "Search in a char array matching with a char matching value":
       var arr = ['0', 'c', 'a', 'u', '5', '7']
 
-      check linearSearch(arr, '5') == some(4)
-      check recursiveLinearSearch(arr, arr.len - 1, '5') == some(4)
+      check linearSearch(arr, '5') == some(Natural(4))
+      check recursiveLinearSearch(arr, arr.high, '5') == some(Natural(4))
 
     test "Search in a string array matching with a string matching value":
       var arr = ["0", "c", "a", "u", "5", "7"]
 
-      check linearSearch(arr, "5") == some(4)
-      check recursiveLinearSearch(arr, arr.len - 1, "5") == some(4)
+      check linearSearch(arr, "5") == some(Natural(4))
+      check recursiveLinearSearch(arr, arr.high, "5") == some(Natural(4))
