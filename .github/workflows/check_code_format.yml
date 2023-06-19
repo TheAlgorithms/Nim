@@ -1,0 +1,35 @@
+---
+name: check_code_format
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  check_format_code:
+    name: check format code
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: jiro4989/setup-nim-action@v1
+
+      - name: Format code
+        run: |
+          git clean -f -x -d
+          nim prettyfy
+
+      - name: Fail if needs reformatting
+        run: |
+          if [[ $(git status --porcelain) ]]; then
+             echo "please reformat/prettyfy these files:"
+             git status --porcelain=v1
+             exit 1
+          fi
+...
