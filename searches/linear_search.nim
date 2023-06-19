@@ -1,13 +1,12 @@
 ## Linear Search
 ## =============
-#[
-Linear search is the simplest but least efficient algorithm
-to search for an element in a data set.
-It examines each element until it finds a match,
-starting at the beginning of the data set, until the end.
-The search is finished and terminated once the target element is located.
-# https://www.simplilearn.com/tutorials/data-structure-tutorial/linear-search-algorithm
-]#
+## Linear search is the simplest but least efficient algorithm
+## to search for an element in a data set.
+## It examines each element until it finds a match,
+## starting at the beginning of the data set, until the end.
+## The search is finished and terminated once the target element is located.
+## https://www.simplilearn.com/tutorials/data-structure-tutorial/linear-search-algorithm
+##
 ## Time Complexity: O(N)
 ## Space Complexity in for-loop linear search: O(1)
 ## Space Complexity in recursive linear search: O(n)
@@ -15,25 +14,25 @@ The search is finished and terminated once the target element is located.
 ## and there is no CPS automatic optimization in Nim
 ## CPS: https://en.wikipedia.org/wiki/Continuation-passing_style
 
-# openArray[T] is a func parameter type that accept arrays and seqs in any type
-# value is the value for matching in the array
-func linearSearch[T](arr: openArray[T], value: T): int = 
+func linearSearch[T](arr: openArray[T], key: T): int = 
+  ## key is the value for matching in the array
   for i in arr.low .. arr.high:
-    if arr[i] == value:
+    if arr[i] == key:
       return i
-  return -1 # -1 is the default index for unfound element
+  return -1 # -1 is the default index for the unfound element
 
-## Recursion is another method for linear search
-## we can just replace the for loop with recursion.
-## recursion traverses from the end of the array to the front.
 func recursiveLinearSearch[T](arr: openArray[T], idx: int, value: T): int =
+  ## Recursion is another method for linear search
+  ## we can just replace the for loop with recursion.
+  ## recursion traverses from the end of the array to the front.
+
   ## return -1 would be invoked when the array is traversed completely
-  ## and no value is matched, or when array is empty and has a length of 0
+  ## and no value is matched, or when the array is empty and has a length of 0
   if idx == -1:
     return -1
   if arr[idx] == value:
     return idx
-  return recursiveLinearSearch(arr, idx - 1, value)
+  recursiveLinearSearch(arr, idx - 1, value)
 
 when isMainModule:
   import unittest
