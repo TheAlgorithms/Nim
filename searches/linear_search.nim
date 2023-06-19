@@ -25,7 +25,6 @@ runnableExamples:
 
 
 import std/options
-import system
 
 func linearSearch[T](arr: openArray[T], key: T): Option[Natural] = 
   ## key is the value for matching in the array
