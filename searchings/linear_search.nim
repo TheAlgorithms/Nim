@@ -8,10 +8,12 @@ starting at the beginning of the data set, until the end.
 The search is finished and terminated once the target element is located.
 # https://www.simplilearn.com/tutorials/data-structure-tutorial/linear-search-algorithm
 ]#
-## Worst case time complexity: O(N)
-## Average case time complexity: O(N)
-## Best case time complexity: O(1)
-## Space complexity: O(1)
+## Time Complexity: O(N)
+## Space Complexity in for-loop linear search: O(1)
+## Space Complexity in recursive linear search: O(n)
+## This is because of the call stack operation,
+## and there is no CPS automatic optimization in Nim
+## CPS: https://en.wikipedia.org/wiki/Continuation-passing_style
 
 ## openArray[T] is a func parameter type that accept arrays and seqs in any type
 # value is the value for matching in the array
