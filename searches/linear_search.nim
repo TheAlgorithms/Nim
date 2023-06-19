@@ -24,7 +24,6 @@ runnableExamples:
   doAssert recursiveLinearSearch(arr2, arr2.high, '5') == some(Natural(4))
 
 
-## importing options and system for type Option and Natural
 import std/options
 import system
 
