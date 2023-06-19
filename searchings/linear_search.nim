@@ -11,9 +11,42 @@ The search is finished and terminated once the target element is located.
 
 ## openArray[T] is a proc parameter type that accept arrays and seqs
 # value is the value for matching in the array
-func linearSearch(arr: var openArray[T], value): int = 
-  for i in 1..arr.len:
-  	if arr[i] == value:
+func linearSearch(arr: var openArray[int], value:int): int = 
+  for i in 0..arr.len - 1: # len - 1 to make sure no index out of bound
+    if arr[i] == value:
       return i
+  return -1 # -1 is the default index for unfound element
+
+## recursion is another method for linear search
+## we can just replace the for loop with recursion.
+## recursion traverse from the end of the array to the front.
+func recursiveLinearSearch(arr: var openArray[int], idx:int, value:int): int =
+  ## return -1 would be invoked when the array is traversed completely
+  ## and no value is matched, or when array is empty and has a length of 0
+  if idx == -1:
+    return -1
+  if arr[idx] == value:
+    return idx
+  return recursiveLinearSearch(arr, idx - 1, value)
+
 when isMainModule:
   import unittest
+
+suite "Linear search":
+    test "Search in empty array":
+      var arr: array[0, int]
+
+      check linearSearch(arr, 5) == -1
+      check recursiveLinearSearch(arr, arr.len - 1, 5) == -1
+
+    test "Search in int array with valid matching value":
+      var arr = @[0, 3, 1, 4, 5, 6]
+
+      check linearSearch(arr, 5) == 4
+      check recursiveLinearSearch(arr, arr.len - 1, 5) == 4
+
+    test "Search in int array with invalid matching value":
+      var arr = @[0, 3, 1, 4, 5, 6]
+
+      check linearSearch(arr, 7) == -1
+      check recursiveLinearSearch(arr, arr.len - 1, 7) == -1
