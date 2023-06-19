@@ -23,10 +23,10 @@ func linearSearch[T](arr: openArray[T], value: T): int =
       return i
   return -1 # -1 is the default index for unfound element
 
-## recursion is another method for linear search
+## Recursion is another method for linear search
 ## we can just replace the for loop with recursion.
-## recursion traverse from the end of the array to the front.
-func recursiveLinearSearch[T](arr: openArray[T], idx:int, value:T): int =
+## recursion traverses from the end of the array to the front.
+func recursiveLinearSearch[T](arr: openArray[T], idx: int, value: T): int =
   ## return -1 would be invoked when the array is traversed completely
   ## and no value is matched, or when array is empty and has a length of 0
   if idx == -1:
@@ -39,31 +39,31 @@ when isMainModule:
   import unittest
 
   suite "Linear search":
-    test "Search in empty array":
+    test "Search in an empty array":
       var arr: array[0, int]
 
       check linearSearch(arr, 5) == -1
       check recursiveLinearSearch(arr, arr.len - 1, 5) == -1
 
-    test "Search in int array matching with valid value":
+    test "Search in an int array matching with a valid value":
       var arr = @[0, 3, 1, 4, 5, 6]
 
       check linearSearch(arr, 5) == 4
       check recursiveLinearSearch(arr, arr.len - 1, 5) == 4
 
-    test "Search in int array matching with invalid value":
+    test "Search in an int array matching with an invalid value":
       var arr = @[0, 3, 1, 4, 5, 6]
 
       check linearSearch(arr, 7) == -1
       check recursiveLinearSearch(arr, arr.len - 1, 7) == -1
 
-    test "Search in char array matching with char matching value":
+    test "Search in a char array matching with a char matching value":
       var arr = @['0', 'c', 'a', 'u', '5', '7']
 
       check linearSearch(arr, '5') == 4
       check recursiveLinearSearch(arr, arr.len - 1, '5') == 4
 
-    test "Search in string array matching with string matching value":
+    test "Search in a string array matching with a string matching value":
       var arr = @["0", "c", "a", "u", "5", "7"]
 
       check linearSearch(arr, "5") == 4
