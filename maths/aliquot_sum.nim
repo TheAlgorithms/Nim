@@ -22,8 +22,8 @@ func aliquotSum*(number: Positive): Natural {.raises: [ValueError].} =
 
 when isMainModule:
   import std/unittest
-  suite "Check `aliquotSum`":
-    test "`aliquotSum` on small values":
+  suite "Check aliquotSum":
+    test "aliquotSum on small values":
       var
         input = @[1, 2, 9, 12, 27, 100]
         expected = @[0, 1, 4, 16, 13, 117]

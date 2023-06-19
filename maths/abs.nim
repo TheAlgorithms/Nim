@@ -64,8 +64,8 @@ when isMainModule:
   import std/[unittest, random]
   randomize()
 
-  suite "Check `absVal`":
-    test "Check `absVal`":
+  suite "Check absVal":
+    test "Check absVal":
       check:
         absVal(11.2) == 11.2
         absVal(5) == 5
@@ -73,8 +73,8 @@ when isMainModule:
         absVal(-5) == absVal(5)
         absVal(0) == 0
 
-  suite "Check `absMin`":
-    test "Check `absMin`":
+  suite "Check absMin":
+    test "Check absMin":
       check:
         absMin(@[-1, 2, -3]) == 1
         absMin(@[0, 5, 1, 11]) == 0
@@ -83,12 +83,12 @@ when isMainModule:
         absMin([0, 5, 1, 11]) == 0
         absMin([3, -10, -2]) == 2
 
-    test "`absMin` on empty sequence raises ValueError":
+    test "absMin on empty sequence raises ValueError":
       doAssertRaises(ValueError):
         discard absMin(@[])
 
-  suite "Check `absMax`":
-    test "Check `absMax`":
+  suite "Check absMax":
+    test "Check absMax":
       check:
         absMax(@[0, 5, 1, 11]) == 11
         absMax(@[3, -10, -2]) == 10
@@ -98,8 +98,8 @@ when isMainModule:
       doAssertRaises(ValueError):
         discard absMax(@[])
 
-  suite "Check `signedMinAbs`":
-    test "Check `signedMinAbs`":
+  suite "Check signedMinAbs":
+    test "Check signedMinAbs":
       check:
         signedMinAbs(@[0, 5, 1, 11]) == 0
         signedMinAbs(@[3, -2, 1, -4, 5, -6]) == 1
@@ -109,12 +109,12 @@ when isMainModule:
     test "Among two minimal elements, the first one is returned":
       check signedMinAbs(@[3, -2, 1, -4, 5, -6, -1]) == 1
 
-  suite "Check `signedMaxAbs`":
-    test "Check `signedMaxAbs`":
+  suite "Check signedMaxAbs":
+    test "Check signedMaxAbs":
       check:
         signedMaxAbs(@[3, -2, 1, -4, 5, -6]) == -6
         signedMaxAbs(@[0, 5, 1, 11]) == 11
 
-    test "`signedMaxAbs` on empty sequence raises ValueError":
+    test "signedMaxAbs on empty sequence raises ValueError":
       doAssertRaises(ValueError):
         discard signedMaxAbs(@[])
