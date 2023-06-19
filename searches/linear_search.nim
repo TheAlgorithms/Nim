@@ -14,6 +14,16 @@
 ## and there is no CPS automatic optimization in Nim
 ## CPS: https://en.wikipedia.org/wiki/Continuation-passing_style
 
+runnableExamples:
+  var arr1 = [0, 3, 1, 4, 5, 6]
+  doAssert linearSearch(arr1, 5) == some(Natural(4))
+  doAssert recursiveLinearSearch(arr1, arr1.high, 5) == some(Natural(4))
+
+  var arr2 = ['0', 'c', 'a', 'u', '5', '7']
+  doAssert linearSearch(arr2, '5') == some(Natural(4))
+  doAssert recursiveLinearSearch(arr2, arr2.high, '5') == some(Natural(4))
+
+
 ## importing options and system for type Option and Natural
 import std/options
 import system
@@ -38,6 +48,7 @@ func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option
   if arr[idx] == value:
     return some(idx)
   recursiveLinearSearch(arr, idx - 1, value)
+
 
 when isMainModule:
   import unittest
