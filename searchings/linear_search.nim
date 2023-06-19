@@ -15,10 +15,10 @@ The search is finished and terminated once the target element is located.
 ## and there is no CPS automatic optimization in Nim
 ## CPS: https://en.wikipedia.org/wiki/Continuation-passing_style
 
-## openArray[T] is a func parameter type that accept arrays and seqs in any type
+# openArray[T] is a func parameter type that accept arrays and seqs in any type
 # value is the value for matching in the array
 func linearSearch[T](arr: openArray[T], value: T): int = 
-  for i in 0..arr.len - 1: # len - 1 to make sure no index out of bound
+  for i in arr.low .. arr.high:
     if arr[i] == value:
       return i
   return -1 # -1 is the default index for unfound element
