@@ -1,3 +1,4 @@
+## Bitwise Addition
 ## Illustrate how to implement addition of integers using bitwise operations
 ## See https://en.wikipedia.org/wiki/Bitwise_operation#Applications
 runnableExamples:
