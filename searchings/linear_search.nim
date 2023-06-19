@@ -13,9 +13,9 @@ The search is finished and terminated once the target element is located.
 ## Best case time complexity: O(1)
 ## Space complexity: O(1)
 
-## openArray[T] is a proc parameter type that accept arrays and seqs
+## openArray[T] is a func parameter type that accept arrays and seqs in any type
 # value is the value for matching in the array
-func linearSearch(arr: var openArray[int], value:int): int = 
+func linearSearch[T](arr: openArray[T], value:T): int = 
   for i in 0..arr.len - 1: # len - 1 to make sure no index out of bound
     if arr[i] == value:
       return i
@@ -24,7 +24,7 @@ func linearSearch(arr: var openArray[int], value:int): int =
 ## recursion is another method for linear search
 ## we can just replace the for loop with recursion.
 ## recursion traverse from the end of the array to the front.
-func recursiveLinearSearch(arr: var openArray[int], idx:int, value:int): int =
+func recursiveLinearSearch[T](arr: openArray[T], idx:int, value:T): int =
   ## return -1 would be invoked when the array is traversed completely
   ## and no value is matched, or when array is empty and has a length of 0
   if idx == -1:
@@ -36,21 +36,33 @@ func recursiveLinearSearch(arr: var openArray[int], idx:int, value:int): int =
 when isMainModule:
   import unittest
 
-suite "Linear search":
+  suite "Linear search":
     test "Search in empty array":
       var arr: array[0, int]
 
       check linearSearch(arr, 5) == -1
       check recursiveLinearSearch(arr, arr.len - 1, 5) == -1
 
-    test "Search in int array with valid matching value":
+    test "Search in int array matching with valid value":
       var arr = @[0, 3, 1, 4, 5, 6]
 
       check linearSearch(arr, 5) == 4
       check recursiveLinearSearch(arr, arr.len - 1, 5) == 4
 
-    test "Search in int array with invalid matching value":
+    test "Search in int array matching with invalid value":
       var arr = @[0, 3, 1, 4, 5, 6]
 
       check linearSearch(arr, 7) == -1
       check recursiveLinearSearch(arr, arr.len - 1, 7) == -1
+
+    test "Search in char array matching with char matching value":
+      var arr = @['0', 'c', 'a', 'u', '5', '7']
+
+      check linearSearch(arr, '5') == 4
+      check recursiveLinearSearch(arr, arr.len - 1, '5') == 4
+
+    test "Search in string array matching with string matching value":
+      var arr = @["0", "c", "a", "u", "5", "7"]
+
+      check linearSearch(arr, "5") == 4
+      check recursiveLinearSearch(arr, arr.len - 1, "5") == 4
