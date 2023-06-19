@@ -6,10 +6,13 @@
 
 runnableExamples:
   import std/strformat
-  for number in [12, 100]:
-    echo fmt"The sum of all the proper divisors of {number} is {aliquotSum(number)}"
+  const expected = [16, 117]
+  for i, number in [12, 100].pairs():
+    let sum = aliquotSum(number)
+    assert sum == expected[i]
+    echo fmt"The sum of all the proper divisors of {number} is {sum}"
 
-func aliquotSum(number: Positive): Natural {.raises: [ValueError].} =
+func aliquotSum*(number: Positive): Natural {.raises: [ValueError].} =
   ## Returns the sum of all the proper divisors of the number
   ## Example: aliquotSum(12) = 1 + 2 + 3 + 4 + 6 = 16
   result = 0
