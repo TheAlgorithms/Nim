@@ -105,9 +105,9 @@ when isMainModule:
         signedMinAbs(@[3, -2, 1, -4, 5, -6]) == 1
         signedMinAbs(@[3, -2, -1, -4, 5, -6]) == -1
 
-    
+
     test "Among two minimal elements, the first one is returned":
-        check signedMinAbs(@[3, -2, 1, -4, 5, -6, -1]) == 1
+      check signedMinAbs(@[3, -2, 1, -4, 5, -6, -1]) == 1
 
   suite "Check `signedMaxAbs`":
     test "Check `signedMaxAbs`":

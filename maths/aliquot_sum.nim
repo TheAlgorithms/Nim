@@ -13,7 +13,7 @@ func aliquotSum(number: Positive): Natural {.raises: [ValueError].} =
   ## Returns the sum of all the proper divisors of the number
   ## Example: aliquotSum(12) = 1 + 2 + 3 + 4 + 6 = 16
   result = 0
-  for divisor in 1 .. (number div 2) :
+  for divisor in 1 .. (number div 2):
     if number mod divisor == 0:
       result += divisor
 
