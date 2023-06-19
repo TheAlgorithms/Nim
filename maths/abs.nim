@@ -70,7 +70,7 @@ when isMainModule:
         absVal(11.2) == 11.2
         absVal(5) == 5
         absVal(-5.1) == 5.1
-        absVal(-5) == abs_val(5)
+        absVal(-5) == absVal(5)
         absVal(0) == 0
 
   suite "Check `absMin`":
