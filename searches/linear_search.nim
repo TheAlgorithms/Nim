@@ -14,24 +14,29 @@
 ## and there is no CPS automatic optimization in Nim
 ## CPS: https://en.wikipedia.org/wiki/Continuation-passing_style
 
-func linearSearch[T](arr: openArray[T], key: T): int = 
-  ## key is the value for matching in the array
-  for i in arr.low .. arr.high:
-    if arr[i] == key:
-      return i
-  return -1 # -1 is the default index for the unfound element
+import std/options
+import system
 
-func recursiveLinearSearch[T](arr: openArray[T], idx: int, value: T): int =
+func linearSearch[T](arr: openArray[T], key: T): Option[Natural] = 
+  ## key is the value for matching in the array
+  var i: Natural = 0
+  while i < arr.len - 1:
+    if arr[i] == key:
+      return some(i)
+    inc i
+  return none(Natural) # -1 is the default index for unfound element
+
+func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option[Natural] =
   ## Recursion is another method for linear search
   ## we can just replace the for loop with recursion.
   ## recursion traverses from the end of the array to the front.
 
   ## return -1 would be invoked when the array is traversed completely
-  ## and no value is matched, or when the array is empty and has a length of 0
+  ## and no value is matched, or when array is empty and has a length of 0
   if idx == -1:
-    return -1
+    return none(Natural)
   if arr[idx] == value:
-    return idx
+    return some(idx)
   recursiveLinearSearch(arr, idx - 1, value)
 
 when isMainModule:
@@ -41,29 +46,29 @@ when isMainModule:
     test "Search in an empty array":
       var arr: array[0, int]
 
-      check linearSearch(arr, 5) == -1
-      check recursiveLinearSearch(arr, arr.len - 1, 5) == -1
+      check linearSearch(arr, 5) == none(int)
+      check recursiveLinearSearch(arr, arr.len - 1, 5) == none(Natural)
 
     test "Search in an int array matching with a valid value":
-      var arr = @[0, 3, 1, 4, 5, 6]
+      var arr = [0, 3, 1, 4, 5, 6]
 
-      check linearSearch(arr, 5) == 4
-      check recursiveLinearSearch(arr, arr.len - 1, 5) == 4
+      check linearSearch(arr, 5) == some(4)
+      check recursiveLinearSearch(arr, arr.len - 1, 5) == some(4)
 
     test "Search in an int array matching with an invalid value":
-      var arr = @[0, 3, 1, 4, 5, 6]
+      var arr = [0, 3, 1, 4, 5, 6]
 
-      check linearSearch(arr, 7) == -1
-      check recursiveLinearSearch(arr, arr.len - 1, 7) == -1
+      check linearSearch(arr, 7) == none(int)
+      check recursiveLinearSearch(arr, arr.len - 1, 7) == none(Natural)
 
     test "Search in a char array matching with a char matching value":
-      var arr = @['0', 'c', 'a', 'u', '5', '7']
+      var arr = ['0', 'c', 'a', 'u', '5', '7']
 
-      check linearSearch(arr, '5') == 4
-      check recursiveLinearSearch(arr, arr.len - 1, '5') == 4
+      check linearSearch(arr, '5') == some(4)
+      check recursiveLinearSearch(arr, arr.len - 1, '5') == some(4)
 
     test "Search in a string array matching with a string matching value":
-      var arr = @["0", "c", "a", "u", "5", "7"]
+      var arr = ["0", "c", "a", "u", "5", "7"]
 
-      check linearSearch(arr, "5") == 4
-      check recursiveLinearSearch(arr, arr.len - 1, "5") == 4
+      check linearSearch(arr, "5") == some(4)
+      check recursiveLinearSearch(arr, arr.len - 1, "5") == some(4)
