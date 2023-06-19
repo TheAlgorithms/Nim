@@ -15,7 +15,7 @@ The search is finished and terminated once the target element is located.
 
 ## openArray[T] is a func parameter type that accept arrays and seqs in any type
 # value is the value for matching in the array
-func linearSearch[T](arr: openArray[T], value:T): int = 
+func linearSearch[T](arr: openArray[T], value: T): int = 
   for i in 0..arr.len - 1: # len - 1 to make sure no index out of bound
     if arr[i] == value:
       return i
