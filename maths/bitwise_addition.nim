@@ -8,7 +8,7 @@ runnableExamples:
     b = 6
   echo fmt"The sum of {a} and {b} is {add(a,b)}"
 
-func add(first: int, second: int): int =
+func add*(first: int, second: int): int =
   ## Implementation of addition of integer with `and`, `xor` and `shl`
   ## boolean operators.
   var first = first
