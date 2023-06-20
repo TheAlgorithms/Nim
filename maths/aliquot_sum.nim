@@ -2,7 +2,6 @@
 ## In number theory, the aliquot sum s(n) of a positive integer n is the sum of
 ## all proper divisors of n, that is, all divisors of n other than n itself.
 ## https://en.wikipedia.org/wiki/Aliquot_sum
-{.push raises: [].}
 
 runnableExamples:
   import std/strformat
@@ -12,7 +11,7 @@ runnableExamples:
     assert sum == expected[i]
     echo fmt"The sum of all the proper divisors of {number} is {sum}"
 
-func aliquotSum*(number: Positive): Natural {.raises: [ValueError].} =
+func aliquotSum*(number: Positive): Natural =
   ## Returns the sum of all the proper divisors of the number
   ## Example: aliquotSum(12) = 1 + 2 + 3 + 4 + 6 = 16
   result = 0
