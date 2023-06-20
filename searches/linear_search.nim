@@ -10,9 +10,10 @@
 ## Time Complexity: O(n)
 ## Space Complexity in for-loop linear search: O(1)
 ## Space Complexity in recursive linear search: O(n)
-## This is because of the call stack operation,
-## and there is no CPS automatic optimization in Nim
-## CPS: https://en.wikipedia.org/wiki/Continuation-passing_style
+## Notice that recursive algorithms are nice to write and provide elegant implementations,
+## but they are impeded by call stack management. Whatever the problem we face,
+## there will be as much memory requirement as the number of stack frames.
+## Therefore the recursive linear search is less efficient than the for-loop-based one.
 
 runnableExamples:
   var arr1 = [0, 3, 1, 4, 5, 6]
