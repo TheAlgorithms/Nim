@@ -35,14 +35,14 @@ type
   Nat = Natural
   OptNat = Option[Natural]
 
-func linearSearch*[T](arr: openArray[T], key: T): OptNat = 
+func linearSearch*[T](arr: openArray[T], key: T): OptNat =
   # key is the value we are searching for in the array.
   for i, val in arr.pairs():
     if val == key:
       return some(Natural(i))
   none(Natural) # `key` not found
 
-func recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat): OptNat=
+proc recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat): OptNat=
   # Recursion is another method for linear search.
   # Recursive calls replace the for loop.
 
@@ -80,7 +80,7 @@ when isMainModule:
       checkLinearSearch(arr, '5', some(Natural(4)))
 
     test "Search in a string array matching with a string matching value":
-      var arr = ["0", "c", "a", "u", "5", "7"]
+      var arr = @["0", "c", "a", "u", "5", "7"]
       checkLinearSearch(arr, "5", some(Natural(4)))
 
     test "Search in an int array with a valid key at the end":
