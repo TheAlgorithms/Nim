@@ -42,7 +42,8 @@ func linearSearch*[T](arr: openArray[T], key: T): OptNat =
       return some(Natural(i))
   none(Natural) # `key` not found
 
-proc recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat): OptNat=
+proc recursiveLinearSearch*[T](arr: openArray[T], key: T,
+    idx: Nat = arr.low.Nat): OptNat =
   # Recursion is another method for linear search.
   # Recursive calls replace the for loop.
 
@@ -58,7 +59,8 @@ proc recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat
 when isMainModule:
   import unittest
 
-  template checkLinearSearch[T](arr: openArray[T], key: T, expectedIdx: OptNat): untyped =
+  template checkLinearSearch[T](arr: openArray[T], key: T,
+      expectedIdx: OptNat): untyped =
     check linearSearch(arr, key) == expectedIdx
     check recursiveLinearSearch(arr, key) == expectedIdx
 
