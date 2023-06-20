@@ -67,7 +67,7 @@ when isMainModule:
       var arr = [0, 3, 1, 4, 5, 6]
       checkLinearSearch(arr, 5, some(Natural(4)))
 
-    test "Search in an int array matching with an invalid value":
+    test "Search in an int array for a missing value":
       var arr = [0, 3, 1, 4, 5, 6]
       checkLinearSearch(arr, 7, none(Natural))
 
