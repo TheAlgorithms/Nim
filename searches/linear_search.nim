@@ -3,7 +3,8 @@
 ## Linear search is the simplest but least efficient algorithm
 ## to search for an element in a data set.
 ## It examines each element until it finds a match,
-## starting at the beginning of the data set, until the end.
+## starting at the beginning of the data set for the iterative version,
+## or in the opposite direction for the recursive version, as implemented in this module.
 ## The search is finished and terminated once the target element is located.
 ## https://www.simplilearn.com/tutorials/data-structure-tutorial/linear-search-algorithm
 ##
