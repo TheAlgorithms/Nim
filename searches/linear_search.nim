@@ -39,7 +39,7 @@ func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option
   ## we can just replace the for loop with recursion.
   ## recursion traverses from the end of the array to the front.
 
-  ## return -1 would be invoked when the array is traversed completely
+  ## `none(Natural)` is returned when the array is traversed completely
   ## and no value is matched, or when array is empty and has a length of 0
   if idx <= 0:
     return none(Natural)
