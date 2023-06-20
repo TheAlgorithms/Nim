@@ -1,7 +1,7 @@
 ## Linear Search
 ## =============
 ## Linear search is the simplest but least efficient searching algorithm
-## to search for an element in a data set.
+## to search for an element in an array.
 ## It examines each element until it finds a match,
 ## starting at the beginning of the data set toward the end.
 ## The search ends when the element is located or when the end of the array is reached.
