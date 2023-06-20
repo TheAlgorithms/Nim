@@ -16,6 +16,8 @@
 ## Therefore the recursive linear search is less efficient than the for-loop-based one.
 
 runnableExamples:
+  import std/options
+
   var arr1 = [0, 3, 1, 4, 5, 6]
   doAssert linearSearch(arr1, 5) == some(Natural(4))
   doAssert recursiveLinearSearch(arr1, 5) == some(Natural(4))
@@ -27,7 +29,6 @@ runnableExamples:
   var arr3 = [0, 3, 1, 4, 5, 6]
   doAssert linearSearch(arr3, 7) == none(Natural)
   doAssert recursiveLinearSearch(arr3, 7) == none(Natural)
-
 
 import std/options
 
