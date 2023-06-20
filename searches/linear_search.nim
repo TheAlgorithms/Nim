@@ -36,18 +36,18 @@ type
   OptNat = Option[Natural]
 
 func linearSearch*[T](arr: openArray[T], key: T): OptNat = 
-  # key is the value for matching in the array
+  # key is the value we are searching for in the array.
   for i, val in arr.pairs():
     if val == key:
       return some(Natural(i))
   none(Natural) # `key` not found
 
 func recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat): OptNat=
-  # Recursion is another method for linear search
-  # we can just replace the for loop with recursion.
+  # Recursion is another method for linear search.
+  # Recursive calls replace the for loop.
 
   # `none(Natural)` is returned when the array is traversed completely
-  # and no key is matched, or when `arr` is empty and has a length of 0
+  # and no key is matched, or when `arr` is empty.
   if idx > arr.high:
     return none(Natural)
   if arr[idx] == key:
