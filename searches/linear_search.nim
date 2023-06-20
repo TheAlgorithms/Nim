@@ -32,8 +32,7 @@ func linearSearch[T](arr: openArray[T], key: T): Option[Natural] =
   for i in arr.low .. arr.high:
     if arr[i] == key:
       return some(Natural(i))
-
-  return none(Natural) # -1 is the default index for unfound element
+  none(Natural) # `key` not found
 
 func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option[Natural] =
   ## Recursion is another method for linear search
