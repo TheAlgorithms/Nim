@@ -14,3 +14,5 @@
 ## Strings
   * [Check Anagram](strings/check_anagram.nim)
 
+## Searches
+  * [Linear Search](searches/linear_search.nim)
