@@ -28,18 +28,18 @@ runnableExamples:
 import std/options
 
 func linearSearch*[T](arr: openArray[T], key: T): Option[Natural] = 
-  ## key is the value for matching in the array
+  # key is the value for matching in the array
   for i, val in arr.pairs():
     if val == key:
       return some(Natural(i))
   none(Natural) # `key` not found
 
 func recursiveLinearSearch*[T](arr: openArray[T], value: T, idx: Natural = arr.low.Natural): Option[Natural] =
-  ## Recursion is another method for linear search
-  ## we can just replace the for loop with recursion.
+  # Recursion is another method for linear search
+  # we can just replace the for loop with recursion.
 
-  ## `none(Natural)` is returned when the array is traversed completely
-  ## and no value is matched, or when `arr` is empty and has a length of 0
+  # `none(Natural)` is returned when the array is traversed completely
+  # and no value is matched, or when `arr` is empty and has a length of 0
   if idx >= arr.high:
     return none(Natural)
   if arr[idx] == value:
