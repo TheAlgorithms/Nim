@@ -7,7 +7,7 @@
 ## The search ends when the element is located or when the end of the array is reached.
 ## https://en.wikipedia.org/wiki/Linear_search
 ##
-## Time Complexity: O(n)
+## Time Complexity: O(n) where n is the length of the array.
 ## Space Complexity in for-loop linear search: O(1)
 ## Space Complexity in recursive linear search: O(n)
 ## Notice that recursive algorithms are nice to write and provide elegant implementations,
