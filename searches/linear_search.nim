@@ -5,7 +5,7 @@
 ## It examines each element until it finds a match,
 ## starting at the beginning of the data set toward the end.
 ## The search ends when the element is located or when the end of the array is reached.
-## https://www.simplilearn.com/tutorials/data-structure-tutorial/linear-search-algorithm
+## https://en.wikipedia.org/wiki/Linear_search
 ##
 ## Time Complexity: O(n)
 ## Space Complexity in for-loop linear search: O(1)
@@ -23,6 +23,10 @@ runnableExamples:
   var arr2 = ['0', 'c', 'a', 'u', '5', '7']
   doAssert linearSearch(arr2, '5') == some(Natural(4))
   doAssert recursiveLinearSearch(arr2, '5') == some(Natural(4))
+
+  var arr3 = [0, 3, 1, 4, 5, 6]
+  doAssert linearSearch(arr3, 7) == none(Natural)
+  doAssert recursiveLinearSearch(arr3, 7) == none(Natural)
 
 
 import std/options
