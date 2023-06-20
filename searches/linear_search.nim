@@ -37,15 +37,14 @@ func linearSearch[T](arr: openArray[T], key: T): Option[Natural] =
 func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option[Natural] =
   ## Recursion is another method for linear search
   ## we can just replace the for loop with recursion.
-  ## recursion traverses from the end of the array to the front.
 
   ## `none(Natural)` is returned when the array is traversed completely
   ## and no value is matched, or when `arr` is empty and has a length of 0
-  if idx <= 0:
+  if idx >= arr.high:
     return none(Natural)
   if arr[idx] == value:
     return some(idx)
-  recursiveLinearSearch(arr, idx - 1, value)
+  recursiveLinearSearch(arr, idx + 1, value)
 
 
 when isMainModule:
@@ -53,7 +52,7 @@ when isMainModule:
 
   template checkLinearSearch[T](arr: openArray[T], value: T, expectedIndex: Option[Natural]) =
     check linearSearch(arr, value) == expectedIndex
-    check recursiveLinearSearch(arr, arr.high, value) == expectedIndex
+    check recursiveLinearSearch(arr, arr.low, value) == expectedIndex
 
   suite "Linear search":
     test "Search in an empty array":
