@@ -1,6 +1,6 @@
 ## Linear Search
 ## =============
-## Linear search is the simplest but least efficient algorithm
+## Linear search is the simplest but least efficient searching algorithm
 ## to search for an element in a data set.
 ## It examines each element until it finds a match,
 ## starting at the beginning of the data set for the iterative version,
@@ -78,3 +78,7 @@ when isMainModule:
     test "Search in a string array matching with a string matching value":
       var arr = ["0", "c", "a", "u", "5", "7"]
       checkLinearSearch(arr, "5", some(Natural(4)))
+
+    test "Search in an int array with a valid key at the end":
+      var arr = [1, 5, 3, 6, 5, 7]
+      checkLinearSearch(arr, 7, some(Natural(5)))
