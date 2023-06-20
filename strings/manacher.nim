@@ -1,4 +1,4 @@
-# Manacher's algorithm
+## Manacher's algorithm
 #[
 Determine the longest palindrome in a string in linear time in its length
 with Manacher's algorithm
