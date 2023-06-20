@@ -27,32 +27,36 @@ runnableExamples:
 
 import std/options
 
-func linearSearch*[T](arr: openArray[T], key: T): Option[Natural] = 
+type
+  Nat = Natural
+  OptNat = Option[Natural]
+
+func linearSearch*[T](arr: openArray[T], key: T): OptNat = 
   # key is the value for matching in the array
   for i, val in arr.pairs():
     if val == key:
       return some(Natural(i))
   none(Natural) # `key` not found
 
-func recursiveLinearSearch*[T](arr: openArray[T], value: T, idx: Natural = arr.low.Natural): Option[Natural] =
+func recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat): OptNat=
   # Recursion is another method for linear search
   # we can just replace the for loop with recursion.
 
   # `none(Natural)` is returned when the array is traversed completely
-  # and no value is matched, or when `arr` is empty and has a length of 0
+  # and no key is matched, or when `arr` is empty and has a length of 0
   if idx >= arr.high:
     return none(Natural)
-  if arr[idx] == value:
+  if arr[idx] == key:
     return some(idx)
-  recursiveLinearSearch(arr, value, idx + 1)
+  recursiveLinearSearch(arr, key, idx + 1)
 
 
 when isMainModule:
   import unittest
 
-  template checkLinearSearch[T](arr: openArray[T], value: T, expectedIndex: Option[Natural]) =
-    check linearSearch(arr, value) == expectedIndex
-    check recursiveLinearSearch(arr, value) == expectedIndex
+  template checkLinearSearch[T](arr: openArray[T], key: T, expectedIndex: Option[Natural]) =
+    check linearSearch(arr, key) == expectedIndex
+    check recursiveLinearSearch(arr, key) == expectedIndex
 
   suite "Linear search":
     test "Search in an empty array":
