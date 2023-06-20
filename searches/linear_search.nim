@@ -31,19 +31,15 @@ runnableExamples:
 
 import std/options
 
-type
-  Nat = Natural
-  OptNat = Option[Natural]
-
-func linearSearch*[T](arr: openArray[T], key: T): OptNat =
+func linearSearch*[T](arr: openArray[T], key: T): Option[Natural] =
   # key is the value we are searching for in the array.
   for i, val in arr.pairs():
     if val == key:
       return some(Natural(i))
   none(Natural) # `key` not found
 
-proc recursiveLinearSearch*[T](arr: openArray[T], key: T,
-    idx: Nat = arr.low.Nat): OptNat =
+func recursiveLinearSearch*[T](
+  arr: openArray[T], key: T, idx: Natural = Natural(0)): Option[Natural] =
   # Recursion is another method for linear search.
   # Recursive calls replace the for loop.
 
@@ -60,7 +56,7 @@ when isMainModule:
   import unittest
 
   template checkLinearSearch[T](arr: openArray[T], key: T,
-      expectedIdx: OptNat): untyped =
+      expectedIdx: Option[Natural]): untyped =
     check linearSearch(arr, key) == expectedIdx
     check recursiveLinearSearch(arr, key) == expectedIdx
 
