@@ -54,7 +54,7 @@ func recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat
 when isMainModule:
   import unittest
 
-  template checkLinearSearch[T](arr: openArray[T], key: T, expectedIdx: OptNat =
+  template checkLinearSearch[T](arr: openArray[T], key: T, expectedIdx: OptNat): untyped =
     check linearSearch(arr, key) == expectedIdx
     check recursiveLinearSearch(arr, key) == expectedIdx
 
