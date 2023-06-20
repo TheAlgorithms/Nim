@@ -44,7 +44,7 @@ func recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat
 
   # `none(Natural)` is returned when the array is traversed completely
   # and no key is matched, or when `arr` is empty and has a length of 0
-  if idx >= arr.high:
+  if idx > arr.high:
     return none(Natural)
   if arr[idx] == key:
     return some(idx)
