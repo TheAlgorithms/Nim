@@ -40,7 +40,7 @@ func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option
   ## recursion traverses from the end of the array to the front.
 
   ## `none(Natural)` is returned when the array is traversed completely
-  ## and no value is matched, or when array is empty and has a length of 0
+  ## and no value is matched, or when `arr` is empty and has a length of 0
   if idx <= 0:
     return none(Natural)
   if arr[idx] == value:
