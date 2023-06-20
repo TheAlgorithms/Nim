@@ -61,25 +61,20 @@ when isMainModule:
   suite "Linear search":
     test "Search in an empty array":
       var arr: array[0, int]
-
       checkLinearSearch(arr, 5, none(Natural))
 
     test "Search in an int array matching with a valid value":
       var arr = [0, 3, 1, 4, 5, 6]
-
       checkLinearSearch(arr, 5, some(Natural(4)))
 
     test "Search in an int array matching with an invalid value":
       var arr = [0, 3, 1, 4, 5, 6]
-
       checkLinearSearch(arr, 7, none(Natural))
 
     test "Search in a char array matching with a char matching value":
       var arr = ['0', 'c', 'a', 'u', '5', '7']
-
       checkLinearSearch(arr, '5', some(Natural(4)))
 
     test "Search in a string array matching with a string matching value":
       var arr = ["0", "c", "a", "u", "5", "7"]
-
       checkLinearSearch(arr, "5", some(Natural(4)))
