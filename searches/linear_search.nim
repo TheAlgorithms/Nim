@@ -7,7 +7,7 @@
 ## The search ends when the element is located or when the end of the array is reached.
 ## https://www.simplilearn.com/tutorials/data-structure-tutorial/linear-search-algorithm
 ##
-## Time Complexity: O(N)
+## Time Complexity: O(n)
 ## Space Complexity in for-loop linear search: O(1)
 ## Space Complexity in recursive linear search: O(n)
 ## This is because of the call stack operation,
