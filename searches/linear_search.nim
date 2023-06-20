@@ -29,8 +29,8 @@ import std/options
 
 func linearSearch[T](arr: openArray[T], key: T): Option[Natural] = 
   ## key is the value for matching in the array
-  for i in arr.low .. arr.high:
-    if arr[i] == key:
+  for i, val in arr.pairs():
+    if val == key:
       return some(Natural(i))
   none(Natural) # `key` not found
 
