@@ -51,33 +51,32 @@ func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option
 when isMainModule:
   import unittest
 
+  template checkLinearSearch[T](arr: openArray[T], value: T, expectedIndex: Option[Natural]) =
+    check linearSearch(arr, value) == expectedIndex
+    check recursiveLinearSearch(arr, arr.high, value) == expectedIndex
+
   suite "Linear search":
     test "Search in an empty array":
       var arr: array[0, int]
 
-      check linearSearch(arr, 5) == none(Natural)
-      check recursiveLinearSearch(arr, arr.high, 5) == none(Natural)
+      checkLinearSearch(arr, 5, none(Natural))
 
     test "Search in an int array matching with a valid value":
       var arr = [0, 3, 1, 4, 5, 6]
 
-      check linearSearch(arr, 5) == some(Natural(4))
-      check recursiveLinearSearch(arr, arr.high, 5) == some(Natural(4))
+      checkLinearSearch(arr, 5, some(Natural(4)))
 
     test "Search in an int array matching with an invalid value":
       var arr = [0, 3, 1, 4, 5, 6]
 
-      check linearSearch(arr, 7) == none(Natural)
-      check recursiveLinearSearch(arr, arr.high, 7) == none(Natural)
+      checkLinearSearch(arr, 7, none(Natural))
 
     test "Search in a char array matching with a char matching value":
       var arr = ['0', 'c', 'a', 'u', '5', '7']
 
-      check linearSearch(arr, '5') == some(Natural(4))
-      check recursiveLinearSearch(arr, arr.high, '5') == some(Natural(4))
+      checkLinearSearch(arr, '5', some(Natural(4)))
 
     test "Search in a string array matching with a string matching value":
       var arr = ["0", "c", "a", "u", "5", "7"]
 
-      check linearSearch(arr, "5") == some(Natural(4))
-      check recursiveLinearSearch(arr, arr.high, "5") == some(Natural(4))
+      checkLinearSearch(arr, "5", some(Natural(4)))
