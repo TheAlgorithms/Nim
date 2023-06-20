@@ -27,14 +27,14 @@ runnableExamples:
 
 import std/options
 
-func linearSearch[T](arr: openArray[T], key: T): Option[Natural] = 
+func linearSearch*[T](arr: openArray[T], key: T): Option[Natural] = 
   ## key is the value for matching in the array
   for i, val in arr.pairs():
     if val == key:
       return some(Natural(i))
   none(Natural) # `key` not found
 
-func recursiveLinearSearch[T](arr: openArray[T], idx: Natural, value: T): Option[Natural] =
+func recursiveLinearSearch*[T](arr: openArray[T], idx: Natural, value: T): Option[Natural] =
   ## Recursion is another method for linear search
   ## we can just replace the for loop with recursion.
 
