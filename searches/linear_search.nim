@@ -33,7 +33,10 @@ runnableExamples:
 import std/options
 
 func linearSearch*[T](arr: openArray[T], key: T): Option[Natural] =
-  # key is the value we are searching for in the array.
+  ## Searches for the `key` in the array `arr` and returns its absolute index (counting from 0)
+  ## in the array.
+  ## .. Note:: For arrays indexed with a range type or an enum the returned value
+  ##  may not be consistent with the indexing of the initial array.
   for i, val in arr.pairs():
     if val == key:
       return some(Natural(i))
@@ -41,8 +44,11 @@ func linearSearch*[T](arr: openArray[T], key: T): Option[Natural] =
 
 func recursiveLinearSearch*[T](
   arr: openArray[T], key: T, idx: Natural = Natural(0)): Option[Natural] =
-  # Recursion is another method for linear search.
-  # Recursive calls replace the for loop.
+  ## Searches for the `key` in `arr` and returns its absolute index (counting from 0)
+  ## in the array. Search is performed in a recursive manner.
+  ## .. Note:: For arrays indexed with a range type or an enum the returned value
+  ##  is not consistent with the indexing of the parameter array if `arr.low` is not 0.
+  # Recursive calls replace the `for` loop in `linearSearch`.
 
   # `none(Natural)` is returned when the array is traversed completely
   # and no key is matched, or when `arr` is empty.
