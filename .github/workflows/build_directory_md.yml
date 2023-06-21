@@ -1,0 +1,28 @@
+---
+name: build_directory_md
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_directory_md:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: jiro4989/setup-nim-action@v1
+
+      - name: Build file
+        run: |
+          git clean -f -x -d
+          nim r .scripts/directory.nim > DIRECTORY.md
+
+      - name: commit the file
+          git add DIRECTORY.md
+          git commit directory.md -m "Update DIRECTORY.md"
+
+...
