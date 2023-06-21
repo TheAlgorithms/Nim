@@ -78,7 +78,7 @@ when isMainModule:
       var arr = ['0', 'c', 'a', 'u', '5', '7']
       checkLinearSearch(arr, '5', some(Natural(4)))
 
-    test "Search in a string array matching with a string matching value":
+    test "Search in a string sequence matching with a string matching value":
       var arr = @["0", "c", "a", "u", "5", "7"]
       checkLinearSearch(arr, "5", some(Natural(4)))
 
