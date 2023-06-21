@@ -22,6 +22,7 @@ jobs:
           nim r .scripts/directory.nim > DIRECTORY.md
 
       - name: commit the file
+        run: |
           git add DIRECTORY.md
           git commit directory.md -m "Update DIRECTORY.md"
 
