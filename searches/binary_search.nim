@@ -70,21 +70,28 @@ func binarySearchIterative*[T:Ordinal](arr: openArray[T], key: T): Option[Natura
   # `none(Natural)` is returned when both halves are empty after some iterations.
   none(Natural)
 
-func binarySearchRecursive[T:Ordinal](arr: openArray[T], left, right: int, key: T): Option[Natural] =
+func binarySearchRecursive[T:Ordinal](arr: openArray[T], left, right: Natural, key: T): Option[Natural] =
+  if arr.len < 1: return none(Natural)
   if left <= right:
-    let mid = left + (right - left) div 2
+    let 
+      mid = left + (right - left) div 2
+      newLeft = mid + 1
+      newRight = mid - 1
 
     return
       if arr[mid] == key: 
         some(Natural(mid))
+      elif newRight < 0:
+        none(Natural)
       elif key < arr[mid]: 
-        binarySearchRecursive(arr, left, mid - 1, key)
+        binarySearchRecursive(arr, left, newRight, key)
       else:
-        binarySearchRecursive(arr, mid + 1, right, key)
+        binarySearchRecursive(arr, newLeft, right, key)
   none(Natural)
 
 func binarySearchRecursive*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
   ## Recursive implementation of binary search for an array sorted in ascending order
+  if arr.len < 1: return none(Natural)
   binarySearchRecursive(arr, 0, arr.high(), key)
 
 when isMainModule:
