@@ -71,23 +71,21 @@ func binarySearchIterative*[T:Ordinal](arr: openArray[T], key: T): Option[Natura
   none(Natural)
 
 func binarySearchRecursive[T:Ordinal](arr: openArray[T], left, right: Natural, key: T): Option[Natural] =
-  if arr.len < 1: return none(Natural)
-  if left <= right:
-    let 
-      mid = left + (right - left) div 2
-      newLeft = mid + 1
-      newRight = mid - 1
+  if left > right: return none(Natural)
+  let 
+    mid = left + (right - left) div 2
+    newLeft = mid + 1
+    newRight = mid - 1
 
-    return
-      if arr[mid] == key: 
-        some(Natural(mid))
-      elif newRight < 0:
-        none(Natural)
-      elif key < arr[mid]: 
-        binarySearchRecursive(arr, left, newRight, key)
-      else:
-        binarySearchRecursive(arr, newLeft, right, key)
-  none(Natural)
+  return
+    if arr[mid] == key: 
+      some(Natural(mid))
+    elif newRight < 0:
+      none(Natural)
+    elif key < arr[mid]: 
+      binarySearchRecursive(arr, left, newRight, key)
+    else:
+      binarySearchRecursive(arr, newLeft, right, key)
 
 func binarySearchRecursive*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
   ## Recursive implementation of binary search for an array sorted in ascending order
