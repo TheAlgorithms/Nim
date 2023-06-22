@@ -17,6 +17,8 @@
 {.push raises: [].}
 
 runnableExamples:
+  import std/options
+
   var arr1 = [0, 1, 2, 4, 5, 6]
   doAssert binarySearchIterative(arr1, 5) == some(Natural(4))
 
@@ -45,12 +47,10 @@ func binarySearchIterative*[T:Ordinal](arr: openArray[T], key: T): Option[Natura
       right = mid - 1
     else:
       left = mid + 1
-
   # `none(Natural)` is returned when both halfs are empty after some iterations.
-  return none(Natural)
+  none(Natural)
 
-func binarySearchRecursive*[T:Ordinal](arr: openArray[T], left, right: int, key: T): Option[Natural] =
-  ## Recursive implementation of binary search for an array sorted in ascending order
+func binarySearchRecursive[T:Ordinal](arr: openArray[T], left, right: int, key: T): Option[Natural] =
   if left <= right:
     let mid = left + (right - left) div 2
 
@@ -61,41 +61,39 @@ func binarySearchRecursive*[T:Ordinal](arr: openArray[T], left, right: int, key:
       return binarySearchRecursive(arr, left, mid - 1, key)
     else:
       return binarySearchRecursive(arr, mid + 1, right, key)
+  none(Natural)
 
-  return none(Natural)
+func binarySearchRecursive*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
+  ## Recursive implementation of binary search for an array sorted in ascending order
+  binarySearchRecursive(arr, 0, arr.high(), key)
 
 when isMainModule:
   import unittest
 
+  const
+    empty: array[0, int] = []
+    arr = [0, 1, 2, 3, 5, 6]
+    odd = [0, 1, 2, 3, 5]
+    chars = ['0', '1', '2', '3', '5', 'a']
+
   template checkBinarySearch[T:Ordinal](arr: openArray[T], key: T, expected: Option[Natural]): untyped =
     check binarySearchIterative(arr, key) == expected
-    check binarySearchRecursive(arr, arr.low(), arr.high(), key) == expected
+    check binarySearchRecursive(arr, key) == expected
 
   suite "Binary Search": 
-    test "search an empty array":
-      var arr: array[0, int]
-      checkBinarySearch(arr, 5, none(Natural))
-
-    test "Search in an int array matching with a valid value":
-      var arr = [0, 1, 2, 3, 5, 6]
+    test "Empty array":
+      checkBinarySearch(empty, 5, none(Natural))
+    test "Matching value in an int array":
       checkBinarySearch(arr, 5, some(Natural(4)))
-
-    test "Search in an int array for a missing value":
-      var arr = [0, 1, 2, 3, 5, 6]
+    test "Missing value":
       checkBinarySearch(arr, 4, none(Natural))
-
-    test "Search in a char array with a matching value":
-      var arr = ['0', '1', '2', '3', '5', 'a']
-      checkBinarySearch(arr, '5', some(Natural(4)))
-
-    test "Search in an array with a valid key at the end":
-      var arr = [0, 1, 2, 3, 5, 6]
+    test "Matching value in a char array":
+      checkBinarySearch(chars, '5', some(Natural(4)))
+    test "Matching key at the start":
+      checkBinarySearch(arr, 0, some(Natural(0)))
+    test "Matching key at the end":
       checkBinarySearch(arr, 6, some(Natural(5)))
-
-    test "Search in an even-length array with a valid key in the middle":
-      var arr = [0, 1, 2, 3, 5, 6]
+    test "Even-length array with a matching key in the middle":
       checkBinarySearch(arr, 3, some(Natural(3)))
-
-    test "Search in an odd-length array with a valid key in the middle":
-      var arr = [0, 1, 2, 3, 5]
-      checkBinarySearch(arr, 2, some(Natural(2)))
+    test "Odd-length array with a matching key in the middle":
+      checkBinarySearch(odd, 2, some(Natural(2)))
