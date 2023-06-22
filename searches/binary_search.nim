@@ -25,7 +25,7 @@ runnableExamples:
 
 import std/options
 
-func binarySearch*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
+func binarySearchIterative*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
   ## Binary search can only be applied to sorted arrays.
   ## For this function array should be sorted in ascending order.
   var 
@@ -36,7 +36,7 @@ func binarySearch*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
     let mid = left + (right - left) div 2
 
     if arr[mid] == key: 
-      return some(mid.Natural)
+      return some(Natural(mid))
 
     if key < arr[mid]: 
       right = mid - 1
@@ -46,11 +46,27 @@ func binarySearch*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
   # `none(Natural)` is returned when both halfs are empty after some iterations.
   return none(Natural)
 
+func binarySearchRecursive*[T:Ordinal](arr: openArray[T], left, right: int, key: T): Option[Natural] =
+  ## Recursive implementation of binary search for an array sorted in ascending order
+  if left <= right:
+    let mid = left + (right - left) div 2
+
+    if arr[mid] == key: 
+      return some(Natural(mid))
+
+    if key < arr[mid]: 
+      return binarySearchRecursive(arr, left, mid - 1, key)
+    else:
+      return binarySearchRecursive(arr, mid + 1, right, key)
+
+  return none(Natural)
+
 when isMainModule:
   import unittest
 
   template checkBinarySearch[T:Ordinal](arr: openArray[T], key: T, expected: Option[Natural]): untyped =
-    check binarySearch(arr, key) == expected
+    check binarySearchIterative(arr, key) == expected
+    check binarySearchRecursive(arr, arr.low(), arr.high(), key) == expected
 
   suite "Binary Search": 
     test "search an empty array":
