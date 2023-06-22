@@ -54,13 +54,13 @@ func binarySearchRecursive[T:Ordinal](arr: openArray[T], left, right: int, key: 
   if left <= right:
     let mid = left + (right - left) div 2
 
-    if arr[mid] == key: 
-      return some(Natural(mid))
-
-    if key < arr[mid]: 
-      return binarySearchRecursive(arr, left, mid - 1, key)
-    else:
-      return binarySearchRecursive(arr, mid + 1, right, key)
+    return
+      if arr[mid] == key: 
+        some(Natural(mid))
+      elif key < arr[mid]: 
+        binarySearchRecursive(arr, left, mid - 1, key)
+      else:
+        binarySearchRecursive(arr, mid + 1, right, key)
   none(Natural)
 
 func binarySearchRecursive*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
