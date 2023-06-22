@@ -109,15 +109,17 @@ when isMainModule:
   suite "Binary Search": 
     test "Empty array":
       checkBinarySearch(empty, 5, none(Natural))
-    test "Single entry array":
+    test "Matching value in a single entry array":
       checkBinarySearch(single, 1, some(Natural(0)))
+    test "Missing value in a single entry array":
+      checkBinarySearch(single, -1, none(Natural))
     test "Matching value in an int array":
       checkBinarySearch(arr, 5, some(Natural(4)))
-    test "Missing value below min":
+    test "Missing value below first element":
       checkBinarySearch(arr, -1, none(Natural))
-    test "Missing value above max":
+    test "Missing value above last element":
       checkBinarySearch(arr, 7, none(Natural))
-    test "Missing value within limits":
+    test "Missing value between first and last elements":
       checkBinarySearch(arr, 4, none(Natural))
     test "Matching value in a char array":
       checkBinarySearch(chars, '5', some(Natural(4)))
