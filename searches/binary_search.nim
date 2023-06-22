@@ -47,7 +47,7 @@ func binarySearchIterative*[T:Ordinal](arr: openArray[T], key: T): Option[Natura
       right = mid - 1
     else:
       left = mid + 1
-  # `none(Natural)` is returned when both halfs are empty after some iterations.
+  # `none(Natural)` is returned when both halves are empty after some iterations.
   none(Natural)
 
 func binarySearchRecursive[T:Ordinal](arr: openArray[T], left, right: int, key: T): Option[Natural] =
