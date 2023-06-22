@@ -1,16 +1,19 @@
 ## Binary Search
 ## =============
-## Binary search is faster than linear search except for small arrays.
-## However, the array must be sorted first to be able to apply binary search.
+## Binary search is an efficient searching algorithm. It is faster than linear 
+## search except for small arrays. However, binary search can only be used on sorted arrays.
+## If the array is not sorted, it must be sorted first before binary search can be applied.
 ##
-## Binary search compares an element in the middle of the array with the key value.
-## If the key matches the middle element, its position in the array is returned.
-## If the key is less than the middle element, we shift right boundary to the middle position.
-## If the key is greater than the middle element, we shift left boundary to the middle position.
-## By doing this, the algorithm eliminates the half in which the key value cannot lie in each iteration.
+## Binary search starts by comparing the key value with the middle element of the array.
+## If the key value matches the middle element, the search is complete.
+## If the key value is less than the middle element, the search continues on the lower half of the array.
+## If the key value is greater than the middle element, the search continues on the upper half of the array.
+## This process repeats until the middle element matches the key value or the search space is exhausted.
 ## https://en.wikipedia.org/wiki/Binary_search_algorithm
 ##
-## Time Complexity: O(log n) where n is the length of the array.
+## Time Complexity: O(log n), where n is the length of the array.
+## Space Complexity in iterative approach: O(1)
+## Space Complexity in recursive approach: O(n)
 {.push raises: [].}
 
 runnableExamples:
