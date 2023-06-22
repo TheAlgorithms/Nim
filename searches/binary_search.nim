@@ -85,6 +85,7 @@ when isMainModule:
 
   const
     empty: array[0, int] = []
+    single = [1]
     arr = [0, 1, 2, 3, 5, 6]
     odd = [0, 1, 2, 3, 5]
     chars = ['0', '1', '2', '3', '5', 'a']
@@ -96,9 +97,15 @@ when isMainModule:
   suite "Binary Search": 
     test "Empty array":
       checkBinarySearch(empty, 5, none(Natural))
+    test "Single entry array":
+      checkBinarySearch(single, 1, some(Natural(0)))
     test "Matching value in an int array":
       checkBinarySearch(arr, 5, some(Natural(4)))
-    test "Missing value":
+    test "Missing value below min":
+      checkBinarySearch(arr, -1, none(Natural))
+    test "Missing value above max":
+      checkBinarySearch(arr, 7, none(Natural))
+    test "Missing value within limits":
       checkBinarySearch(arr, 4, none(Natural))
     test "Matching value in a char array":
       checkBinarySearch(chars, '5', some(Natural(4)))
