@@ -1,8 +1,12 @@
 ## Binary Search
 ## =============
-## Binary search is an efficient searching algorithm. It is faster than linear 
-## search except for small arrays. However, binary search can only be used on sorted arrays.
-## If the array is not sorted, it must be sorted first before binary search can be applied.
+## Binary search is an efficient algorithm for searching sorted arrays,
+## generally outperforming linear search except for small arrays. 
+## However, binary search requires the array to be pre-sorted.
+##
+## If the input is not already sorted, it may be faster to use a linear search instead.
+## Moreover, for more complex data structures like trees, it might be more
+## suitable to use specialized tree-based search algorithms.
 ##
 ## Binary search starts by comparing the key value with the middle element of the array.
 ## If the key value matches the middle element, the search is complete.
@@ -11,7 +15,14 @@
 ## This process repeats until the middle element matches the key value or the search space is exhausted.
 ## https://en.wikipedia.org/wiki/Binary_search_algorithm
 ##
-## Time Complexity: O(log n), where n is the length of the array.
+## Note, it is common for many binary search algorithms to include options for
+## finding the right-most or left-most occurrence of the key element.
+## However, this implementation does not include these options.
+## It is intended for simple searches where the presence of the key element is all that matters.
+## https://en.wikipedia.org/wiki/Binary_search_algorithm#Duplicate_elements
+##
+## Best Time Complexity: O(1) when the key value is the middle element.
+## Average and Worst Time Complexity: O(log n), where n is the length of the array.
 ## Space Complexity in iterative approach: O(1)
 ## Space Complexity in recursive approach: O(n)
 {.push raises: [].}
@@ -38,6 +49,8 @@ func binarySearchIterative*[T:Ordinal](arr: openArray[T], key: T): Option[Natura
     right = arr.high
 
   while left <= right:
+    # avoids overflow with large 'left' and 'right' values
+    # compared to naive (left+right)/2
     let mid = left + (right - left) div 2
 
     if arr[mid] == key: 
