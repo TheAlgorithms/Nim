@@ -18,13 +18,13 @@
 
 runnableExamples:
   var arr1 = [0, 1, 2, 4, 5, 6]
-  doAssert binarySearch(arr1, 5) == some(Natural(4))
+  doAssert binarySearchIterative(arr1, 5) == some(Natural(4))
 
   var arr2 = ['a', 'c', 'd', 'e', 'x', 'z']
-  doAssert binarySearch(arr2, 'e') == some(Natural(3))
+  doAssert binarySearchIterative(arr2, 'e') == some(Natural(3))
 
   var arr3 = [0, 1, 2, 3, 4]
-  doAssert binarySearch(arr3, 7) == none(Natural)
+  doAssert binarySearchIterative(arr3, 7) == none(Natural)
 
 import std/options
 
