@@ -35,10 +35,10 @@ runnableExamples:
 
 import std/options
 
-func binarySearchIterative*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
+func binarySearchIterative*[T: Ordinal](arr: openArray[T], key: T): Option[Natural] =
   ## Binary search can only be applied to sorted arrays.
   ## For this function array should be sorted in ascending order.
-  var 
+  var
     left = arr.low
     right = arr.high
 
@@ -47,34 +47,35 @@ func binarySearchIterative*[T:Ordinal](arr: openArray[T], key: T): Option[Natura
     # compared to naive (left+right)/2
     let mid = left + (right - left) div 2
 
-    if arr[mid] == key: 
+    if arr[mid] == key:
       return some(Natural(mid))
 
-    if key < arr[mid]: 
+    if key < arr[mid]:
       right = mid - 1
     else:
       left = mid + 1
   # `none(Natural)` is returned when both halves are empty after some iterations.
   none(Natural)
 
-func binarySearchRecursive[T:Ordinal](arr: openArray[T], left, right: Natural, key: T): Option[Natural] =
+func binarySearchRecursive[T: Ordinal](
+    arr: openArray[T], left, right: Natural, key: T): Option[Natural] =
   if left > right: return none(Natural)
-  let 
+  let
     mid = left + (right - left) div 2
     newLeft = mid + 1
     newRight = mid - 1
 
   return
-    if arr[mid] == key: 
+    if arr[mid] == key:
       some(Natural(mid))
     elif newRight < 0:
       none(Natural)
-    elif key < arr[mid]: 
+    elif key < arr[mid]:
       binarySearchRecursive(arr, left, newRight, key)
     else:
       binarySearchRecursive(arr, newLeft, right, key)
 
-func binarySearchRecursive*[T:Ordinal](arr: openArray[T], key: T): Option[Natural] =
+func binarySearchRecursive*[T: Ordinal](arr: openArray[T], key: T): Option[Natural] =
   ## Recursive implementation of binary search for an array sorted in ascending order
   if arr.len < 1: return none(Natural)
   binarySearchRecursive(arr, 0, arr.high(), key)
@@ -89,11 +90,12 @@ when isMainModule:
     odd = [0, 1, 2, 3, 5]
     chars = ['0', '1', '2', '3', '5', 'a']
 
-  template checkBinarySearch[T:Ordinal](arr: openArray[T], key: T, expected: Option[Natural]): untyped =
+  template checkBinarySearch[T: Ordinal](
+      arr: openArray[T], key: T, expected: Option[Natural]): untyped =
     check binarySearchIterative(arr, key) == expected
     check binarySearchRecursive(arr, key) == expected
 
-  suite "Binary Search": 
+  suite "Binary Search":
     test "Empty array":
       checkBinarySearch(empty, 5, none(Natural))
     test "Matching value in a single entry array":
