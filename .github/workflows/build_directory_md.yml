@@ -6,7 +6,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - 'main'
+    paths-ignore:
+      - '.github/**'
+      - '.scripts/**'
+      - 'DIRECTORY.md'
 
 jobs:
   build_directory_md:
@@ -23,7 +27,11 @@ jobs:
 
       - name: commit the file
         run: |
+          date > generated.txt
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git add DIRECTORY.md
-          git commit directory.md -m "Update DIRECTORY.md"
+          git commit -m "Update DIRECTORY.md"
+          git push
 
 ...
