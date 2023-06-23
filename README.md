@@ -1,11 +1,12 @@
-# <a href="https://github.com/TheAlgorithms/">The Algorithms</a> – Nim&nbsp;<img src="https://raw.githubusercontent.com/nim-lang/assets/master/Art/logo-crown.png" height="28px"/><img align="right" src="https://raw.githubusercontent.com/TheAlgorithms/website/1cd824df116b27029f17c2d1b42d81731f28a920/public/logo.svg" height="100">
+# <a href="https://github.com/TheAlgorithms/">The Algorithms</a> – Nim&nbsp;<img src="https://raw.githubusercontent.com/nim-lang/assets/master/Art/logo-crown.png" height="28px"/><img align="right" src="https://raw.githubusercontent.com/TheAlgorithms/website/main/public/logo.svg" height="100">
 
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod&style=flat-square)](https://gitpod.io/#https://github.com/TheAlgorithms/Nim)
-[![Contributions Welcome](https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square)](https://github.com/TheAlgorithms/Nim/blob/master/CONTRIBUTING.md)
-![Repo size](https://img.shields.io/github/repo-size/TheAlgorithms/Nim.svg?label=Repo%20size&style=flat-square)
-[![Discord chat](https://img.shields.io/discord/808045925556682782.svg?logo=discord&colorB=7289DA&style=flat-square)](https://the-algorithms.com/discord)
-[![Gitter chat](https://img.shields.io/badge/Chat-Gitter-ff69b4.svg?label=Chat&logo=gitter&style=flat-square)](https://gitter.im/TheAlgorithms)
-[![Join the Matrix room](https://img.shields.io/badge/matrix-TheAlgorithms_community-0dbd8b?logo=matrix)](https://matrix.to/#/#TheAlgorithms_community:gitter.im)
+[![Gitpod Ready-to-Code][badge-gitpod]](https://gitpod.io/#https://github.com/TheAlgorithms/Nim)
+[![Contributions Welcome][badge-contributions]](https://github.com/TheAlgorithms/Nim/blob/master/CONTRIBUTING.md)
+![Repo size][badge-reposize]
+</br>
+[![Discord chat][badge-discord]](https://the-algorithms.com/discord)
+[![Gitter chat][badge-gitter]](https://gitter.im/#TheAlgorithms_community:gitter.im)
+[![Matrix room][badge-matrix]](https://matrix.to/#/#TheAlgorithms_community:gitter.im)
 
 ## Algorithms collection implemented in Nim - for education
 
@@ -23,3 +24,11 @@ See our [directory](DIRECTORY.md) for easier navigation and a better overview of
 
 We are on [Discord](https://the-algorithms.com/discord) and [Gitter](https://gitter.im/TheAlgorithms)/[Matrix](https://matrix.to/#/#TheAlgorithms_community:gitter.im)!
 Community channels are a great way for you to ask questions and get help. Please join us!
+
+<!-- links -->
+[badge-contributions]: https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square
+[badge-discord]: https://img.shields.io/discord/808045925556682782.svg?logo=discord&colorB=7289DA&style=flat-square
+[badge-matrix]: https://img.shields.io/badge/matrix-TheAlgorithms_community-0dbd8b?logo=matrix
+[badge-gitpod]: https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod&style=flat-square
+[badge-gitter]: https://img.shields.io/badge/Chat-Gitter-ff69b4.svg?label=Chat&logo=gitter&style=flat-square
+[badge-reposize]: https://img.shields.io/github/repo-size/TheAlgorithms/Nim.svg?label=Repo%20size&style=flat-square
