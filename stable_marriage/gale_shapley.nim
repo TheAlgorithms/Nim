@@ -4,6 +4,14 @@
 ## This module implements the classical Gale-Shapley_ algorithm for solving
 ## the stable matching problem.
 ##
+## The implementation uses only an array-based table of preferences for each
+## of the participants of the matching. Preprocessing this look-up table for one
+## of the sides (here: for recipients) by
+## `inverting<#invertPrefs,array[N,array[N,int]]>`_ and double-booking the
+## preferences into a corresponding sequence for each side allows
+## the main algorithm to rely only on direct access without linear searches,
+## hash tables or other associative data structures.
+##
 ## The following example uses the implemented algorithm to solve the task of
 ## stable matching as posed by RosettaCode_:
 ##
@@ -77,15 +85,15 @@ runnableExamples:
     ms.contenderMatches.swap(a, b)
     ms.recipientMatches.swap(ms.contenderMatches[a], ms.contenderMatches[b])
 
-  proc checkPairStability(matches: Matches; recipientPrefs,
-      contenderPrefs: openArray[Ranking]): bool =
-    let clashes = checkMatchingStability(matches, contenderPrefs, recipientPrefs,
-                                       MNames, FNames)
+  func str(c: Clash; aNames, bNames: openArray[string]): string =
+    &"\u{0001F494} {aNames[c.id]} prefers {bNames[c.prefers]} over {bNames[c.match]}"
+
+  proc checkPairStability(matches: Matches; recipientPrefs, contenderPrefs:
+                                            openArray[Ranking]): bool =
+    let clashes = checkMatchingStability(matches, contenderPrefs, recipientPrefs)
     if clashes.isSome():
       let (clC, clR) = clashes.get()
-      echo "\u2717 Unstable"
-      echo &"\u{0001F494} {clC.person} prefers {clC.prefers} over {clC.match}"
-      echo &"\u{0001F494} {clR.person} prefers {clR.prefers} over {clR.match}"
+      echo "\u2717 Unstable\n", clC.str(MNames, FNames), '\n', clR.str(FNames, MNames)
       false
     else:
       echo "\u2713 Stable"
@@ -129,7 +137,7 @@ type
     contenderMatches*: seq[int] ## Matched recipients for each contender
     recipientMatches*: seq[int] ## Matched contenders for each recipient
 
-  Clash* = tuple[person, match, prefers: string]
+  Clash* = tuple[id, match, prefers: Natural]
 
 # Helper functions to prepare the numerical representation of preferences from
 # an array of arrays of names in order of descending preference.
@@ -158,6 +166,7 @@ func invertPrefs*[N: static int](prefs: array[N, array[N, int]]):
   for rId, ranking in prefs.pairs():
     for rank, id in ranking.pairs():
       result[rId][id] = rank
+
 
 func stableMatching*(contenderPrefs, recipientPrefs: openArray[
     Ranking]): Matches =
@@ -191,20 +200,19 @@ func stableMatching*(contenderPrefs, recipientPrefs: openArray[
         # Proposing to the queued recipient
         let r = contenderPrefs[c][contQueue[c]]
         inc(contQueue[c]) # Queue next preferred recipient for this contender
-        let curRecMatch = recMatches[r] # Recipient's match index or -1 (vacant)
-        if curRecMatch == -1: # Recipient is also unmatched
+        let rivalMatch = recMatches[r] # Recipient's match index or -1 (vacant)
+        if rivalMatch == -1: # Recipient is also unmatched
           match(c, r)
         # Recipient is matched, but contender is more preferable
-        elif recipientPrefs[r][c] < recipientPrefs[r][curRecMatch]:
-          contMatches[curRecMatch] = -1 # Vacate current recipient's match
+        elif recipientPrefs[r][c] < recipientPrefs[r][rivalMatch]:
+          contMatches[rivalMatch] = -1 # Vacate current recipient's match
           match(c, r)
         # else: contender's proposition is rejected
   Matches(contenderMatches: contMatches, recipientMatches: recMatches)
 
 
-func checkMatchingStability*(matches: Matches;
-      contenderPrefs, recipientPrefs: openArray[Ranking];
-      cNames, rNames: openArray[string]): Option[(Clash, Clash)] =
+func checkMatchingStability*(matches: Matches; contenderPrefs, recipientPrefs:
+                                openArray[Ranking]): Option[(Clash, Clash)] =
   ## Checks if any matched pair in the current matching is unstable,
   ## i.e. for **both** of the pair there is no alternative matches preferred
   ## to the current match.
@@ -215,14 +223,14 @@ func checkMatchingStability*(matches: Matches;
     for preferredRec in 0..<curMatchScore:
       # Recipient to check against
       let checkedRec = contenderPrefs[c][preferredRec]
-      # Current match of checked recipient
-      let curRecMatch = matches.recipientMatches[checkedRec]
-      # If score of the curRecMatch is worse (>) than score of checked contender
-      if recipientPrefs[checkedRec][curRecMatch] > recipientPrefs[checkedRec][c]:
-        let clashC = (person: cNames[c], match: rNames[checkedRec],
-            prefers: rNames[curMatch])
-        let clashR = (person: rNames[checkedRec], match: cNames[c],
-            prefers: cNames[curRecMatch])
+      # Current match of the checked recipient
+      let checkedRival = matches.recipientMatches[checkedRec]
+      # If checkedRival's score is worse (>) than contender's score
+      if recipientPrefs[checkedRec][checkedRival] > recipientPrefs[checkedRec][c]:
+        let clashC = (id: c.Natural, match: checkedRec.Natural,
+                      prefers: curMatch.Natural)
+        let clashR = (id: checkedRec.Natural, match: c.Natural,
+                      prefers: checkedRival.Natural)
         return some((clashC, clashR))
   none((Clash, Clash))
 
@@ -248,8 +256,7 @@ when isMainModule:
 
       func isStable(matches: Matches;
                     contenderPrefs, recipientPrefs: openArray[Ranking]): bool =
-        let c = checkMatchingStability(matches, contenderPrefs, recipientPrefs,
-            MNames, FNames)
+        let c = checkMatchingStability(matches, contenderPrefs, recipientPrefs)
         c.isNone()
 
         let matches = stableMatching(ContenderPrefs, RecipientPrefs)
