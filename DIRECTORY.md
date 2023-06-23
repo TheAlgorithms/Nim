@@ -6,6 +6,11 @@
   * [Catalan Numbers](dynamic_programming/catalan_numbers.nim)
   * [Viterbi](dynamic_programming/viterbi.nim)
 
+## Maths
+  * [Absolute value](maths/abs.nim)
+  * [Aliquot sum](maths/aliquot_sum.nim)
+  * [Bitwise Addition](maths/bitwise_addition.nim)
+
 ## Strings
   * [Check Anagram](strings/check_anagram.nim)
 
