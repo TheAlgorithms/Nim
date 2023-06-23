@@ -4,9 +4,9 @@
 [![Contributions Welcome][badge-contributions]](https://github.com/TheAlgorithms/Nim/blob/master/CONTRIBUTING.md)
 ![Repo size][badge-reposize]
 </br>
-[![Discord chat][badge-discord]](https://the-algorithms.com/discord)
-[![Gitter chat][badge-gitter]](https://gitter.im/#TheAlgorithms_community:gitter.im)
-[![Matrix room][badge-matrix]](https://matrix.to/#/#TheAlgorithms_community:gitter.im)
+[![Discord chat][badge-discord]][chat-discord]
+[![Gitter chat][badge-gitter]][chat-gitter]
+[![Matrix room][badge-matrix]][chat-matrix]
 
 ## Algorithms collection implemented in Nim - for education
 
@@ -22,10 +22,14 @@ See our [directory](DIRECTORY.md) for easier navigation and a better overview of
 
 ## Community Channels
 
-We are on [Discord](https://the-algorithms.com/discord) and [Gitter](https://gitter.im/TheAlgorithms)/[Matrix](https://matrix.to/#/#TheAlgorithms_community:gitter.im)!
+We are on [Discord](https://the-algorithms.com/discord) and [Gitter][chat-gitter]/[Matrix][chat-matrix]!
+
 Community channels are a great way for you to ask questions and get help. Please join us!
 
 <!-- links -->
+[chat-discord]: https://the-algorithms.com/discord 
+[chat-gitter]: https://gitter.im/#TheAlgorithms_community:gitter.im
+[chat-matrix]: https://matrix.to/#/#TheAlgorithms_community:gitter.im
 [badge-contributions]: https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=0059b3&style=flat-square
 [badge-discord]: https://img.shields.io/discord/808045925556682782.svg?logo=discord&colorB=7289DA&style=flat-square
 [badge-matrix]: https://img.shields.io/badge/matrix-TheAlgorithms_community-0dbd8b?logo=matrix
