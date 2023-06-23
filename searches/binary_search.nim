@@ -4,34 +4,21 @@
 ## generally outperforming linear search except for small arrays. 
 ## However, binary search requires the array to be pre-sorted.
 ##
+## If the input is not already sorted, it is faster to use a linear search instead.
+## Moreover, for more complex data structures like trees, it might be more
+## suitable to use specialized tree-based search algorithms.
+##
 ## Binary search starts by comparing the key value with the middle element of the array.
 ## If the key value matches the middle element, the search is complete.
 ## If the key value is less than the middle element, the search continues on the lower half of the array.
 ## If the key value is greater than the middle element, the search continues on the upper half of the array.
 ## This process repeats until the middle element matches the key value or the search space is exhausted.
-## https://en.wikipedia.org/wiki/Binary_search_algorithm
 ##
 ## Best Time Complexity: O(1) when the key value is the middle element.
 ## Average and Worst Time Complexity: O(log n), where n is the length of the array.
 ## Space Complexity in iterative approach: O(1)
 ## Space Complexity in recursive approach: O(n)
-##
-## The choice of pivot can greatly affect the performance of a binary search algorithm.
-## This implementation uses the middle element of the array as pivot, it works well
-## when the array is evenly distributed and balanced, as it allows
-## for cutting the search in half with each iteration.
-## Other common choices for pivot include the first or last element of the array,
-## a random element, or the median of three values (the first, middle, and last elements).
-##
-## Note, it is common for many binary search algorithms to include options for
-## finding the right-most or left-most occurrence of the key element.
-## However, this implementation does not include these options.
-## It is intended for simple searches where the presence of the key element is all that matters.
-## https://en.wikipedia.org/wiki/Binary_search_algorithm#Duplicate_elements
-##
-## If the input is not already sorted, it may be faster to use a linear search instead.
-## Moreover, for more complex data structures like trees, it might be more
-## suitable to use specialized tree-based search algorithms.
+## https://en.wikipedia.org/wiki/Binary_search_algorithm
 {.push raises: [].}
 
 runnableExamples:
@@ -115,9 +102,9 @@ when isMainModule:
       checkBinarySearch(single, -1, none(Natural))
     test "Matching value in an int array":
       checkBinarySearch(arr, 5, some(Natural(4)))
-    test "Missing value below first element":
+    test "Missing value less than first element":
       checkBinarySearch(arr, -1, none(Natural))
-    test "Missing value above last element":
+    test "Missing value greater than last element":
       checkBinarySearch(arr, 7, none(Natural))
     test "Missing value between first and last elements":
       checkBinarySearch(arr, 4, none(Natural))
