@@ -21,7 +21,7 @@ when isMainModule:
       check almostEqual(arcLengthDegree(15, 120), 31.41592653589793, UnitsInLastPlace)
     test "radius 10, angle 90":
       check almostEqual(arcLengthDegree(10, 90), 15.70796326794897, UnitsInLastPlace)
-    
+
   suite "Arc Length":
     test "radius 5, angle 45":
       check almostEqual(arcLengthRadian(5, degToRad(45.0)), 3.926990816987241,
