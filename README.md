@@ -20,6 +20,7 @@ Read through our [Contribution Guidelines](CONTRIBUTING.md) before you contribut
 
 See our [directory](DIRECTORY.md) for easier navigation and a better overview of the project.
 
+You can also browse the implementations on [the website](https://the-algorithms.com/language/nim).
 You can also browse the implementations on [the website](https://the-algorithms.com/language/nim)
 ## Community Channels
 
