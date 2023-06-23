@@ -19,6 +19,7 @@
   <a href="https://gitter.im/#TheAlgorithms_community:gitter.im">
     <img src="https://img.shields.io/badge/Chat-Gitter-ff69b4.svg?label=Chat&logo=gitter&style=flat-square" height="20" alt="Gitter chat">
   </a>
+  [![Join the Matrix room](https://img.shields.io/badge/matrix-TheAlgorithms_community-0dbd8b?logo=matrix)](https://matrix.to/#/#TheAlgorithms_community:gitter.im)
   <!-- Second row: -->
   <br>
 <!-- Short description: -->
