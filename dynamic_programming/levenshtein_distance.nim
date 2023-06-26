@@ -3,33 +3,29 @@
 import tables
 
 
-func initSubsolutions(lenA: Natural, lenB: Natural): Table[(Natural, Natural), Natural] =
-  for indA in 0..lenA:
-    result[(Natural(indA), Natural(0))] = Natural(indA)
+func initSubsolutions(lenA, lenB: Natural): Table[(Natural, Natural), Natural] =
+  for indA in 0.Natural..lenA:
+    result[(indA, 0.Natural)] = indA
 
-  for indB in 1..lenB:
-    result[(Natural(0), Natural(indB))] = Natural(indB)
+  for indB in 1.Natural..lenB:
+    result[(0.Natural, indB)] = indB
 
 
 func toKey(indA: int, indB: int): (Natural, Natural) =
   return (Natural(indA), Natural(indB))
 
 
-func computeLevenshteinDistanceMatrix(strA: string, strB: string): Table[(
-    Natural, Natural), Natural] =
-  let
-    lenA = strA.len
-    lenB = strB.len
+func computeLevenshteinDistanceMatrix(a, b: string): Table[(Natural, Natural),
+                                                           Natural] =
+  result = initSubsolutions(a.len, b.len)
 
-  result = initSubsolutions(lenA, lenB)
-
-  for indA in 1..lenA:
-    for indB in 1..lenB:
-      let substitutionCost = (if strA[indA-1] == strB[indB-1]: 0 else: 1)
-      result[toKey(indA, indB)] = min(
-          [result[toKey(indA-1, indB)] + 1,
-           result[toKey(indA, indB-1)] + 1,
-           result[toKey(indA-1, indB-1)] + substitutionCost])
+  for indA in 0..<a.len:
+    for indB in 0..<b.len:
+      let substitutionCost = (if a[indA] == b[indB]: 0 else: 1)
+      result[toKey(indA + 1, indB + 1)] = min(
+          [result[toKey(indA, indB + 1)] + 1,
+           result[toKey(indA + 1, indB)] + 1,
+           result[toKey(indA, indB)] + substitutionCost])
 
 
 func levenshteinDistance*(strA: string, strB: string): Natural =
