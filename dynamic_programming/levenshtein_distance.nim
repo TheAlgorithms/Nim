@@ -3,16 +3,16 @@
 import tables
 
 
+func toKey(indA, indB: int): (Natural, Natural) =
+  return (indA.Natural, indB.Natural)
+
+
 func initSubsolutions(lenA, lenB: Natural): Table[(Natural, Natural), Natural] =
   for indA in 0.Natural..lenA:
-    result[(indA, 0.Natural)] = indA
+    result[toKey(indA, 0)] = indA
 
   for indB in 1.Natural..lenB:
-    result[(0.Natural, indB)] = indB
-
-
-func toKey(indA: int, indB: int): (Natural, Natural) =
-  return (Natural(indA), Natural(indB))
+    result[toKey(0, indB)] = indB
 
 
 func computeLevenshteinDistanceMatrix(a, b: string): Table[(Natural, Natural),
