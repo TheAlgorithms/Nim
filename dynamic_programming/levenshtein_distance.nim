@@ -49,14 +49,14 @@ when isMainModule:
         distance*: Natural
 
     const testCases = @[
-      TestCase(strA: "", strB: "", distance: Natural(0)),
-      TestCase(strA: "", strB: "a", distance: Natural(1)),
-      TestCase(strA: "a", strB: "a", distance: Natural(0)),
-      TestCase(strA: "a", strB: "ab", distance: Natural(1)),
-      TestCase(strA: "saturday", strB: "sunday", distance: Natural(3)),
-      TestCase(strA: "kitten", strB: "sitting", distance: Natural(3)),
-      TestCase(strA: "abcdefghif", strB: "abCdeFghIfX", distance: Natural(4)),
-      TestCase(strA: "abc", strB: "aXcY", distance: Natural(2)),
+      TestCase(strA: "", strB: "", distance: 0.Natural),
+      TestCase(strA: "", strB: "a", distance: 1.Natural),
+      TestCase(strA: "a", strB: "a", distance: 0.Natural),
+      TestCase(strA: "a", strB: "ab", distance: 1.Natural),
+      TestCase(strA: "saturday", strB: "sunday", distance: 3.Natural),
+      TestCase(strA: "kitten", strB: "sitting", distance: 3.Natural),
+      TestCase(strA: "abcdefghif", strB: "abCdeFghIfX", distance: 4.Natural),
+      TestCase(strA: "abc", strB: "aXcY", distance: 2.Natural),
       ]
 
     test "returns expected result":
