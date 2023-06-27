@@ -33,14 +33,14 @@ func computeLevenshteinDistanceMatrix(a, b: string): Table[Key, Natural] =
            distanceIfSubstituted])
 
 
-func levenshteinDistance*(strA: string, strB: string): Natural =
+func levenshteinDistance*(a, b: string): Natural =
   ## Returns the
   ## [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
   ## between the input strings.
   ## This implementation utilises dynamic programming.
   runnableExamples:
     doAssert levenshteinDistance("abc", "aXcY") == 2
-  return computeLevenshteinDistanceMatrix(strA, strB)[toKey(strA.len, strB.len)]
+  return computeLevenshteinDistanceMatrix(a, b)[toKey(a.len, b.len)]
 
 
 when isMainModule:
@@ -50,24 +50,24 @@ when isMainModule:
 
     type
       TestCase = object
-        strA*, strB*: string
+        a*, b*: string
         distance*: Natural
 
     const testCases = @[
-      TestCase(strA: "", strB: "", distance: 0.Natural),
-      TestCase(strA: "", strB: "a", distance: 1.Natural),
-      TestCase(strA: "a", strB: "a", distance: 0.Natural),
-      TestCase(strA: "a", strB: "ab", distance: 1.Natural),
-      TestCase(strA: "saturday", strB: "sunday", distance: 3.Natural),
-      TestCase(strA: "kitten", strB: "sitting", distance: 3.Natural),
-      TestCase(strA: "abcdefghif", strB: "abCdeFghIfX", distance: 4.Natural),
-      TestCase(strA: "abc", strB: "aXcY", distance: 2.Natural),
+      TestCase(a: "", b: "", distance: 0.Natural),
+      TestCase(a: "", b: "a", distance: 1.Natural),
+      TestCase(a: "a", b: "a", distance: 0.Natural),
+      TestCase(a: "a", b: "ab", distance: 1.Natural),
+      TestCase(a: "saturday", b: "sunday", distance: 3.Natural),
+      TestCase(a: "kitten", b: "sitting", distance: 3.Natural),
+      TestCase(a: "abcdefghif", b: "abCdeFghIfX", distance: 4.Natural),
+      TestCase(a: "abc", b: "aXcY", distance: 2.Natural),
       ]
 
     test "returns expected result":
       for tc in testCases:
-        check tc.distance == levenshteinDistance(tc.strA, tc.strB)
+        check tc.distance == levenshteinDistance(tc.a, tc.b)
 
     test "is symmetric":
       for tc in testCases:
-        check tc.distance == levenshteinDistance(tc.strB, tc.strA)
+        check tc.distance == levenshteinDistance(tc.b, tc.a)
