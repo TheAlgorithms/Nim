@@ -2,7 +2,6 @@
 
 import tables
 
-
 func toKey(indA, indB: int): (Natural, Natural) =
   return (indA.Natural, indB.Natural)
 
