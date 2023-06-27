@@ -22,11 +22,15 @@ func computeLevenshteinDistanceMatrix(a, b: string): Table[Key, Natural] =
 
   for indA in 0..<a.len:
     for indB in 0..<b.len:
-      let substitutionCost = (if a[indA] == b[indB]: 0 else: 1)
+      let
+        substitutionCost = (if a[indA] == b[indB]: 0 else: 1)
+        distanceIfDeleted = result[toKey(indA, indB + 1)] + 1
+        distanceIfInserted = result[toKey(indA + 1, indB)] + 1
+        distanceIfSubstituted = result[toKey(indA, indB)] + substitutionCost
       result[toKey(indA + 1, indB + 1)] = min(
-          [result[toKey(indA, indB + 1)] + 1,
-           result[toKey(indA + 1, indB)] + 1,
-           result[toKey(indA, indB)] + substitutionCost])
+          [distanceIfDeleted,
+           distanceIfInserted,
+           distanceIfSubstituted])
 
 
 func levenshteinDistance*(strA: string, strB: string): Natural =
