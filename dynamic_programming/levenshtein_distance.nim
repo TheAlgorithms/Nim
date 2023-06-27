@@ -38,6 +38,8 @@ func levenshteinDistance*(a, b: string): Natural =
   ## [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
   ## between the input strings.
   ## This implementation utilises dynamic programming.
+  ## Note that this implementation has O(a.len*b.len) time complexity and
+  ## requires O(a.len*b.len) additional memory
   runnableExamples:
     doAssert levenshteinDistance("abc", "aXcY") == 2
   return computeLevenshteinDistanceMatrix(a, b)[toKey(a.len, b.len)]
