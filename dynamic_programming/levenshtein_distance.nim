@@ -2,11 +2,14 @@
 
 import tables
 
-func toKey(indA, indB: int): (Natural, Natural) =
+type Key = (Natural, Natural)
+
+
+func toKey(indA, indB: int): Key =
   return (indA.Natural, indB.Natural)
 
 
-func initSubsolutions(lenA, lenB: Natural): Table[(Natural, Natural), Natural] =
+func initSubsolutions(lenA, lenB: Natural): Table[Key, Natural] =
   for indA in 0.Natural..lenA:
     result[toKey(indA, 0)] = indA
 
@@ -14,8 +17,7 @@ func initSubsolutions(lenA, lenB: Natural): Table[(Natural, Natural), Natural] =
     result[toKey(0, indB)] = indB
 
 
-func computeLevenshteinDistanceMatrix(a, b: string): Table[(Natural, Natural),
-                                                           Natural] =
+func computeLevenshteinDistanceMatrix(a, b: string): Table[Key, Natural] =
   result = initSubsolutions(a.len, b.len)
 
   for indA in 0..<a.len:
