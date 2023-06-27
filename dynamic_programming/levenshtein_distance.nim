@@ -52,18 +52,22 @@ when isMainModule:
 
     type
       TestCase = object
-        a*, b*: string
+        name, a*, b*: string
         distance*: Natural
 
+    func getTC(name, a, b: string, distance: int): TestCase =
+      assert distance >= 0
+      return TestCase(name: name, a: a, b: b, distance: distance)
+
     const testCases = @[
-      TestCase(a: "", b: "", distance: 0.Natural),
-      TestCase(a: "", b: "a", distance: 1.Natural),
-      TestCase(a: "a", b: "a", distance: 0.Natural),
-      TestCase(a: "a", b: "ab", distance: 1.Natural),
-      TestCase(a: "saturday", b: "sunday", distance: 3.Natural),
-      TestCase(a: "kitten", b: "sitting", distance: 3.Natural),
-      TestCase(a: "abcdefghif", b: "abCdeFghIfX", distance: 4.Natural),
-      TestCase(a: "abc", b: "aXcY", distance: 2.Natural),
+      getTC("two empty strings", "", "", 0),
+      getTC("empty string vs. one char", "", "a", 1),
+      getTC("two same strings", "b", "b", 0),
+      getTC("one extra character", "a", "ab", 1),
+      getTC("wiki-example 1", "saturday", "sunday", 3),
+      getTC("wiki-example 2", "kitten", "sitting", 3),
+      getTC("4 edits", "abcdefghif", "abCdeFghIfX", 4),
+      getTC("2 edits", "abc", "aXcY", 2),
       ]
 
     test "returns expected result":
