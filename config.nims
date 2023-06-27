@@ -13,6 +13,8 @@ import std/[os, sequtils]
 from std/strutils import startsWith, endsWith
 from std/strformat import `&`
 
+--mm:arc # TODO: check if still needs to be below imports on Nim > 1.6.12
+
 const IgnorePathPrefixes = ["."]
 
 func isIgnored(path: string): bool =
@@ -27,12 +29,13 @@ iterator modules(dir: string = getCurrentDir()): string =
 
 ############ Tasks
 task test, "Test everything":
+  --warning: "BareExcept:off"
   --hints: off
   var failedUnits: seq[string]
 
   for path in modules():
     echo &"Testing {path}:"
-    try: exec(&"nim --hints:off r \"{path}\"")
+    try: selfExec(&"-f --warning[BareExcept]:off --hints:off r \"{path}\"")
     except OSError:
       failedUnits.add(path)
   if failedUnits.len > 0:
