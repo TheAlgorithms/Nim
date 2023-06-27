@@ -37,7 +37,6 @@ func levenshteinDistance*(a, b: string): Natural =
   ## Returns the
   ## [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
   ## between the input strings.
-  ## This implementation utilises dynamic programming.
   ## Note that this implementation has O(a.len*b.len) time complexity and
   ## requires O(a.len*b.len) additional memory
   runnableExamples:
