@@ -9,16 +9,19 @@ func toKey(indA, indB: int): Key =
   return (indA.Natural, indB.Natural)
 
 
-func initSubsolutions(lenA, lenB: Natural): Table[Key, Natural] =
+func initLevenshteinDistanceMatrix(lenA, lenB: Natural): Table[Key, Natural] =
+  # Partially init the distance matrix:
+  # - Pre-fill with distances between all prefixes of `a` and an empty string
   for indA in 0.Natural..lenA:
     result[toKey(indA, 0)] = indA
 
+  # - Pre-fill with distances between an empty string and all prefixes of `b`
   for indB in 1.Natural..lenB:
     result[toKey(0, indB)] = indB
 
 
 func computeLevenshteinDistanceMatrix(a, b: string): Table[Key, Natural] =
-  result = initSubsolutions(a.len, b.len)
+  result = initLevenshteinDistanceMatrix(a.len, b.len)
 
   for indA in 0..<a.len:
     for indB in 0..<b.len:
