@@ -55,34 +55,24 @@ func levenshteinDistance*(a, b: string): Natural =
 
 
 when isMainModule:
-  import std/unittest
-
+  import std/[unittest, sequtils]
   suite "levenshteinDistance":
+    const testCases = [
+      ("two empty strings", "", "", 0),
+      ("empty string vs. one char", "", "a", 1),
+      ("two same strings", "b", "b", 0),
+      ("one extra character", "a", "ab", 1),
+      ("wiki-example 1", "saturday", "sunday", 3),
+      ("wiki-example 2", "kitten", "sitting", 3),
+      ("4 edits", "abcdefghif", "abCdeFghIfX", 4),
+      ("2 edits", "abc", "aXcY", 2),
+      ].mapIt:
+        assert it[3] >= 0
+        (name: it[0], a: it[1], b: it[2], distance: it[3].Natural)
 
-    type
-      TestCase = object
-        name, a*, b*: string
-        distance*: Natural
-
-    func getTC(name, a, b: string, distance: int): TestCase =
-      assert distance >= 0
-      return TestCase(name: name, a: a, b: b, distance: distance)
-
-    const testCases = @[
-      getTC("two empty strings", "", "", 0),
-      getTC("empty string vs. one char", "", "a", 1),
-      getTC("two same strings", "b", "b", 0),
-      getTC("one extra character", "a", "ab", 1),
-      getTC("wiki-example 1", "saturday", "sunday", 3),
-      getTC("wiki-example 2", "kitten", "sitting", 3),
-      getTC("4 edits", "abcdefghif", "abCdeFghIfX", 4),
-      getTC("2 edits", "abc", "aXcY", 2),
-      ]
-
-    test "returns expected result":
-      for tc in testCases:
-        check tc.distance == levenshteinDistance(tc.a, tc.b)
-
-    test "is symmetric":
-      for tc in testCases:
-        check tc.distance == levenshteinDistance(tc.b, tc.a)
+    for tc in testCases:
+      test tc.name:
+        checkpoint("returns expected result")
+        check levenshteinDistance(tc.a, tc.b) == tc.distance
+        checkpoint("is symmetric")
+        check levenshteinDistance(tc.b, tc.a) == tc.distance
