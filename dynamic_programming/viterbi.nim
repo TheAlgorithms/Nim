@@ -1,4 +1,4 @@
-# Viterbi
+## Viterbi
 {.push raises: [].}
 
 type
