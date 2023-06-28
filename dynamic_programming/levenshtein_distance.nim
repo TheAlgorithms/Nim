@@ -38,9 +38,7 @@ proc fillLevenshteinDistanceMatrix(
         substitutionCost = (if a[indA] == b[indB]: 0 else: 1)
         distanceIfSubstituted = distances[toKey(indA, indB)] + substitutionCost
       distances[toKey(indA + 1, indB + 1)] = min(
-          [distanceIfDeleted,
-           distanceIfInserted,
-           distanceIfSubstituted])
+          [distanceIfDeleted, distanceIfInserted, distanceIfSubstituted])
 
 
 func computeLevenshteinDistanceMatrix(a, b: string): Table[Key, Natural] =
