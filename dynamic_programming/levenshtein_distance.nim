@@ -20,20 +20,27 @@ func initLevenshteinDistanceMatrix(lenA, lenB: Natural): Table[Key, Natural] =
     result[toKey(0, indB)] = indB
 
 
-func computeLevenshteinDistanceMatrix(a, b: string): Table[Key, Natural] =
-  result = initLevenshteinDistanceMatrix(a.len, b.len)
-
+proc fillLevenshteinDistanceMatrix(
+    distances: var Table[Key, Natural],
+    a, b: string) =
+  ## `distances[toKey(posA, posB)]` is the Levenshtein distance between
+  ## prefix of `a` with length `posA` and prefix of `b` with length `posB`
   for indA in 0..<a.len:
     for indB in 0..<b.len:
       let
         substitutionCost = (if a[indA] == b[indB]: 0 else: 1)
-        distanceIfDeleted = result[toKey(indA, indB + 1)] + 1
-        distanceIfInserted = result[toKey(indA + 1, indB)] + 1
-        distanceIfSubstituted = result[toKey(indA, indB)] + substitutionCost
-      result[toKey(indA + 1, indB + 1)] = min(
+        distanceIfDeleted = distances[toKey(indA, indB + 1)] + 1
+        distanceIfInserted = distances[toKey(indA + 1, indB)] + 1
+        distanceIfSubstituted = distances[toKey(indA, indB)] + substitutionCost
+      distances[toKey(indA + 1, indB + 1)] = min(
           [distanceIfDeleted,
            distanceIfInserted,
            distanceIfSubstituted])
+
+
+func computeLevenshteinDistanceMatrix(a, b: string): Table[Key, Natural] =
+  result = initLevenshteinDistanceMatrix(a.len, b.len)
+  fillLevenshteinDistanceMatrix(result, a, b)
 
 
 func levenshteinDistance*(a, b: string): Natural =
