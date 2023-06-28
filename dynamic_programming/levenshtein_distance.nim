@@ -1,4 +1,8 @@
 ## Levenshtein distance
+##
+## [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
+## is an example of
+## [edit distance](https://en.wikipedia.org/wiki/Edit_distance).
 
 import tables
 
