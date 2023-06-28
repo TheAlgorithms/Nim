@@ -51,8 +51,11 @@ func levenshteinDistance*(a, b: string): Natural =
   ## Returns the
   ## [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
   ## between the input strings.
-  ## .. Note:: This is a basic suboptimal implementation with a O(a.len*b.len)
-  ##    time complexity and O(a.len*b.len) additional memory usage.
+  ## This is a basic suboptimal implementation with
+  ## a `O(a.len*b.len)` time complexity
+  ## and `O(a.len*b.len)` additional memory usage.
+  ## It is based on
+  ## [Wagner–Fischer algorithm](https://en.wikipedia.org/wiki/Wagner%E2%80%93Fischer_algorithm).
   runnableExamples:
     doAssert levenshteinDistance("abc", "aXcY") == 2
   return computeLevenshteinDistanceMatrix(a, b)[toKey(a.len, b.len)]
