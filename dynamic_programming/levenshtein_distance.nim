@@ -37,8 +37,8 @@ func levenshteinDistance*(a, b: string): Natural =
   ## Returns the
   ## [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance)
   ## between the input strings.
-  ## Note that this implementation has O(a.len*b.len) time complexity and
-  ## requires O(a.len*b.len) additional memory
+  ## .. Note:: This is a basic suboptimal implementation with a O(a.len*b.len)
+  ##    time complexity and O(a.len*b.len) additional memory usage.
   runnableExamples:
     doAssert levenshteinDistance("abc", "aXcY") == 2
   return computeLevenshteinDistanceMatrix(a, b)[toKey(a.len, b.len)]
