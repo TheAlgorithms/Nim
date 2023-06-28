@@ -32,9 +32,10 @@ proc fillLevenshteinDistanceMatrix(
   for indA in 0..<a.len:
     for indB in 0..<b.len:
       let
-        substitutionCost = (if a[indA] == b[indB]: 0 else: 1)
+        ## from the perspective of changing `a` into `b`
         distanceIfDeleted = distances[toKey(indA, indB + 1)] + 1
         distanceIfInserted = distances[toKey(indA + 1, indB)] + 1
+        substitutionCost = (if a[indA] == b[indB]: 0 else: 1)
         distanceIfSubstituted = distances[toKey(indA, indB)] + substitutionCost
       distances[toKey(indA + 1, indB + 1)] = min(
           [distanceIfDeleted,
