@@ -38,7 +38,7 @@ Being one of our contributors, you agree and confirm that:
 
 ## Contribution guidelines
 
-We appreciate any contribution, from fixing a grammar mistake in a comment to implementing complex algorithms. Please check the [directory](directory.md) and [issues](https://github.com/TheAlgorithms/Nim/issues/) for an existing (or declined) implementation of your algorithm and relevant discussions.
+We appreciate any contribution, from fixing a grammar mistake in a comment to implementing complex algorithms. Please check the [directory](DIRECTORY.md) and [issues](https://github.com/TheAlgorithms/Nim/issues/) for an existing (or declined) implementation of your algorithm and relevant discussions.
 
 **New implementations** are welcome! This includes: new solutions for a problem, different representations for a data structure, and algorithm design with different complexity or features.
 
@@ -48,8 +48,8 @@ We appreciate any contribution, from fixing a grammar mistake in a comment to im
 
 ### Implementation requirements
 
-- The unit of implementation we expect is a [**Nim module**](https://nim-lang.org/docs/manual.html#modules). Although the main goals of this repository are educational, the module form mirrors a real-world scenario and makes it easy to use the code from this repository in other projects.
-- The first line must contain the canonical title of the module prefixed by double hashes (`## Title Of The Module`). This title is used in this repository's automation for populating the [Directory](directory.md).
+- The unit of an implementation we expect is a [**Nim module**](https://nim-lang.org/docs/manual.html#modules). Although the main goals of this repository are educational, the module form mirrors a real world scenario and makes it easy to use the code from this repository in other projects.
+- First line must contain the canonical title of the module prefixed by double hashes (`## Title Of The Module`). This title is used in this repository's automation for populating the [Directory](DIRECTORY.md).
 - The module should be thoroughly documented with doc comments. Follow the [Nim documentation style](https://nim-lang.org/docs/docstyle.html).
 - The file begins with the module-level documentation with the general description and explanation of the algorithm/data-structure. If possible, please include:
   * Any restrictions of the implementation and any constraints for the input data.
