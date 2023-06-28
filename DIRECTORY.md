@@ -10,7 +10,7 @@
 ## Maths
   * [Absolute value](maths/abs.nim)
   * [Aliquot sum](maths/aliquot_sum.nim)
-  * [Arc Length](maths/arc_length.nim)
+  * [Arc Length of a Circle](maths/arc_length.nim)
   * [Bitwise Addition](maths/bitwise_addition.nim)
 
 ## Searches
