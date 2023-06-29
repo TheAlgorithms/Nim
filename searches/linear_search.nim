@@ -16,6 +16,8 @@
 ## Therefore the recursive linear search is less efficient than the for-loop-based one.
 
 runnableExamples:
+  import std/options
+
   var arr1 = [0, 3, 1, 4, 5, 6]
   doAssert linearSearch(arr1, 5) == some(Natural(4))
   doAssert recursiveLinearSearch(arr1, 5) == some(Natural(4))
@@ -28,23 +30,25 @@ runnableExamples:
   doAssert linearSearch(arr3, 7) == none(Natural)
   doAssert recursiveLinearSearch(arr3, 7) == none(Natural)
 
-
 import std/options
 
-type
-  Nat = Natural
-  OptNat = Option[Natural]
-
-func linearSearch*[T](arr: openArray[T], key: T): OptNat = 
-  # key is the value we are searching for in the array.
+func linearSearch*[T](arr: openArray[T], key: T): Option[Natural] =
+  ## Searches for the `key` in the array `arr` and returns its absolute index (counting from 0)
+  ## in the array.
+  ## .. Note:: For arrays indexed with a range type or an enum the returned value
+  ##  may not be consistent with the indexing of the initial array.
   for i, val in arr.pairs():
     if val == key:
       return some(Natural(i))
   none(Natural) # `key` not found
 
-func recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat): OptNat=
-  # Recursion is another method for linear search.
-  # Recursive calls replace the for loop.
+func recursiveLinearSearch*[T](
+  arr: openArray[T], key: T, idx: Natural = Natural(0)): Option[Natural] =
+  ## Searches for the `key` in `arr` and returns its absolute index (counting from 0)
+  ## in the array. Search is performed in a recursive manner.
+  ## .. Note:: For arrays indexed with a range type or an enum the returned value
+  ##  is not consistent with the indexing of the parameter array if `arr.low` is not 0.
+  # Recursive calls replace the `for` loop in `linearSearch`.
 
   # `none(Natural)` is returned when the array is traversed completely
   # and no key is matched, or when `arr` is empty.
@@ -58,7 +62,8 @@ func recursiveLinearSearch*[T](arr: openArray[T], key: T, idx: Nat = arr.low.Nat
 when isMainModule:
   import unittest
 
-  template checkLinearSearch[T](arr: openArray[T], key: T, expectedIdx: OptNat): untyped =
+  template checkLinearSearch[T](arr: openArray[T], key: T,
+      expectedIdx: Option[Natural]): untyped =
     check linearSearch(arr, key) == expectedIdx
     check recursiveLinearSearch(arr, key) == expectedIdx
 
@@ -79,8 +84,8 @@ when isMainModule:
       var arr = ['0', 'c', 'a', 'u', '5', '7']
       checkLinearSearch(arr, '5', some(Natural(4)))
 
-    test "Search in a string array matching with a string matching value":
-      var arr = ["0", "c", "a", "u", "5", "7"]
+    test "Search in a string sequence matching with a string matching value":
+      var arr = @["0", "c", "a", "u", "5", "7"]
       checkLinearSearch(arr, "5", some(Natural(4)))
 
     test "Search in an int array with a valid key at the end":
