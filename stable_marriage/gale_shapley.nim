@@ -106,18 +106,15 @@ runnableExamples:
       if c < contMatches.high: result.add(", ")
 
   var matches = stableMatching(ContenderPrefs, RecipientPrefs)
-  block:
-    echo render(matches.contenderMatches, MNames, FNames)
-    stdout.write "Current matching stability: "
-    let areStable = checkPairStability(matches, RecipientPrefs, ContenderPrefs)
-    doAssert areStable
 
-  perturbPairs(matches)
-  block:
+  template checkStabilityAndLog(matches: Matches; perturb: bool = false): bool =
+    if perturb: perturbPairs(matches)
     echo render(matches.contenderMatches, MNames, FNames)
     stdout.write "Current matching stability: "
-    let areStable = checkPairStability(matches, RecipientPrefs, ContenderPrefs)
-    doAssert areStable == false
+    checkPairStability(matches, RecipientPrefs, ContenderPrefs)
+
+  doAssert matches.checkStabilityAndLog() == true
+  doAssert matches.checkStabilityAndLog(perturb = true) == false
 
 #===============================================================================
 {.push raises: [].}
@@ -196,7 +193,7 @@ func stableMatching*(contenderPrefs, recipientPrefs: openArray[
     recMatches[r] = c
   while contMatches.contains(-1): # While exist unmatched contenders...
     for c in 0..<rosterLen: # for each contender...
-      if contMatches[c] == -1: # if they are yet unmatched...
+      if contMatches[c] == -1: # if it is yet unmatched...
         # Proposing to the queued recipient
         let r = contenderPrefs[c][contQueue[c]]
         inc(contQueue[c]) # Queue next preferred recipient for this contender
