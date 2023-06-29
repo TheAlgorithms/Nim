@@ -1,4 +1,4 @@
-# Arc Length of a Circle
+## Arc Length
 ## https://en.wikipedia.org/wiki/Arc_length
 import std/math
 {.push raises: [].}

@@ -1,4 +1,4 @@
-# Viterbi
+## Viterbi
 ## The Viterbi algorithm is a dynamic programming algorithm
 ## for obtaining the maximum a posteriori probability estimate
 ## of the most likely sequence of hidden states
@@ -7,7 +7,6 @@
 ## Time Complexity: O(K2n)
 ## Space Complexity: O(Kn)
 ## https://www.cs.cmu.edu/~epxing/Class/10708-20/scribe/lec4_scribe.pdf
-
 
 {.push raises: [].}
 

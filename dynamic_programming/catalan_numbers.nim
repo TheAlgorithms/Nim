@@ -1,4 +1,4 @@
-# Catalan Numbers
+## Catalan Numbers
 #[
     The Catalan numbers are a sequence of natural numbers that occur in the
     the largest set of combinatorial problems.
