@@ -4,24 +4,43 @@
 ## This module implements the classical Gale-Shapley_ algorithm for solving
 ## the stable matching problem.
 ##
+## Algorithm features
+## ------------------
+## - Time complexity of `O(n^2)`, where `n` is the number of contenders or
+##   receivers (men or women).
+## - Guarantees a stable matching (marriage) for all participants.
+## - Best matching for all contenders (neb) among all possible stable matchings.
+## - The worst matching for all receivers (women).
+## - Being truthful and `resistant to group-strategy`_
+##   for contenders, meaning no contender or their coalition can achieve a
+##   uniformly better outcome by misrepresenting their preferences.
+## - Allowing receivers to manipulate their preferences for a better match.
+##
+## Implementation details
+## ----------------------
 ## The implementation uses only an array-based table of preferences for each
 ## of the participants of the matching. Preprocessing this look-up table for one
 ## of the sides (here: for recipients) by
-## `inverting<#invertPrefs,array[N,array[N,int]]>`_ and double-booking the
+## `inverting<#invertPrefs,array[N,array[N,int]]>`_ and then double-booking the
 ## preferences into a corresponding sequence for each side allows
-## the main algorithm to rely only on direct access without linear searches,
-## hash tables or other associative data structures.
+## the main algorithm to rely only on direct access without linear searches
+## (except a single use of `contains`), hash tables or other
+## associative data structures.
 ##
+## Usage example
+## -------------
 ## The following example uses the implemented algorithm to solve the task of
 ## stable matching as posed by RosettaCode_:
-##
-## .. _Gale-Shapley: https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm
-## .. _RosettaCode:  https://rosettacode.org/wiki/Stable_marriage_problem
 ##
 ## * Finds a stable set of matches ("engagements").
 ## * Randomly destabilizes the matches and checks the results for stability.
 ##
 ## Example starts with a discarded string containing a possible output:
+##
+## .. _Gale-Shapley: https://en.wikipedia.org/wiki/Gale%E2%80%93Shapley_algorithm
+## .. _RosettaCode:  https://rosettacode.org/wiki/Stable_marriage_problem
+## .. _resistant to group-strategy: https://en.wikipedia.org/wiki/Strategyproofness
+##
 runnableExamples:
   discard """
   abe 💑 ivy, bob 💑 cath, col 💑 dee, dan 💑 fay, ed 💑 jan,
@@ -269,3 +288,9 @@ when isMainModule:
       let matches = stableMatching(DonorPrefs, RecipientRrefs)
       check matches.contenderMatches == @[1, 2, 3, 0]
       check matches.recipientMatches == @[3, 0, 1, 2]
+
+    test "Defect: mismatched number of participants":
+      const ContenderPrefs = @[@[0, 1, 2], @[0, 2, 1], @[1, 0, 2], @[0, 1, 2]]
+      const RecipientRrefs = @[@[1, 0], @[1, 0], @[0, 1], @[1, 0]]
+      expect(AssertionDefect):
+        discard stableMatching(ContenderPrefs, RecipientRrefs)
