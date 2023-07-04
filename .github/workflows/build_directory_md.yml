@@ -25,13 +25,23 @@ jobs:
           git clean -f -x -d
           nim r .scripts/directory.nim > DIRECTORY.md
 
-      - name: Commit changes
+      - name: Setup Git configurations
         run: |
+            git config --global user.name github-actions[bot]
+            git config --global user.email 'github-actions@users.noreply.github.com'
+      - name: Commit and push changes
+        run: |
+          git checkout -b directory_update-${{ github.sha }}
+
           date > generated.txt
-          git config user.name github-actions
-          git config user.email github-actions@users.noreply.github.com
           git add DIRECTORY.md
-          git commit -m "Update DIRECTORY.md"
-          gh pr create --title "Update DIRECTORY.md" --review "@owner" --base "GITHUB_REF/main"
+
+          git commit -m "docs: update DIRECTORY.md"
+          git push origin directory_update-${{ github.sha }}:directory_update-${{ github.sha }}
+      - name: Create a pull request
+        run: |
+          if [[ $(git log --branches --not --remotes) ]]; then
+              gh pr create --base ${GITHUB_REF##*/} --head directory_update-${{ github.sha }} --title 'docs: update DIRECTORY.md' --body 'Updated the DIRECTORY.md file (see the diff. for changes).'
+          fi
 
 ...
