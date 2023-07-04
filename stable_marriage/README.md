@@ -6,7 +6,7 @@ The Stable Marriage Problem[^gs] involves finding a pairing between two equally 
 
 Stable Matching has real-world applications in various domains such as assigning graduating medical students to hospitals, assigning users to servers in distributed Internet services, and market design.
 
-The theory of stable allocations and market design, including the Stable Matching problem, was recognised with the Nobel Prize in Economic Sciences in 2012.
+The theory of stable allocations and the practice of market design, which includes the Stable Matching problem, was recognised with the Nobel Prize in Economic Sciences in 2012, awarded to Alvin E. Roth and Lloyd S. Shapley.
 
 ## The Gale-Shapley Algorithm
 The [Gale-Shapley algorithm](gale_shapley.nim), proposed by David Gale and Lloyd Shapley, is a widely used solution for the Stable Marriage Problem. It guarantees a stable matching (marriage) for all participants and has a time complexity of `O(n^2)`, where `n` is the number of contenders or receivers (men or women).
@@ -28,7 +28,7 @@ While the Gale-Shapley algorithm is popular due to its efficiency and stability 
 Vande Vate's algorithm[^rvv], also known as the Roth and Vande Vate (RVV) mechanism, is an alternative algorithm with the following differences, compared to Gale-Shapley:
 
 - Starts with an arbitrary initial assignment of contenders to receivers, not with an empty matching.
-- Allows introducing participants incrementally and let them iteratively reach a stable matching. 
+- Allows introducing participants incrementally and let them iteratively reach a stable matching, making it an online algorithm[^online]. 
 - Accommodates scenarios with changing preferences.
 
 ## Related Problems:
@@ -37,3 +37,4 @@ Several related problems stem from the Stable Matching Problem, including stable
 [^gs]: https://en.wikipedia.org/wiki/Stable_marriage_problem
 [^other]: https://arxiv.org/pdf/2007.07121
 [^rvv]: Alvin E Roth and John H Vande Vate. *Random paths to stability in two-sided matching.* Econometrica: Journal of the Econometric Society, pages 1475–1480, 1990
+[^online]: https://en.wikipedia.org/wiki/Online_algorithm
