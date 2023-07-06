@@ -1,11 +1,12 @@
 ## Manacher's algorithm
-#[
-Determine the longest palindrome in a string in linear time in its length
-with Manacher's algorithm
-Inspired from:
-https://github.com/jilljenn/tryalgo/blob/master/tryalgo/manacher.py
-https://en.wikipedia.org/wiki/Longest_palindromic_substring
-]#
+## --------------------
+##
+## Determine the longest palindrome in a string in linear time in its length
+## with Manacher's algorithm.
+## Inspired from:
+## https://github.com/jilljenn/tryalgo/blob/master/tryalgo/manacher.py
+## https://en.wikipedia.org/wiki/Longest_palindromic_substring
+##
 import std/[strutils, sequtils, sets]
 {.push raises: [].}
 
@@ -78,7 +79,7 @@ when isMainModule:
       check manacherIndex("telet") == 0 .. 4
       check manacherLength("telet") == 5
       check manacherString("telet") == "telet"
-    
+
     test "Empty string":
       doAssertRaises(ValueError):
         discard manacherIndex("")
