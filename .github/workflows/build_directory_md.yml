@@ -33,7 +33,6 @@ jobs:
         run: |
           git checkout -b directory_update-${{ github.sha }}
 
-          date > generated.txt
           git add DIRECTORY.md
 
           git commit -m "docs: update DIRECTORY.md"
