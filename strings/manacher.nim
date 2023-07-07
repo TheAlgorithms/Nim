@@ -19,13 +19,12 @@ runnableExamples:
   doAssert(manacherLength(example1) == 5)
 
 func manacherIndex*(s: string): HSlice[int, int] {.raises: [ValueError].} =
-  #[Longest palindrome in a string by Manacher
-    :param s: string, lowercase ascii, no whitespace
-    :returns: indexes i,j such that s[i:j] is the longest palindrome in s
-    :time complexity: O(n) where n is the string's length.
-    All the indexes refer to an intermediate string t
-    of the form "^#a#b#a#a#$" for s="abaa"
-  ]#
+  ## Longest palindrome in a string by Manacher
+  ## :param s: string, lowercase ascii, no whitespace
+  ## :returns: indexes i,j such that s\[i:j\] is the longest palindrome in s
+  ## :time complexity: O(n) where n is the string's length.
+  ## All the indexes refer to an intermediate string t
+  ## of the form "^#a#b#a#a#$" for s="abaa"
   if s.len == 0:
     raise newException(ValueError, "Empty string")
   let extraSymbols = toHashSet(['$', '^', '#'])
@@ -56,9 +55,11 @@ func manacherIndex*(s: string): HSlice[int, int] {.raises: [ValueError].} =
   return (j - k) div 2 ..< (j + k) div 2 # extract solution
 
 func manacherString*(s: string): string {.raises: [ValueError].} =
+  ## Returns the greatest palindromic substring in `s`.
   return s[manacherIndex(s)]
 
 func manacherLength*(s: string): int {.raises: [ValueError].} =
+  ## Returns the length of the greatest palindromic substring in `s`.
   let
     res = manacherIndex(s)
     (i, j) = (res.a, res.b)
