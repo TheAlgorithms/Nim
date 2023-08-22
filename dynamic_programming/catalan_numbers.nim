@@ -21,8 +21,12 @@ func catalanNumbersRecursive(index: Natural): Positive =
   ## efficient.
   if index < 2:
     return 1
-  return toSeq(0..<index).mapIt(catalanNumbersRecursive(it) *
-   catalanNumbersRecursive(index - it - 1)).foldl(a + b)
+  if index < 2:
+    return 1
+  var n: Natural = 0
+  for i in 0 ..< index:
+    n += catalanNumbersRecursive(i) * catalanNumbersRecursive(index - i - 1)
+  n
 
 func catalanNumbersRecursive2(index: Natural): Positive =
   if index < 2:
