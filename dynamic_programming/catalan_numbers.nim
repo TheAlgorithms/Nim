@@ -21,8 +21,6 @@ func catalanNumbersRecursive(index: Natural): Positive =
   ## efficient.
   if index < 2:
     return 1
-  if index < 2:
-    return 1
   var n: Natural = 0
   for i in 0 ..< index:
     n += catalanNumbersRecursive(i) * catalanNumbersRecursive(index - i - 1)
