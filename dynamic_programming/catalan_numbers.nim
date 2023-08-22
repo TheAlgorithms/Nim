@@ -12,6 +12,7 @@
     https://oeis.org/A000108
 ]#
 import std/math
+import std/sequtils
 {.push raises: [].}
 
 func catalanNumbersRecursive(index: Natural): Positive =
@@ -20,9 +21,8 @@ func catalanNumbersRecursive(index: Natural): Positive =
   ## efficient.
   if index < 2:
     return 1
-  for i in 0 ..< index:
-    result += catalanNumbersRecursive(i) *
-     catalanNumbersRecursive(index - i - 1)
+  return toSeq(0..<index).mapIt(catalanNumbersRecursive(it) *
+   catalanNumbersRecursive(index - it - 1)).foldl(a + b)
 
 func catalanNumbersRecursive2(index: Natural): Positive =
   if index < 2:
