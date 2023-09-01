@@ -1,7 +1,7 @@
 # <a href="https://github.com/TheAlgorithms/">The Algorithms</a> – Nim&nbsp;<img src="https://raw.githubusercontent.com/nim-lang/assets/master/Art/logo-crown.png" height="28px"/><a href="https://github.com/TheAlgorithms/"><img align="right" src="https://raw.githubusercontent.com/TheAlgorithms/website/main/public/logo.svg" height="100"></a>
 
 [![Gitpod Ready-to-Code][badge-gitpod]](https://gitpod.io/#https://github.com/TheAlgorithms/Nim)
-[![Contributions Welcome][badge-contributions]](https://github.com/TheAlgorithms/Nim/blob/master/CONTRIBUTING.md)
+[![Contributions Welcome][badge-contributions]](https://github.com/TheAlgorithms/Nim/blob/main/CONTRIBUTING.md)
 ![Repo size][badge-reposize]
 </br>
 [![Discord chat][badge-discord]][chat-discord]
