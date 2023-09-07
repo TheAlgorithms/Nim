@@ -23,7 +23,22 @@ jobs:
       - name: Build file
         run: |
           git clean -f -x -d
-          nim r .scripts/directory.nim > DIRECTORY.md
+
+          # Compile the script first
+          nim c -o:directory_script .scripts/directory.nim
+          compile_status=$?
+          if [ $compile_status -ne 0 ]; then
+              echo "Compilation of directory.nim failed with exit code $compile_status!"
+              exit $compile_status
+          fi
+
+          # Run the compiled script
+          ./directory_script > DIRECTORY.md
+          exec_status=$?
+          if [ $exec_status -ne 0 ]; then
+              echo "Execution of directory.nim script failed with exit code $exec_status!"
+              exit $exec_status
+          fi
 
       - name: Setup Git configurations
         run: |
