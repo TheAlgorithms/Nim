@@ -4,10 +4,14 @@
 
 ## Dynamic Programming
   * [Catalan Numbers](dynamic_programming/catalan_numbers.nim)
+  * [Levenshtein distance](dynamic_programming/levenshtein_distance.nim)
   * [Viterbi](dynamic_programming/viterbi.nim)
 
 ## Maths
-  * [Area](maths/area.nim)
+  * [Absolute value](maths/abs.nim)
+  * [Aliquot sum](maths/aliquot_sum.nim)
+  * [Arc Length](maths/arc_length.nim)
+  * [Bitwise Addition](maths/bitwise_addition.nim)
 
 ## Sorts
   * [Bubble sort](sorts/bubble_sort.nim)
@@ -17,6 +21,10 @@
   * [Selection Sort](sorts/selection_sort.nim)
   * [Shell Sort](sorts/shell_sort.nim)
   * [Test sorting algorithms](sorts/testSort.nim)
+
+## Searches
+  * [Binary Search](searches/binary_search.nim)
+  * [Linear Search](searches/linear_search.nim)
 
 ## Strings
   * [Check Anagram](strings/check_anagram.nim)
