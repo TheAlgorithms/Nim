@@ -16,7 +16,7 @@
 ## - Prints the collected directory structure sorted alphabetically in markdown.
 
 import std/[os, unicode, critbits, options, strformat]
-from std/strutils import startsWith, Whitespace, splitLines
+from std/strutils import startsWith, Whitespace, splitLines, toLowerAscii
 from std/strbasics import strip
 
 const
@@ -27,7 +27,10 @@ const
 
 type
   ## TODO: Allow nested structure with variant type [Directory | CritBitTree[string]]
-  Directory = CritBitTree[CritBitTree[string]]
+  Category = object
+    readme: Option[string] # Path to category overview
+    contents: CritBitTree[string] # Paths to algorithm implementations
+  Directory = CritBitTree[Category]
 
 func canonicalize(s: string): string =
   ## Splits input by whitespace and underscore, titlecases each word and
@@ -68,7 +71,7 @@ proc collectDirectory(dir = ""): Directory =
   ## and their titles into a sorted structure. Dotfiles are skipped.
   for (pc, path) in walkDir(dir, relative = true):
     if pc == pcDir and path[0] != '.':
-      var categoryDir: CritBitTree[string]
+      var categoryDir: Category
       for (pc, fname) in walkDir(path, relative = true):
         if pc == pcFile and fname[0] != '.':
           let (_, name, ext) = splitFile(fname)
@@ -76,17 +79,25 @@ proc collectDirectory(dir = ""): Directory =
           if ext == ".nim":
             # if can't read the title from the source, derive from the file name
             let title = readLn(fpath).get(name.canonicalize())
-            categoryDir[title] = fname
-      if categoryDir.len > 0:
+            categoryDir.contents[title] = fname
+          elif ext.toLowerAscii() in [".md", ".rst"] and
+              name.toLowerAscii() == "readme":
+            categoryDir.readme = some(path & '/' & fname) # note the hardcoded separator
+      if categoryDir.contents.len > 0:
         result[path] = categoryDir
 
 when isMainModule:
   let directory = collectDirectory(getCurrentDir())
   if directory.len > 0:
     echo Warning, "\n", Header
-    for (categoryDir, contents) in directory.pairs():
-      if contents.len > 0:
-        echo "## ", categoryDir.canonicalize()
-        for (title, fname) in contents.pairs():
+    for (categoryDir, category) in directory.pairs():
+      if category.contents.len > 0:
+        let categoryName = categoryDir.canonicalize()
+        let categoryHeader = if category.readme.isSome:
+            &"## [{categoryName}]({category.readme.get()})"
+          else:
+            &"## {categoryName}"
+        echo categoryHeader
+        for (title, fname) in category.contents.pairs():
           echo &"  * [{title}]({categoryDir}/{fname})" # note the hardcoded separator
         echo ""

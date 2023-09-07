@@ -26,5 +26,8 @@
   * [Binary Search](searches/binary_search.nim)
   * [Linear Search](searches/linear_search.nim)
 
+## [Stable Marriage](stable_marriage/README.md)
+  * [Gale-Shapley](stable_marriage/gale_shapley.nim)
+
 ## Strings
   * [Check Anagram](strings/check_anagram.nim)

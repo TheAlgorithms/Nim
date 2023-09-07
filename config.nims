@@ -9,11 +9,11 @@ else:
   --spellSuggest
   --styleCheck: error
 
+--mm:arc
+
 import std/[os, sequtils]
 from std/strutils import startsWith, endsWith
 from std/strformat import `&`
-
---mm:arc # TODO: check if still needs to be below imports on Nim > 1.6.12
 
 const IgnorePathPrefixes = ["."]
 
