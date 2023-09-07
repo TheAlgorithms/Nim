@@ -68,7 +68,7 @@ func countingSort*[T: SomeInteger](x: seq[T]): seq[T] =
 
 when isMainModule:
   import std/[unittest, random]
-  import ./testSort
+  import test_sorts
   randomize()
 
   suite "Counting Sort":
