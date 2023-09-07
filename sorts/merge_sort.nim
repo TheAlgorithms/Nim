@@ -50,7 +50,7 @@ func mergeSort[T](list: var openArray[T]) =
 
 when isMainModule:
   import std/[unittest, random]
-  import ./testSort
+  import test_sorts
   randomize()
 
   suite "Merge Sort":

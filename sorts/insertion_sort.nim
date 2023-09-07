@@ -1,12 +1,11 @@
 ## Insertion Sort
-#[
-This algorithm sorts a collection by comparing adjacent elements.
-When it finds that order is not respected, it moves the element compared
-backward until the order is correct.  It then goes back directly to the
-element's initial position resuming forward comparison.
-
-https://en.wikipedia.org/wiki/Insertion_sort
-]#
+##
+## This algorithm sorts a collection by comparing adjacent elements.
+## When it finds that order is not respected, it moves the element compared
+## backward until the order is correct.  It then goes back directly to the
+## element's initial position resuming forward comparison.
+##
+## https://en.wikipedia.org/wiki/Insertion_sort
 
 import std/[random]
 
@@ -37,7 +36,7 @@ func insertionSort[T](l: var openArray[T]) =
 when isMainModule:
   randomize()
   import std/unittest
-  import ./testSort.nim
+  import test_sorts
 
   suite "Insertion Sort":
     test "Sort":

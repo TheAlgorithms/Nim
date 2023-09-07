@@ -17,7 +17,7 @@ func selectionSort[T](l: var openArray[T]) =
 
 when isMainModule:
   import std/[unittest, random]
-  import ./testSort
+  import test_sorts
   randomize()
 
   suite "Selection Sort":
