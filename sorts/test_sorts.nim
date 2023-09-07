@@ -1,7 +1,8 @@
 ## Test sorting algorithms
 import std/[sequtils, random, algorithm]
 
-proc testSort*[T: SomeNumber](mySort: proc (x: var openArray[T]), size: Positive = 15,
+proc testSort*[T: SomeNumber](mySort: proc (x: var openArray[T]),
+    size: Positive = 15,
   limit: SomeNumber = 100, verbose = false): bool =
   ## Test the sort function with a random array
   var limit = T(limit)

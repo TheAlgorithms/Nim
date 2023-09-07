@@ -48,7 +48,7 @@ func shell3Sort*[T](x: var openArray[T]) =
 func shellSort[T](list: var openArray[T]) =
   ## A gap of 1 is an insertion sort algorithm
   ## Optimal gap sequence is referenced here: https://oeis.org/A102549
-  const gaps = [701, 301, 132, 57, 23, 10, 4, 1]  # Ciura gap sequence
+  const gaps = [701, 301, 132, 57, 23, 10, 4, 1]             # Ciura gap sequence
   for gap in gaps:
     for i in gap .. list.high:
       var

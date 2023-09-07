@@ -71,7 +71,7 @@ proc quickSort*[T](list: var openArray[T]) =
 proc QuickSort[T](list: openArray[T]): seq[T] =
   ## Second quick sort implementation, out-of-place, making a lot of copies
   if len(list) == 0:
-      return @[]
+    return @[]
   # We select the first element for simplicity
   var pivot = list[0]
   # We explicitely create the left and right lists.
@@ -83,10 +83,10 @@ proc QuickSort[T](list: openArray[T]): seq[T] =
 
   # If elements have the same value as the pivot, they are omitted!
   for i in low(list)..high(list):
-      if list[i] < pivot:
-          left.add(list[i])
-      elif list[i] > pivot:
-          right.add(list[i])
+    if list[i] < pivot:
+      left.add(list[i])
+    elif list[i] > pivot:
+      right.add(list[i])
 
   # We concatenate the results
   result = QuickSort(left) &
