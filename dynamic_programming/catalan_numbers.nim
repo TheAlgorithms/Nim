@@ -1,7 +1,7 @@
 ## Catalan Numbers
 #[
     The Catalan numbers are a sequence of natural numbers that occur in the
-    most large set of combinatorial problems.
+    the largest set of combinatorial problems.
     For example, it describes:
     - the number of ways to parenthesize a product of n factors
     - the number of ways to form a binary search tree with n+1 leaves
@@ -98,13 +98,13 @@ when isMainModule:
       doAssert (CatalanNumbersList[i] == createCatalanTable(36)[i])
 
   suite "Catalan Numbers":
-    test "The seventeen first Catalan numbers recursively, first formula":
+    test "The seventeen first Catalan numbers recursively, the first formula":
       let limit = RecursiveLimit
       for index in 0 .. limit:
         let catalanNumber = catalanNumbersRecursive(index)
         check catalanNumber == CatalanNumbersList[index]
 
-    test "The thirty-one first Catalan numbers recursively, second formula":
+    test "The thirty-one first Catalan numbers recursively, the second formula":
       let limit = LowerLimit
       for index in 0 .. limit:
         let catalanNumber = catalanNumbersRecursive2(index)
@@ -126,7 +126,7 @@ when isMainModule:
         check catalanNumber == CatalanNumbersList[index]
         inc index
 
-    test "Test the catalan number function with binomials":
+    test "Test the Catalan number function with binomials":
       let limit = LowerLimit
       for index in 0 .. limit:
         check catalanNumbers2(index) == CatalanNumbersList[index]

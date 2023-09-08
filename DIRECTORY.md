@@ -13,6 +13,9 @@
   * [Arc Length](maths/arc_length.nim)
   * [Bitwise Addition](maths/bitwise_addition.nim)
 
+## Strings
+  * [Check Anagram](strings/check_anagram.nim)
+
 ## Searches
   * [Binary Search](searches/binary_search.nim)
   * [Linear Search](searches/linear_search.nim)

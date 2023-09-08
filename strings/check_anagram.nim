@@ -9,7 +9,7 @@
 ## - They are not the same word (a word is not an anagram of itself).
 ##
 ## A word is any string of characters `{'A'..'Z', 'a'..'z'}`. Other characters,
-## including whitespace, numbers and punctuation, are considered invalid and
+## including whitespace, numbers, and punctuation, are considered invalid and
 ## raise a `ValueError` exception.
 ##
 ## Note: Generate full doc with `nim doc --docinternal check_anagram.nim`
@@ -56,7 +56,7 @@ func toLowerUnchecked(c: char): char {.inline.} =
   assert c in UpperAlpha
   # The difference between numerical values for chars of uppercase and
   # lowercase alphabets in the ASCII table is 32. Uppercase letters start from
-  # 0b100_0001, so setting the sixth bit to 1 gives letter's lowercase pair.
+  # 0b100_0001, so setting the sixth bit to 1 gives the letter's lowercase pair.
   char(uint8(c) or 0b0010_0000'u8)
 
 template normalizeChar(c: char) =
