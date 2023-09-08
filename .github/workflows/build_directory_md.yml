@@ -1,0 +1,61 @@
+---
+name: build_directory_md
+
+# yamllint disable-line rule:truthy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - '.github/**'
+      - '.scripts/**'
+      - 'DIRECTORY.md'
+
+jobs:
+  build_directory_md:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: jiro4989/setup-nim-action@v1
+
+      - name: Build file
+        run: |
+          git clean -f -x -d
+
+          # Compile the script first
+          nim c -o:directory_script .scripts/directory.nim
+          compile_status=$?
+          if [ $compile_status -ne 0 ]; then
+              echo "Compilation of directory.nim failed with exit code $compile_status!"
+              exit $compile_status
+          fi
+
+          # Run the compiled script
+          ./directory_script > DIRECTORY.md
+          exec_status=$?
+          if [ $exec_status -ne 0 ]; then
+              echo "Execution of directory.nim script failed with exit code $exec_status!"
+              exit $exec_status
+          fi
+
+      - name: Setup Git configurations
+        run: |
+            git config --global user.name github-actions[bot]
+            git config --global user.email 'github-actions@users.noreply.github.com'
+      - name: Commit and push changes
+        run: |
+          git checkout -b directory_update-${{ github.sha }}
+
+          git add DIRECTORY.md
+
+          git commit -m "docs: update DIRECTORY.md"
+          git push origin directory_update-${{ github.sha }}:directory_update-${{ github.sha }}
+      - name: Create a pull request
+        run: |
+          if [[ $(git log --branches --not --remotes) ]]; then
+              gh pr create --base ${GITHUB_REF##*/} --head directory_update-${{ github.sha }} --title 'docs: update DIRECTORY.md' --body 'Updated the DIRECTORY.md file (see the diff. for changes).'
+          fi
+
+...
