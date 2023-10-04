@@ -47,7 +47,7 @@ jobs:
       - name: Commit and push changes
         run: |
             git checkout -b directory_update-${{ github.sha }}
-            git add .
+            git add DIRECTORY.md
 
             git commit -m "docs: update DIRECTORY.md"
             git push origin directory_update-${{ github.sha }}:directory_update-${{ github.sha }}
