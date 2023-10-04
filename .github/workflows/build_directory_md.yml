@@ -46,12 +46,11 @@ jobs:
             git config --global user.email 'github-actions@users.noreply.github.com'
       - name: Commit and push changes
         run: |
-          git checkout -b directory_update-${{ github.sha }}
+            git checkout -b directory_update-${{ github.sha }}
+            git add DIRECTORY.md
 
-          git add DIRECTORY.md
-
-          git commit -m "docs: update DIRECTORY.md"
-          git push origin directory_update-${{ github.sha }}:directory_update-${{ github.sha }}
+            git commit -m "docs: update DIRECTORY.md"
+            git push origin directory_update-${{ github.sha }}:directory_update-${{ github.sha }}
       - name: Create a pull request
         run: |
           if [[ $(git log --branches --not --remotes) ]]; then
