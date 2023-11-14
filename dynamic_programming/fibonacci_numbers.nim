@@ -19,7 +19,7 @@
 
 runnableExamples:
 
-  doAssert fibonacciSeqIterative(5.Natural) == @[Natural(0), 1, 1, 2, 3]
+  doAssert fibonacciSeqIterative(5.Positive) == @[Natural(0), 1, 1, 2, 3]
 
   doAssert fibonacciClosure(4.Natural) == Natural(3)
 
@@ -50,7 +50,7 @@ proc fibonacciClosure*(nth: Natural): Natural =
     discard fib()
   fib()
 
-proc fibonacciSeqClosure*(n: Natural): seq[Natural] =
+proc fibonacciSeqClosure*(n: Positive): seq[Natural] =
   ## Generates a list of n first fibonacci numbers with use of a closure.
   result = newSeq[Natural](n)
   result[0] = 0
@@ -60,7 +60,7 @@ proc fibonacciSeqClosure*(n: Natural): seq[Natural] =
     for i in 2..<n:
       result[i] = fib()
 
-func fibonacciSeqIterative*(n: Natural): seq[Natural] =
+func fibonacciSeqIterative*(n: Positive): seq[Natural] =
   ## Generates a list of n first fibonacci numbers in iterative manner.
   result = newSeq[Natural](n)
   result[0] = 0
