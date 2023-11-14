@@ -3,13 +3,18 @@
 ## Fibonacci numbers are numbers that are part of the Fibonacci sequence.
 ## The Fibonacci sequence generally starts with 0 and 1, every next number
 ## is the sum of the two preceding numbers:
-##   F(0) = 0;
-##   F(1) = 1;
-##   F(n) = F(n-1) + F(n-2);
+##   - F(0) = 0;
+##   - F(1) = 1;
+##   - F(n) = F(n-1) + F(n-2);
+##
+## N-th fibonacci number can also be approximated in a constant time O(1)
+## with a formula `n = ((sqrt(5) + 1) / 2)^n / sqrt(5) + 0.5)`.
+##   See https://en.wikipedia.org/wiki/Fibonacci_sequence#Relation_to_the_golden_ratio.
 ##
 ##  References:
-##    https://en.wikipedia.org/wiki/Fibonacci_sequence
-##    https://oeis.org/A000045
+##    - https://en.wikipedia.org/wiki/Fibonacci_sequence
+##    - https://oeis.org/A000045
+##
 {.push raises: [].}
 
 runnableExamples:
@@ -20,8 +25,6 @@ runnableExamples:
 
   for f in fibonacciIterator(1.Natural..4.Natural):
     echo f # 1, 1, 2, 3
-
-import std/math
 
 func fibonacciRecursive*(nth: Natural): Natural =
   ## Calculates the n-th fibonacci number in a recursive manner.
@@ -79,14 +82,6 @@ iterator fibonacciIterator*(s: HSlice[Natural, Natural]): Natural =
       current += prev
       if i >= s.a: yield current
 
-func fibonacciBinet*(nth: Natural): Natural =
-  ## Calculates the n-th fibonacci number in constant time O(1) with use of Binet's formula.
-  ## Will be incorrect for large numbers of n, due to rounding error.
-  const sqrt5 = sqrt(5'f)
-  const phi = (sqrt5 + 1) / 2
-  let powPhi = pow(phi, nth.float)
-  Natural(powPhi/sqrt5 + 0.5)
-
 when isMainModule:
   import std/unittest
   import std/sequtils
@@ -100,16 +95,11 @@ when isMainModule:
     OverflowCount: Natural = 94
 
     LowerSlice = Natural(0)..UpperNth
-    HigherSlice = Natural(30)..Natural(40)
 
     Expected = @[Natural(0), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377,
                  610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368,
                  75025, 121393, 196418, 317811, 514229]
       ## F0 .. F29
-
-    ExpectedHigh = @[Natural(832040), 1346269, 2178309, 3524578, 5702887, 9227465,
-                     14930352, 24157817, 39088169, 63245986, 1023, 34155]
-      ## F30 .. F40
 
   template checkFib(calcTerm: proc(n: Natural): Natural) =
     let res = collect:
@@ -126,8 +116,6 @@ when isMainModule:
       checkFib(fibonacciRecursive)
     test "F0..F29 - Closure Version":
       checkFib(fibonacciClosure)
-    test "F0..F29 - Constant Time Formula":
-      checkFib(fibonacciBinet)
     test "F0..F29 - Iterative Sequence Version":
       check fibonacciSeqIterative(Count) == Expected
     test "F0..F29 - Closure Sequence Version":
@@ -145,8 +133,3 @@ when isMainModule:
     test "Nim Iterator overflows when one or both slice indexes >= 93":
       expect OverflowDefect:
         discard fibonacciIterator(Natural(0)..OverflowNth).toSeq()
-    test "Binet's Formula is not precise when nth > 30 (float64 precision)":
-      let res = collect:
-        for i in HigherSlice:
-          fibonacciBinet(i)
-      check res != ExpectedHigh
