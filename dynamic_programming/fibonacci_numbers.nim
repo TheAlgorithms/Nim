@@ -9,7 +9,7 @@
 ##
 ## N-th fibonacci number can also be approximated in a constant time O(1)
 ## with a formula `n = ((sqrt(5) + 1) / 2)^n / sqrt(5) + 0.5)`.
-##   See https://en.wikipedia.org/wiki/Fibonacci_sequence#Relation_to_the_golden_ratio.
+## See https://en.wikipedia.org/wiki/Fibonacci_sequence#Relation_to_the_golden_ratio.
 ##
 ##  References:
 ##    - https://en.wikipedia.org/wiki/Fibonacci_sequence
@@ -33,8 +33,8 @@ func fibonacciRecursive*(nth: Natural): Natural =
   fibonacciRecursive(nth-2) + fibonacciRecursive(nth-1)
 
 func makeFibClosure(): proc(): Natural =
-  ## Closure constructor.
-  ## Returns procedure which can be called to get the next fibonacci number.
+  ## Closure constructor. Returns procedure which can be called to get
+  ## the next fibonacci number, starting with F(2).
   var prev = 0
   var current = 1
   proc(): Natural =
