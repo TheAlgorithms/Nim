@@ -19,12 +19,40 @@
 
 runnableExamples:
 
-  doAssert fibonacciSeqIterative(5.Positive) == @[Natural(0), 1, 1, 2, 3]
+  doAssert fibonacciSeqIterative(5) == @[Natural(0), 1, 1, 2, 3]
 
-  doAssert fibonacciClosure(4.Natural) == Natural(3)
+  doAssert fibonacciClosure(4) == Natural(3)
 
   for f in fibonacciIterator(1.Natural..4.Natural):
     echo f # 1, 1, 2, 3
+
+type
+  fibMatrix = array[2, array[2, int]]
+
+func `*`(m1, m2: fibMatrix): fibMatrix =
+  let
+    a = m1[0][0] * m2[0][0] + m1[0][1] * m2[1][0]
+    b = m1[0][0] * m2[0][1] + m1[0][1] * m2[1][1]
+    z = m1[1][0] * m2[0][0] + m1[1][1] * m2[1][0]
+    y = m1[1][0] * m2[0][1] + m1[1][1] * m2[1][1]
+
+  [[a, b], [z, y]]
+
+func pow(matrix: fibMatrix, n: Natural): fibMatrix =
+  ## binary matrix exponentiation (divide-and-conquer approach)
+  if n in {0, 1}:
+    matrix
+  elif n mod 2 == 0:
+    let halfPow = matrix.pow(n div 2)
+    halfPow * halfPow
+  else:
+    matrix * matrix.pow(n-1)
+
+func fibonacciMatrix*(nth: Natural): Natural =
+  ## Calculates the n-th fibonacci number with use of matrix arithmetic.
+  if nth <= 1: return nth
+  var matrix = [[1, 1], [1, 0]]
+  matrix.pow(nth - 1)[0][0]
 
 func fibonacciRecursive*(nth: Natural): Natural =
   ## Calculates the n-th fibonacci number in a recursive manner.
@@ -92,8 +120,8 @@ when isMainModule:
     UpperNth: Natural = 29
     OverflowNth: Natural = 93
 
-    Count: Positive = 30
-    OverflowCount: Positive = 94
+    Count = 30
+    OverflowCount = 94
 
     Expected = @[Natural(0), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377,
                  610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368,
@@ -115,6 +143,8 @@ when isMainModule:
       checkFib(fibonacciRecursive)
     test "F0..F29 - Closure Version":
       checkFib(fibonacciClosure)
+    test "F0..F29 - Matrix Version":
+      checkFib(fibonacciMatrix)
     test "F0..F29 - Iterative Sequence Version":
       check fibonacciSeqIterative(Count) == Expected
     test "F0..F29 - Closure Sequence Version":
@@ -125,6 +155,8 @@ when isMainModule:
     #  checkFibOverflow(fibonacciRecursive)
     test "Closure procedure overflows when nth >= 93":
       checkFibOverflow(fibonacciClosure, OverflowNth)
+    test "Matrix procedure overflows when nth >= 93":
+      checkFibOverflow(fibonacciMatrix, OverflowNth)
     test "Iterative Sequence function overflows when n >= 94":
       checkFibOverflow(fibonacciSeqIterative, OverflowCount)
     test "Closure Sequence procedure overflows when n >= 94":
