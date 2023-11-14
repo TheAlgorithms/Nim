@@ -88,13 +88,12 @@ when isMainModule:
   import std/sugar
 
   const
+    LowerNth: Natural = 0
     UpperNth: Natural = 29
     OverflowNth: Natural = 93
 
-    Count: Natural = 30
-    OverflowCount: Natural = 94
-
-    LowerSlice = Natural(0)..UpperNth
+    Count: Positive = 30
+    OverflowCount: Positive = 94
 
     Expected = @[Natural(0), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377,
                  610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368,
@@ -103,7 +102,7 @@ when isMainModule:
 
   template checkFib(calcTerm: proc(n: Natural): Natural) =
     let res = collect:
-      for i in LowerSlice:
+      for i in LowerNth..UpperNth:
         calcTerm(i)
     check res == Expected
 
@@ -121,7 +120,7 @@ when isMainModule:
     test "F0..F29 - Closure Sequence Version":
       check fibonacciSeqClosure(Count) == Expected
     test "F0..F29 - Nim Iterator":
-      check fibonacciIterator(LowerSlice).toSeq() == Expected
+      check fibonacciIterator(LowerNth..UpperNth).toSeq() == Expected
     #test "Recursive procedure overflows when nth >= 93":   # too slow at this point
     #  checkFibOverflow(fibonacciRecursive)
     test "Closure procedure overflows when nth >= 93":
@@ -132,4 +131,4 @@ when isMainModule:
       checkFibOverflow(fibonacciSeqClosure, OverflowCount)
     test "Nim Iterator overflows when one or both slice indexes >= 93":
       expect OverflowDefect:
-        discard fibonacciIterator(Natural(0)..OverflowNth).toSeq()
+        discard fibonacciIterator(LowerNth..OverflowNth).toSeq()
