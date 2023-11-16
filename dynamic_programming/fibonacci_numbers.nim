@@ -142,7 +142,8 @@ when isMainModule:
   template checkFib(list: openArray[Natural]) =
     check list == Expected
 
-  template checkFib(calcTerm: proc(n: Natural): Natural, range = LowerNth..UpperNth) =
+  template checkFib(calcTerm: proc(n: Natural): Natural,
+                    range = LowerNth..UpperNth) =
     let list = collect(for i in range: calcTerm(i))
     check list == Expected
 
