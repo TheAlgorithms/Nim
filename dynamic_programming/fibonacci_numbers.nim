@@ -48,7 +48,8 @@ func pow(matrix: fibMatrix, n: Natural): fibMatrix =
 func fibonacciMatrix*(nth: Natural): Natural =
   ## Calculates the n-th fibonacci number with use of matrix arithmetic.
   if nth <= 1: return nth
-  var matrix = [[1, 1], [1, 0]]
+  var matrix = [[1, 1],
+                [1, 0]]
   matrix.pow(nth - 1)[0][0]
 
 func fibonacciRecursive*(nth: Natural): Natural =
@@ -122,50 +123,62 @@ when isMainModule:
 
   const
     LowerNth: Natural = 0
-    UpperNth: Natural = 29
+    UpperNth: Natural = 31
     OverflowNth: Natural = 93
 
-    Count = 30
+    Count = 32
     OverflowCount = 94
+
+    HighSlice = Natural(32)..Natural(40)
 
     Expected = @[Natural(0), 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377,
                  610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368,
-                 75025, 121393, 196418, 317811, 514229]
-      ## F0 .. F29
+                 75025, 121393, 196418, 317811, 514229, 832040, 1346269]
+      ## F0 .. F31
+    ExpectedHigh = @[Natural(2178309), 3524578, 5702887, 9227465, 14930352,
+                     24157817, 39088169, 63245986, 102334155]
+      ## F32 .. F40
 
-  template checkFib(calcTerm: proc(n: Natural): Natural) =
-    let res = collect:
-      for i in LowerNth..UpperNth:
-        calcTerm(i)
-    check res == Expected
+  template checkFib(list: openArray[Natural]) =
+    check list == Expected
 
-  template checkFibOverflow(calcTerm: typed, input: Natural) =
+  template checkFib(calcTerm: proc(n: Natural): Natural, range = LowerNth..UpperNth) =
+    let list = collect(for i in range: calcTerm(i))
+    check list == Expected
+
+  template checkFibOverflow(code: typed) =
     expect OverflowDefect:
-      discard calcTerm(input)
+      discard code
 
   suite "Fibonacci Numbers":
-    test "F0..F29 - Recursive Version":
+    test "F0..F31 - Recursive Version":
       checkFib(fibonacciRecursive)
-    test "F0..F29 - Closure Version":
+    test "F0..F31 - Closure Version":
       checkFib(fibonacciClosure)
-    test "F0..F29 - Matrix Version":
+    test "F0..F31 - Matrix Version":
       checkFib(fibonacciMatrix)
-    test "F0..F29 - Iterative Sequence Version":
-      check fibonacciSeqIterative(Count) == Expected
-    test "F0..F29 - Closure Sequence Version":
-      check fibonacciSeqClosure(Count) == Expected
-    test "F0..F29 - Nim Iterator":
-      check fibonacciIterator(LowerNth..UpperNth).toSeq() == Expected
+    test "F0..F31 - Iterative Sequence Version":
+      checkFib(fibonacciSeqIterative(Count))
+    test "F0..F31 - Closure Sequence Version":
+      checkFib(fibonacciSeqClosure(Count))
+    test "F0..F31 - Constant Time Formula":
+      checkFib(fibonacciBinet)
+    test "F0..F31 - Nim Iterator":
+      checkFib(fibonacciIterator(LowerNth..UpperNth).toSeq)
+
+    test "Constant Time Formula fails when nth >= 32":
+      let list = collect(for i in HighSlice: fibonacciBinet(i))
+      check list != ExpectedHigh
+
     #test "Recursive procedure overflows when nth >= 93":   # too slow at this point
     #  checkFibOverflow(fibonacciRecursive)
     test "Closure procedure overflows when nth >= 93":
-      checkFibOverflow(fibonacciClosure, OverflowNth)
+      checkFibOverflow(fibonacciClosure(OverflowNth))
     test "Matrix procedure overflows when nth >= 93":
-      checkFibOverflow(fibonacciMatrix, OverflowNth)
+      checkFibOverflow(fibonacciMatrix(OverflowNth))
     test "Iterative Sequence function overflows when n >= 94":
-      checkFibOverflow(fibonacciSeqIterative, OverflowCount)
+      checkFibOverflow(fibonacciSeqIterative(OverflowCount))
     test "Closure Sequence procedure overflows when n >= 94":
-      checkFibOverflow(fibonacciSeqClosure, OverflowCount)
+      checkFibOverflow(fibonacciSeqClosure(OverflowCount))
     test "Nim Iterator overflows when one or both slice indexes >= 93":
-      expect OverflowDefect:
-        discard fibonacciIterator(LowerNth..OverflowNth).toSeq()
+      checkFibOverflow(fibonacciIterator(LowerNth..OverflowNth).toSeq())
