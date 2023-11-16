@@ -7,14 +7,9 @@
 ##   - F(1) = 1;
 ##   - F(n) = F(n-1) + F(n-2);
 ##
-## N-th fibonacci number can also be approximated in a constant time O(1)
-## with a formula `n = ((sqrt(5) + 1) / 2)^n / sqrt(5) + 0.5)`.
-## See https://en.wikipedia.org/wiki/Fibonacci_sequence#Relation_to_the_golden_ratio.
-##
 ##  References:
 ##    - https://en.wikipedia.org/wiki/Fibonacci_sequence
 ##    - https://oeis.org/A000045
-##
 {.push raises: [].}
 
 runnableExamples:
@@ -25,6 +20,8 @@ runnableExamples:
 
   for f in fibonacciIterator(1.Natural..4.Natural):
     echo f # 1, 1, 2, 3
+
+import std/math
 
 type
   fibMatrix = array[2, array[2, int]]
@@ -96,6 +93,14 @@ func fibonacciSeqIterative*(n: Positive): seq[Natural] =
     result[1] = 1
     for i in 2..<n:
       result[i] = result[i-1] + result[i-2]
+
+func fibonacciBinet*(nth: Natural): Natural =
+  ## Approximates the n-th fibonacci number in constant time O(1) with use of Binet's formula.
+  ## Will be incorrect for large numbers of n, due to rounding error.
+  const Sqrt5 = sqrt(5'f)
+  const Phi = (Sqrt5 + 1) / 2 # golden ratio
+  let powPhi = pow(Phi, nth.float)
+  Natural(powPhi/Sqrt5 + 0.5)
 
 iterator fibonacciIterator*(s: HSlice[Natural, Natural]): Natural =
   ## Nim iterator.
