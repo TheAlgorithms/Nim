@@ -95,8 +95,9 @@ func fibonacciSeqIterative*(n: Positive): seq[Natural] =
     for i in 2..<n:
       result[i] = result[i-1] + result[i-2]
 
-func fibonacciBinet*(nth: Natural): Natural =
-  ## Approximates the n-th fibonacci number in constant time O(1) with use of Binet's formula.
+func fibonacciClosedFormApproximation*(nth: Natural): Natural =
+  ## Approximates the n-th fibonacci number in constant time O(1)
+  ## with use of a closed-form expression also known as Binet's formula.
   ## Will be incorrect for large numbers of n, due to rounding error.
   const Sqrt5 = sqrt(5'f)
   const Phi = (Sqrt5 + 1) / 2 # golden ratio
@@ -162,17 +163,17 @@ when isMainModule:
       checkFib(fibonacciSeqIterative(Count))
     test "F0..F31 - Closure Sequence Version":
       checkFib(fibonacciSeqClosure(Count))
-    test "F0..F31 - Constant Time Formula":
-      checkFib(fibonacciBinet)
+    test "F0..F31 - Closed-form Approximation":
+      checkFib(fibonacciClosedFormApproximation)
     test "F0..F31 - Nim Iterator":
       checkFib(fibonacciIterator(LowerNth..UpperNth).toSeq)
 
-    test "Constant Time Formula fails when nth >= 32":
-      let list = collect(for i in HighSlice: fibonacciBinet(i))
+    test "Closed-form approximation fails when nth >= 32":
+      let list = collect(for i in HighSlice: fibonacciClosedFormApproximation(i))
       check list != ExpectedHigh
 
     #test "Recursive procedure overflows when nth >= 93":   # too slow at this point
-    #  checkFibOverflow(fibonacciRecursive)
+    #  checkFibOverflow(fibonacciRecursive(OverflowNth))
     test "Closure procedure overflows when nth >= 93":
       checkFibOverflow(fibonacciClosure(OverflowNth))
     test "Matrix procedure overflows when nth >= 93":
