@@ -30,6 +30,7 @@ func extendedGCD*(a, b: int): (int, int, int) =
   ## computes their [`gcd`](https://en.wikipedia.org/wiki/Greatest_common_divisor)
   ## and integers `x` and `y`, such that
   ## `gcd = a * x + b * y`
+  ## Note: there are more efficient ways to compute just the `gcd`.
   let (gcd, x, y) = euclidIteration(abs(a), abs(b))
   return (gcd, math.sgn(a) * x, math.sgn(b) * y)
 
