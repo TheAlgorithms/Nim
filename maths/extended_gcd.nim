@@ -5,13 +5,22 @@
 import std/math
 
 
-func euclidIteration(a, b: int): (int, int, int) =
-  assert a >= 0 and b >= 0
-  if b == 0:
-    (a, (if a == 0: 0 else: 1), 0)
-  else:
-    let (gcd, x, y) = euclidIteration(b, a mod b)
-    (gcd, y, x - (a div b) * y)
+func updateCoefficients(t0, t1, q: int): (int, int) =
+  (t1, t0 - q * t1)
+
+
+func euclidIteration(inA, inB: int): (int, int, int) =
+  assert inA >= 0 and inB >= 0
+  var (a, b) = (inA, inB)
+  var (x0, x1) = (1, 0)
+  var (y0, y1) = (0, 1)
+  while b != 0:
+    let q = a div b
+    (x0, x1) = updateCoefficients(x0, x1, q)
+    (y0, y1) = updateCoefficients(y0, y1, q)
+    (a, b) = (b, a mod b)
+
+  (a, x0, y0)
 
 
 func extendedGCD*(a, b: int): (int, int, int) =
