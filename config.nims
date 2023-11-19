@@ -48,4 +48,4 @@ task test, "Test everything":
 
 task prettyfy, "Run nimpretty on everything":
   for path in modules():
-    exec(&"nimpretty \"{path}\"")
+    exec(&"nimpretty --indent:2 \"{path}\"")
