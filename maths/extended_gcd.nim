@@ -1,6 +1,4 @@
 ## Extended Euclidean algorithm
-##
-## Provides the implementation of the function extendedGCD*
 
 import std/math
 
