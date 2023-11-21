@@ -34,7 +34,6 @@ func extendedGCD*(a, b: int): (uint, int, int) =
   ## and furthermore:
   ## - if `a != 0`, then `abs(y) <= abs(a div gcd)`,
   ## - if `b != 0`, then `abs(x) <= abs(b div gcd)`.
-  ## Note: there are more efficient ways to compute just the `gcd`.
   let (gcd, x, y) = euclidIteration(absAsUint(a), absAsUint(b))
   return (gcd, math.sgn(a) * x, math.sgn(b) * y)
 
