@@ -30,7 +30,10 @@ func extendedGCD*(a, b: int): (uint, int, int) =
   ## For given integers `a`, `b` it
   ## computes their [`gcd`](https://en.wikipedia.org/wiki/Greatest_common_divisor)
   ## and integers `x` and `y`, such that
-  ## `gcd = a * x + b * y`
+  ## `gcd = a * x + b * y`,
+  ## and furthermore:
+  ## - if `a != 0`, then `abs(y) <= abs(a div gcd)`,
+  ## - if `b != 0`, then `abs(x) <= abs(b div gcd)`.
   ## Note: there are more efficient ways to compute just the `gcd`.
   let (gcd, x, y) = euclidIteration(absAsUint(a), absAsUint(b))
   return (gcd, math.sgn(a) * x, math.sgn(b) * y)
@@ -58,8 +61,19 @@ when isMainModule:
         if tc.gcd != 0:
           assert tc.a mod int(tc.gcd) == 0
           assert tc.b mod int(tc.gcd) == 0
+          if tc.b != 0:
+            assert abs(tc.x) <= abs(tc.b div int(tc.gcd))
+          else:
+            assert abs(tc.x) == 1
+            assert tc.y == 0
+          if tc.a != 0:
+            assert abs(tc.y) <= abs(tc.a div int(tc.gcd))
+          else:
+            assert abs(tc.y) == 1
+            assert tc.x == 0
         else:
           assert tc.a == 0 and tc.b == 0
+          assert tc.x == 0 and tc.y == 0
         assert int(tc.gcd) == tc.a * tc.x + tc.b * tc.y
         tc
 
