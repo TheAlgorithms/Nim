@@ -24,39 +24,53 @@ runnableExamples:
 import std/math
 
 type
-  fibMatrix = array[2, array[2, int]]
+  Matrix2x2 = array[2, array[2, int]]
 
-func `*`(m1, m2: fibMatrix): fibMatrix =
-  let
-    a = m1[0][0] * m2[0][0] + m1[0][1] * m2[1][0]
-    b = m1[0][0] * m2[0][1] + m1[0][1] * m2[1][1]
-    z = m1[1][0] * m2[0][0] + m1[1][1] * m2[1][0]
-    y = m1[1][0] * m2[0][1] + m1[1][1] * m2[1][1]
+const
+  IdentityMatrix: Matrix2x2 = [[1, 0],
+                               [0, 1]]
+  InitialFibonacciMatrix: Matrix2x2 = [[1, 1],
+                                       [1, 0]]
 
-  [[a, b], [z, y]]
 
-func pow(matrix: fibMatrix, n: Natural): fibMatrix =
-  ## binary matrix exponentiation (divide-and-conquer approach)
-  if n in {0, 1}:
-    matrix
-  elif n mod 2 == 0:
-    let halfPow = matrix.pow(n div 2)
-    halfPow * halfPow
-  else:
-    matrix * matrix.pow(n-1)
-
-func fibonacciMatrix*(nth: Natural): Natural =
-  ## Calculates the n-th fibonacci number with use of matrix arithmetic.
-  if nth <= 1: return nth
-  var matrix = [[1, 1],
-                [1, 0]]
-  matrix.pow(nth - 1)[0][0]
+## Recursive Implementation
+## ---------------------------------------------------------------------------
 
 func fibonacciRecursive*(nth: Natural): Natural =
   ## Calculates the n-th fibonacci number in a recursive manner.
   ## Recursive algorithm is extremely slow for bigger numbers of n.
   if nth <= 1: return nth
   fibonacciRecursive(nth-2) + fibonacciRecursive(nth-1)
+
+
+## List of first terms
+## ---------------------------------------------------------------------------
+
+func fibonacciSeqIterative*(n: Positive): seq[Natural] =
+  ## Generates a list of n first fibonacci numbers in iterative manner.
+  result = newSeq[Natural](n)
+  result[0] = 0
+  if n > 1:
+    result[1] = 1
+    for i in 2..<n:
+      result[i] = result[i-1] + result[i-2]
+
+
+## Closed-form approximation of N-th term
+## ---------------------------------------------------------------------------
+
+func fibonacciClosedFormApproximation*(nth: Natural): Natural =
+  ## Approximates the n-th fibonacci number in constant time O(1)
+  ## with use of a closed-form expression also known as Binet's formula.
+  ## Will be incorrect for large numbers of n, due to rounding error.
+  const Sqrt5 = sqrt(5'f)
+  const Phi = (Sqrt5 + 1) / 2 # golden ratio
+  let powPhi = pow(Phi, nth.float)
+  Natural(powPhi/Sqrt5 + 0.5)
+
+
+## Closure and Iterator Implementations
+## ---------------------------------------------------------------------------
 
 func makeFibClosure(): proc(): Natural =
   ## Closure constructor. Returns procedure which can be called to get
@@ -86,24 +100,6 @@ proc fibonacciSeqClosure*(n: Positive): seq[Natural] =
     for i in 2..<n:
       result[i] = fib()
 
-func fibonacciSeqIterative*(n: Positive): seq[Natural] =
-  ## Generates a list of n first fibonacci numbers in iterative manner.
-  result = newSeq[Natural](n)
-  result[0] = 0
-  if n > 1:
-    result[1] = 1
-    for i in 2..<n:
-      result[i] = result[i-1] + result[i-2]
-
-func fibonacciClosedFormApproximation*(nth: Natural): Natural =
-  ## Approximates the n-th fibonacci number in constant time O(1)
-  ## with use of a closed-form expression also known as Binet's formula.
-  ## Will be incorrect for large numbers of n, due to rounding error.
-  const Sqrt5 = sqrt(5'f)
-  const Phi = (Sqrt5 + 1) / 2 # golden ratio
-  let powPhi = pow(Phi, nth.float)
-  Natural(powPhi/Sqrt5 + 0.5)
-
 iterator fibonacciIterator*(s: HSlice[Natural, Natural]): Natural =
   ## Nim iterator.
   ## Returns fibonacci numbers from F(s.a) to F(s.b).
@@ -116,6 +112,38 @@ iterator fibonacciIterator*(s: HSlice[Natural, Natural]): Natural =
       swap(prev, current)
       current += prev
       if i >= s.a: yield current
+
+
+## An asymptotic faster matrix algorithm
+## ---------------------------------------------------------------------------
+
+func `*`(m1, m2: Matrix2x2): Matrix2x2 =
+  let
+    a = m1[0][0] * m2[0][0] + m1[0][1] * m2[1][0]
+    b = m1[0][0] * m2[0][1] + m1[0][1] * m2[1][1]
+    z = m1[1][0] * m2[0][0] + m1[1][1] * m2[1][0]
+    y = m1[1][0] * m2[0][1] + m1[1][1] * m2[1][1]
+
+  [[a, b], [z, y]]
+
+func pow(matrix: Matrix2x2, n: Natural): Matrix2x2 =
+  ## Binary matrix exponentiation (divide-and-conquer approach)
+  if n == 0:
+    IdentityMatrix
+  elif n == 1:
+    matrix
+  elif n mod 2 == 0:
+    let halfPow = matrix.pow(n div 2)
+    halfPow * halfPow
+  else:
+    matrix * matrix.pow(n-1)
+
+func fibonacciMatrix*(nth: Natural): Natural =
+  ## Calculates the n-th fibonacci number with use of matrix arithmetic.
+  if nth <= 1: return nth
+  var matrix = InitialFibonacciMatrix
+  matrix.pow(nth - 1)[0][0]
+
 
 when isMainModule:
   import std/unittest
