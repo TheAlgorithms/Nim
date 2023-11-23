@@ -151,6 +151,10 @@ when isMainModule:
   import std/sugar
 
   const
+    GeneralMatrix = [[1, 2], [3, 4]]
+    ExpectedMatrixPow4 = [[199, 290], [435, 634]]
+    ExpectedMatrixPow5 = [[1069, 1558], [2337, 3406]]
+
     LowerNth: Natural = 0
     UpperNth: Natural = 31
     OverflowNth: Natural = 93
@@ -179,6 +183,16 @@ when isMainModule:
   template checkFibOverflow(code: typed) =
     expect OverflowDefect:
       discard code
+
+  suite "Matrix exponentiation":
+    test "Matrix to the power of 0":
+      check pow(GeneralMatrix, 0) == IdentityMatrix
+    test "Matrix to the power of 1":
+      check pow(GeneralMatrix, 1) == GeneralMatrix
+    test "Matrix to the power of 4":
+      check pow(GeneralMatrix, 4) == ExpectedMatrixPow4
+    test "Matrix to the power of 5":
+      check pow(GeneralMatrix, 5) == ExpectedMatrixPow5
 
   suite "Fibonacci Numbers":
     test "F0..F31 - Recursive Version":
