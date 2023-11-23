@@ -127,16 +127,16 @@ func `*`(m1, m2: Matrix2x2): Matrix2x2 =
   [[a, b], [z, y]]
 
 func pow(matrix: Matrix2x2, n: Natural): Matrix2x2 =
-  ## Binary matrix exponentiation (divide-and-conquer approach)
-  if n == 0:
-    IdentityMatrix
-  elif n == 1:
-    matrix
-  elif n mod 2 == 0:
-    let halfPow = matrix.pow(n div 2)
-    halfPow * halfPow
-  else:
-    matrix * matrix.pow(n-1)
+  ## Fast binary matrix exponentiation (divide-and-conquer approach)
+  var matrix = matrix
+  var n = n
+
+  result = IdentityMatrix
+  while n != 0:
+    if n mod 2 == 1:
+      result = result * matrix
+    matrix = matrix * matrix
+    n = n div 2
 
 func fibonacciMatrix*(nth: Natural): Natural =
   ## Calculates the n-th fibonacci number with use of matrix arithmetic.
