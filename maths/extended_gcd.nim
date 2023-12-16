@@ -7,8 +7,8 @@ func updateCoefficients(t0, t1, q: int): (int, int) =
   (t1, t0 - q * t1)
 
 
-func euclidIteration(inA, inB: uint): (uint, int, int) =
-  var (a, b) = (inA, inB)
+func euclidIteration(inA, inB: int): (uint, int, int) =
+  var (a, b) = (inA.abs().uint, inB.abs().uint)
   var (x0, x1) = (1, 0)
   var (y0, y1) = (0, 1)
   while b != 0:
@@ -18,10 +18,6 @@ func euclidIteration(inA, inB: uint): (uint, int, int) =
     (a, b) = (b, a mod b)
 
   (a, x0, y0)
-
-
-func absAsUint(x: int): uint =
-  uint(abs(x))
 
 
 func extendedGCD*(a, b: int): tuple[gcd: uint; x, y: int] =
@@ -34,7 +30,7 @@ func extendedGCD*(a, b: int): tuple[gcd: uint; x, y: int] =
   ## and furthermore:
   ## - if `a != 0`, then `abs(y) <= abs(a div gcd)`,
   ## - if `b != 0`, then `abs(x) <= abs(b div gcd)`.
-  let (gcd, x, y) = euclidIteration(absAsUint(a), absAsUint(b))
+  let (gcd, x, y) = euclidIteration(a, b)
   (gcd: gcd, x: math.sgn(a) * x, y: math.sgn(b) * y)
 
 
