@@ -39,8 +39,7 @@ func extendedGCD*(a, b: int): (uint, int, int) =
 
 
 when isMainModule:
-  import std/[unittest, sequtils]
-  import std/strformat
+  import std/[unittest, sequtils, strformat]
   suite "extendedGCD":
     const testCases = [
       (10, 15, 5u, -1, 1),
