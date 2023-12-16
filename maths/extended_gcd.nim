@@ -24,7 +24,7 @@ func absAsUint(x: int): uint =
   uint(abs(x))
 
 
-func extendedGCD*(a, b: int): (uint, int, int) =
+func extendedGCD*(a, b: int): tuple[gcd: uint; x, y: int] =
   ## Implements the
   ## [Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm).
   ## For given integers `a`, `b` it
