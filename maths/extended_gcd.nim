@@ -7,8 +7,8 @@ func updateCoefficients(t0, t1, q: int): (int, int) =
   (t1, t0 - q * t1)
 
 
-func euclidIteration(inA, inB: int): (uint, int, int) =
-  var (a, b) = (inA.abs().uint, inB.abs().uint)
+func euclidIteration(inA, inB: int): (Natural, int, int) =
+  var (a, b) = (inA.abs().Natural, inB.abs().Natural)
   var (x0, x1) = (1, 0)
   var (y0, y1) = (0, 1)
   while b != 0:
@@ -20,7 +20,7 @@ func euclidIteration(inA, inB: int): (uint, int, int) =
   (a, x0, y0)
 
 
-func extendedGCD*(a, b: int): tuple[gcd: uint; x, y: int] =
+func extendedGCD*(a, b: int): tuple[gcd: Natural; x, y: int] =
   ## Implements the
   ## [Extended Euclidean algorithm](https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm).
   ## For given integers `a`, `b` it
@@ -38,20 +38,20 @@ when isMainModule:
   import std/[unittest, sequtils, strformat]
   suite "extendedGCD":
     const testCases = [
-      (10, 15, 5u, -1, 1),
-      (-10, -15, 5u, 1, -1),
-      (32, 64, 32u, 1, 0),
-      (0, 0, 0u, 0, 0),
-      (7, 0, 7u, 1, 0),
-      (-8, 0, 8u, -1, 0),
-      (48, 60, 12u, -1, 1),
-      (98, 56, 14u, -1, 2),
-      (10, -15, 5u, -1, -1),
-      (997, 12345, 1u, -3467, 280),
-      (997, 1234567, 1u, -456926, 369),
+      (10, 15, 5, -1, 1),
+      (-10, -15, 5, 1, -1),
+      (32, 64, 32, 1, 0),
+      (0, 0, 0, 0, 0),
+      (7, 0, 7, 1, 0),
+      (-8, 0, 8, -1, 0),
+      (48, 60, 12, -1, 1),
+      (98, 56, 14, -1, 2),
+      (10, -15, 5, -1, -1),
+      (997, 12345, 1, -3467, 280),
+      (997, 1234567, 1, -456926, 369),
       ].mapIt:
         let tc = (id: fmt"a={it[0]}, b={it[1]}", a: it[0], b: it[1],
-            gcd: it[2], x: it[3], y: it[4])
+            gcd: it[2].Natural, x: it[3], y: it[4])
         if tc.gcd != 0:
           assert tc.a mod int(tc.gcd) == 0
           assert tc.b mod int(tc.gcd) == 0
