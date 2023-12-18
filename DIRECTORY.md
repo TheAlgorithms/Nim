@@ -12,6 +12,7 @@
   * [Aliquot sum](maths/aliquot_sum.nim)
   * [Arc Length](maths/arc_length.nim)
   * [Bitwise Addition](maths/bitwise_addition.nim)
+  * [Extended Euclidean algorithm](maths/extended_gcd.nim)
 
 ## Searches
   * [Binary Search](searches/binary_search.nim)
