@@ -2,17 +2,27 @@
 
 import std/[options, math]
 
-import extended_gcd
+import ./extended_gcd.nim
 
 
-func modularInverse*(a: int, modulus: Natural): Option[Positive] =
+func euclidHalfIteration(inA, inB: Natural): (Natural, int) =
+  var (a, b) = (inA, inB)
+  var (x0, x1) = (1, 0)
+  while b != 0:
+    (x0, x1) = (x1, x0 - (a div b) * x1)
+    (a, b) = (b, a mod b)
+
+  (a, x0)
+
+
+func modularInverse*(a: int, modulus: Positive): Option[Positive] =
   ## For given integer `a` and a natural number `modulus` it
   ## computes the inverse of `a` modulo `modulus`, i.e.
   ## it finds an integer `0 < inv < modulus` such that
   ## `(a * inv) mod modulus == 1`.
   if modulus == 1:
     return none(Positive)
-  let (gcd, x, _) = extended_gcd.extendedGCD(a, modulus)
+  let (gcd, x) = euclidHalfIteration(math.floorMod(a, modulus), modulus)
   if gcd == 1:
     return some(math.floorMod(x, modulus).Positive)
   none(Positive)
