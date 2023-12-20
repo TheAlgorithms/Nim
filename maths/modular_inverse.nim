@@ -2,8 +2,6 @@
 
 import std/[options, math]
 
-import ./extended_gcd.nim
-
 
 func euclidHalfIteration(inA, inB: Positive): (Natural, int) =
   var (a, b) = (inA.Natural, inB.Natural)
