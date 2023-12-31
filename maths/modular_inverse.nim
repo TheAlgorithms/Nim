@@ -8,7 +8,7 @@ func euclidHalfIteration(inA, inB: Positive): (Natural, int) =
   var (x0, x1) = (1, 0)
   while b != 0:
     (x0, x1) = (x1, x0 - (a div b) * x1)
-    (a, b) = (b, a mod b)
+    (a, b) = (b, math.floorMod(a, b))
 
   (a, x0)
 
