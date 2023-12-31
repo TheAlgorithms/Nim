@@ -14,7 +14,7 @@ func euclidHalfIteration(inA, inB: Positive): tuple[gcd: Natural, coeff: int] =
 
 
 func modularInverse*(inA: int, modulus: Positive): Option[Positive] =
-  ## For given integer `a` and a natural number `modulus` it
+  ## For a given integer `a` and a natural number `modulus` it
   ## computes the inverse of `a` modulo `modulus`, i.e.
   ## it finds an integer `0 < inv < modulus` such that
   ## `(a * inv) mod modulus == 1`.
