@@ -3,7 +3,7 @@
 import std/[options, math]
 
 
-func euclidHalfIteration(inA, inB: Positive): (Natural, int) =
+func euclidHalfIteration(inA, inB: Positive): tuple[gcd: Natural, coeff: int] =
   var (a, b) = (inA.Natural, inB.Natural)
   var (x0, x1) = (1, 0)
   while b != 0:
