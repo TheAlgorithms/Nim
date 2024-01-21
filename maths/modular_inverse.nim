@@ -28,7 +28,7 @@ func modularInverse*(inA: int, modulus: Positive): Option[Positive] =
 
 
 when isMainModule:
-  import std/[unittest, sequtils, strformat]
+  import std/[unittest, sequtils, strformat, random]
   suite "modularInverse":
     const testCases = [
       (3, 7, 5),
@@ -65,3 +65,17 @@ when isMainModule:
       check modularInverse(-5, 25).is_none()
       check modularInverse(0, 17).is_none()
       check modularInverse(17, 17).is_none()
+
+    randomize()
+    const randomTestSize = 1000
+    for testNum in 0..randomTestSize:
+      let a = rand(-10000000..10000000)
+      let modulus = rand(1..1000000)
+      test fmt"(random test) a={a}, modulus={modulus}":
+        let inv = modularInverse(a, modulus)
+        if inv.isSome():
+          check 0 < inv.get()
+          check inv.get() < modulus
+          check math.floorMod(a * inv.get(), modulus) == 1
+        else:
+          check math.gcd(a, modulus) != 1
