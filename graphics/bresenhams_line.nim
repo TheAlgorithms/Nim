@@ -3,23 +3,25 @@
 func computeStep(inStart, inEnd: int): int =
   if inStart < inEnd: 1 else: -1
 
-func drawBresenhamLine*(posA, posB: (int, int)): seq[(int, int)] =
-  ## returns a sequence of coordinates approximating the straights line
+type Point = tuple[x, y: int]
+
+func drawBresenhamLine*(posA, posB: Point): seq[Point] =
+  ## returns a sequence of coordinates approximating the straight line
   ## between points `posA` and `posB`.
   ## These points are determined using the
   ## [Bresenham's line algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm).
   ## This implementation balances the positive and negative errors between `x` and `y` coordinates.
   let
-    dx = abs(posA[0]-posB[0])
-    dy = -abs(posA[1]-posB[1])
-    xStep = computeStep(posA[0], posB[0])
-    yStep = computeStep(posA[1], posB[1])
+    dx = abs(posA.x-posB.x)
+    dy = -abs(posA.y-posB.y)
+    xStep = computeStep(posA.x, posB.x)
+    yStep = computeStep(posA.y, posB.y)
 
   var
     difference = dx + dy
-    res: seq[(int, int)] = @[]
-    x = posA[0]
-    y = posA[1]
+    res: seq[Point] = @[]
+    x = posA.x
+    y = posA.y
 
   res.add((x, y))
   while (x, y) != posB:
@@ -56,29 +58,26 @@ when isMainModule:
         (2, 1), (8, 5),
         @[(2, 1), (3, 2), (4, 2), (5, 3), (6, 4), (7, 4), (8, 5)]),
       ].mapIt:
-        (name: it[0], posA: it[1], posB: it[2], line: it[3])
+        (name: it[0], posA: it[1], posB: it[2], path: it[3])
 
-    func flipCoordinatesTuple(inPos: (int, int)): (int, int) =
-      (inPos[1], inPos[0])
+    func swapCoordinates(inPos: Point): Point =
+      (inPos.y, inPos.x)
 
-    func flipCoordinates(line: seq[(int, int)]): seq[(int, int)] =
-      line.map(flipCoordinatesTuple)
-
-    func reverseLine(line: seq[(int, int)]): seq[(int, int)] =
-      toSeq(reversed(line))
+    func swapCoordinates(path: openArray[Point]): seq[Point] =
+      path.map(swapCoordinates)
 
     for tc in testCases:
       test tc.name:
         checkpoint("returns expected result")
-        check drawBresenhamLine(tc.posA, tc.posB) == tc.line
+        check drawBresenhamLine(tc.posA, tc.posB) == tc.path
 
         checkpoint("is symmetric")
-        check drawBresenhamLine(tc.posB, tc.posA) == reverseLine(tc.line)
+        check drawBresenhamLine(tc.posB, tc.posA) == reversed(tc.path)
 
-        checkpoint("returns expected result when coordinates are flipped")
-        check drawBresenhamLine(flipCoordinatesTuple(tc.posA),
-            flipCoordinatesTuple(tc.posB)) == flipCoordinates(tc.line)
+        checkpoint("returns expected result when coordinates are swapped")
+        check drawBresenhamLine(swapCoordinates(tc.posA),
+            swapCoordinates(tc.posB)) == swapCoordinates(tc.path)
 
-        checkpoint("is symmetric when coordinates are flipped")
-        check drawBresenhamLine(flipCoordinatesTuple(tc.posB),
-            flipCoordinatesTuple(tc.posA)) == reverseLine(flipCoordinates(tc.line))
+        checkpoint("is symmetric when coordinates are swapped")
+        check drawBresenhamLine(swapCoordinates(tc.posB),
+            swapCoordinates(tc.posA)) == reversed(swapCoordinates(tc.path))
