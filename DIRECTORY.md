@@ -4,14 +4,20 @@
 
 ## Dynamic Programming
   * [Catalan Numbers](dynamic_programming/catalan_numbers.nim)
+  * [Fibonacci Numbers](dynamic_programming/fibonacci_numbers.nim)
   * [Levenshtein distance](dynamic_programming/levenshtein_distance.nim)
   * [Viterbi](dynamic_programming/viterbi.nim)
+
+## Graphics
+  * [Bresenham's line algorithm](graphics/bresenhams_line.nim)
 
 ## Maths
   * [Absolute value](maths/abs.nim)
   * [Aliquot sum](maths/aliquot_sum.nim)
   * [Arc Length](maths/arc_length.nim)
   * [Bitwise Addition](maths/bitwise_addition.nim)
+  * [Extended Euclidean algorithm](maths/extended_gcd.nim)
+  * [Modular inverse](maths/modular_inverse.nim)
 
 ## Searches
   * [Binary Search](searches/binary_search.nim)
