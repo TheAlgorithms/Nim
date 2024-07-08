@@ -27,9 +27,12 @@ jobs:
 
       - name: Fail if needs reformatting
         run: |
+          echo ".nim_runtime" > .gitignore
           if [[ $(git status --porcelain) ]]; then
              echo "please reformat/prettyfy these files:"
              git status --porcelain=v1
+             rm -vf .gitignore
              exit 1
           fi
+          rm -vf .gitignore
 ...
