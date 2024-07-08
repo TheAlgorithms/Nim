@@ -20,9 +20,9 @@ jobs:
 
       - uses: jiro4989/setup-nim-action@v2
         with:
-          nim-version: '2.0.8'  # default is stable
+          nim-version: stable
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          parent-nim-install-directory: /home/runner/
+          parent-nim-install-directory: ${{ runner.temp }}
 
       - name: Format code
         run: |
