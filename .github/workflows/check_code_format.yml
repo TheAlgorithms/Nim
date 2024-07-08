@@ -22,8 +22,7 @@ jobs:
 
       - name: Format code
         run: |
-          echo ".nim_runtime" >> .gitignore
-          git clean -f -x -d
+          git clean -f -x -d -e ".nim_runtime"
           nim prettyfy
 
       - name: Fail if needs reformatting
