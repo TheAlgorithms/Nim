@@ -21,7 +21,7 @@ jobs:
       - uses: jiro4989/setup-nim-action@v2
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          nim-install-directory: ${{ runner.temp }}
+          nim-install-directory: ${{ runner.temp }}/nim_runtime
 
       - name: Format code
         run: |
