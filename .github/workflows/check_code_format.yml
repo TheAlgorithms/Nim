@@ -19,11 +19,14 @@ jobs:
           fetch-depth: 0
 
       - uses: jiro4989/setup-nim-action@v2
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          nim-install-directory: ${{ runner.temp }}
 
       - name: Format code
         run: |
-          git clean -f -x -d -e ".nim_runtime"
-          nim prettyfy --excludePath=".nim_runtime"
+          git clean -f -x -d
+          nim prettyfy
 
       - name: Fail if needs reformatting
         run: |
