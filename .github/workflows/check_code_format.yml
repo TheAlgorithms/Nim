@@ -22,6 +22,7 @@ jobs:
 
       - name: Format code
         run: |
+          echo ".nim_runtime" >> .gitignore
           git clean -f -x -d
           nim prettyfy
 
