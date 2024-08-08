@@ -19,6 +19,10 @@ jobs:
           fetch-depth: 0
 
       - uses: jiro4989/setup-nim-action@v2
+        with:
+          nim-version: stable
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          parent-nim-install-directory: ${{ runner.temp }}
 
       - name: Format code
         run: |
