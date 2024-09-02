@@ -41,13 +41,13 @@ when isMainModule:
          latitudeB: it[2], longitudeB: it[3],
          expected: it[4])
 
-    func close(a, b: float): bool =
+    func isClose(a, b: float): bool =
       return abs(a-b) < 0.0000001
 
     for tc in testCases:
       test tc.id:
         checkpoint("returns expected result")
-        check close(haversineDistance(tc.latitudeA, tc.longitudeA, tc.latitudeB,
-            tc.longitudeB), tc.expected)
-        check close(haversineDistance(tc.latitudeB, tc.longitudeB, tc.latitudeA,
-            tc.longitudeA), tc.expected)
+        check isClose(haversineDistance(tc.latitudeA, tc.longitudeA,
+            tc.latitudeB, tc.longitudeB), tc.expected)
+        check isClose(haversineDistance(tc.latitudeB, tc.longitudeB,
+            tc.latitudeA, tc.longitudeA), tc.expected)
