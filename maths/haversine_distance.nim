@@ -7,10 +7,12 @@ func haversineDistance(latitudeA, longitudeA, latitudeB,
   ## returns the length of the shortest path connecting the input points on an unit sphere.
   ## The input points are represented by their spherical/geographical coordinates.
   ## The inputs are expected to be in radians.
-  let dLatitude = latitudeB - latitudeA
-  let dLongitude = longitudeB - longitudeA
-  let a = sin(dLatitude / 2.0)^2+cos(latitudeA)*cos(latitudeB)*sin(dLongitude / 2.0)^2
-  return 2.0*arcsin(sqrt(a))
+  let
+    dLatitude = latitudeB - latitudeA
+    dLongitude = longitudeB - longitudeA
+    a = sin(dLatitude / 2.0)^2 + cos(latitudeA) * cos(latitudeB) * sin(
+        dLongitude / 2.0)^2
+  2.0 * arcsin(sqrt(a))
 
 when isMainModule:
   import std/[unittest, sequtils, strformat]
