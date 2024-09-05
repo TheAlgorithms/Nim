@@ -22,7 +22,7 @@ jobs:
 
       - name: Build file
         run: |
-          git clean -f -x -d
+          git clean -f -x -d --exclude=".nim_runtime"
 
           # Compile the script first
           nim c -o:directory_script .scripts/directory.nim
