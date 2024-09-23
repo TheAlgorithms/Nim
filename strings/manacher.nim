@@ -55,12 +55,12 @@ func manacherIndex*(s: string): HSlice[int, int] {.raises: [ValueError].} =
 
 func manacherString*(s: string): string {.raises: [ValueError].} =
   ## Returns the longest palindrome
-  return s[manacher_index(s)]
+  return s[manacherIndex(s)]
 
 func manacherLength*(s: string): int {.raises: [ValueError].} =
   ## Returns the length of the longest palindrome
   let
-    res = manacher_index(s)
+    res = manacherIndex(s)
     (i, j) = (res.a, res.b)
   return j - i + 1
 
