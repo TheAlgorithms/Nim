@@ -12,7 +12,6 @@
     https://oeis.org/A000108
 ]#
 import std/math
-import std/sequtils
 {.push raises: [].}
 
 func catalanNumbersRecursive(index: Natural): Positive =
