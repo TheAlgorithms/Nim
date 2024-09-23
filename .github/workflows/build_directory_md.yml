@@ -19,10 +19,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: jiro4989/setup-nim-action@v2
+        with:
+          parent-nim-install-directory: ${{ runner.temp }}
 
       - name: Build file
         run: |
-          git clean -f -x -d
+          git clean --force -x -d
 
           # Compile the script first
           nim c -o:directory_script .scripts/directory.nim
