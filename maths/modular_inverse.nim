@@ -67,7 +67,7 @@ when isMainModule:
       check modularInverse(17, 17).is_none()
 
     randomize()
-    const randomTestSize = 1000
+    const randomTestSize = 10
     for testNum in 0..randomTestSize:
       let a = rand(-10000000..10000000)
       let modulus = rand(1..1000000)

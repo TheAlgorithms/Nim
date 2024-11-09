@@ -59,7 +59,7 @@ func toLowerUnchecked(c: char): char {.inline.} =
   # 0b100_0001, so setting the sixth bit to 1 gives letter's lowercase pair.
   char(uint8(c) or 0b0010_0000'u8)
 
-template normalizeChar(c: char) =
+template normalizeChar(c: char): char =
   ## Checks if the character is a letter and lowers its case.
   ##
   ## Raises a `ValueError` on other characters.
