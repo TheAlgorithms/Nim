@@ -56,15 +56,15 @@ when isMainModule:
         check modularInverse(tc.a, tc.modulus).get() == tc.inv
 
     test "No inverse when modulus is 1":
-      check modularInverse(0, 1).is_none()
-      check modularInverse(1, 1).is_none()
-      check modularInverse(-1, 1).is_none()
+      check modularInverse(0, 1).isNone()
+      check modularInverse(1, 1).isNone()
+      check modularInverse(-1, 1).isNone()
 
     test "No inverse when inputs are not co-prime":
-      check modularInverse(2, 4).is_none()
-      check modularInverse(-5, 25).is_none()
-      check modularInverse(0, 17).is_none()
-      check modularInverse(17, 17).is_none()
+      check modularInverse(2, 4).isNone()
+      check modularInverse(-5, 25).isNone()
+      check modularInverse(0, 17).isNone()
+      check modularInverse(17, 17).isNone()
 
     randomize()
     const randomTestSize = 10
