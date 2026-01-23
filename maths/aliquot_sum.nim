@@ -30,6 +30,7 @@ func aliquotSum*(number: Positive): Natural =
   ## Time Complexity: O(number)
   ## Space Complexity: O(1)
   result = 0
+  # A proper divisor p satisfies `number = pq` with q greater than or equal to 2
   for divisor in 1 .. (number div 2):
     if number mod divisor == 0:
       result += divisor
