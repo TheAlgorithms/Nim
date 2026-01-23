@@ -27,7 +27,7 @@ func aliquotSum*(number: Positive): Natural =
   ## - number: a positive integer (number > 0)
   ## Output:
   ## - The sum of all proper divisor of 'number'
-  ## Time Complexity: O(n)
+  ## Time Complexity: O(number)
   ## Space Complexity: O(1)
   result = 0
   for divisor in 1 .. (number div 2):
