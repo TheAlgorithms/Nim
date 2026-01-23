@@ -7,7 +7,7 @@
 ## - s(12) = 1 + 2 + 3 + 4 + 6 = 16
 ## - s(1) = 0 (since 1 has no proper divisors)
 ##
-## This function is commonly used in the study of perfect, abundant, and deficient numbers.
+## This function determines whether a positive integer is perfect (s(n) = n), abundant (s(n) > n), or deficient (s(n) < n).
 ##
 ## Reference:
 ## https://en.wikipedia.org/wiki/Aliquot_sum
