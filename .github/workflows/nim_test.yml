@@ -20,7 +20,7 @@ jobs:
           - macos-latest
           - windows-latest
         nim-version:
-          - '2.2.8'
+          - '2.2.10'
 
     steps:
       - uses: actions/checkout@v6
