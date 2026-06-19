@@ -23,7 +23,7 @@ jobs:
           - '2.2.10'
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: jiro4989/setup-nim-action@v2
         with:
