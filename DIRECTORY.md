@@ -13,6 +13,15 @@
   * [Arc Length](maths/arc_length.nim)
   * [Bitwise Addition](maths/bitwise_addition.nim)
 
+## Sorts
+  * [Bubble sort](sorts/bubble_sort.nim)
+  * [Insertion Sort](sorts/insertion_sort.nim)
+  * [Merge Sort](sorts/merge_sort.nim)
+  * [Quick Sort](sorts/quick_sort.nim)
+  * [Selection Sort](sorts/selection_sort.nim)
+  * [Shell Sort](sorts/shell_sort.nim)
+  * [Test sorting algorithms](sorts/testSort.nim)
+
 ## Searches
   * [Binary Search](searches/binary_search.nim)
   * [Linear Search](searches/linear_search.nim)
@@ -22,4 +31,3 @@
 
 ## Strings
   * [Check Anagram](strings/check_anagram.nim)
-
